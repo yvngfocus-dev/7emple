@@ -1197,9 +1197,10 @@ requestAnimationFrame(raf);
   await wait(300);
   iLogo.style.opacity = '1';
 
-  // Phase 2 — logo grows
+  // Phase 2 — logo grows (smaller scale on mobile to avoid pixelation)
   await wait(750);
-  iLogo.style.transform = 'translate(-50%, -50%) scale(3.8)';
+  const growScale = window.innerWidth <= 768 ? 1.8 : 3.8;
+  iLogo.style.transform = `translate(-50%, -50%) scale(${growScale})`;
 
   // Phase 3 — logo flies to nav corner
   await wait(950);
