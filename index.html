@@ -517,7 +517,7 @@
       /* ── Works ── */
       .works { padding: 40px 0 0; }
       .works-grid { grid-template-columns: 1fr; gap: 2px; }
-      .marquee-track { animation: mq 4s linear infinite; will-change: transform; }
+      .marquee-track { animation: none; }
 
       /* ── Services ── */
       .services { padding: 56px 0; }
@@ -1178,6 +1178,24 @@ document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; })
 document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
 
 // ═══════════════════════════════════════════════════════
+// MARQUEE — pixel-based scroll for mobile (avoids iOS
+// translateX(%) bug where % resolves to parent width)
+// ═══════════════════════════════════════════════════════
+const mqTrack = document.querySelector('.marquee-track');
+let _mqX = 0;
+const _mqMobile = window.innerWidth <= 768;
+if (_mqMobile && mqTrack) mqTrack.style.animation = 'none';
+
+function updateMarquee() {
+  if (!_mqMobile || !mqTrack) return;
+  const half = mqTrack.scrollWidth / 2;
+  if (half <= 0) return;
+  _mqX += 1.4;
+  if (_mqX >= half) _mqX -= half;
+  mqTrack.style.transform = `translateX(-${_mqX}px)`;
+}
+
+// ═══════════════════════════════════════════════════════
 // RAF LOOP — runs everything together
 // ═══════════════════════════════════════════════════════
 function raf(time) {
@@ -1186,6 +1204,7 @@ function raf(time) {
   updateTesti();
   updateHeroParallax();
   updatePreview();
+  updateMarquee();
   // Cursor lerp
   _cx += (_mx - _cx) * 0.22;
   _cy += (_my - _cy) * 0.22;
