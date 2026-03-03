@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7EMPLE — more than just an agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616;
+      --text: #F9F9F9;
+      --muted: #868686;
+      --dim: #4A4A4A;
+      --surface: #181f1f;
+      --surface2: #222a2a;
+      --border: rgba(249,249,249,0.1);
+      --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    #cursor {
+      position: fixed; left: 0; top: 0;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #fff;
+      mix-blend-mode: difference;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: width 0.22s cubic-bezier(0.16,1,0.3,1), height 0.22s cubic-bezier(0.16,1,0.3,1);
+      will-change: left, top;
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+
+    /* ─── GRAIN ──────────────────────────── */
+    #grain {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.013;
+      mix-blend-mode: screen;
+      image-rendering: pixelated;
+    }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(22,22,22,0.92);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 30px; filter: brightness(0) invert(1); }
+    .nav-right { display: flex; align-items: center; gap: 48px; }
+    .nav-tag { font-size: 10px; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: 0.02em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── HERO ─────────────────────────────── */
+    .hero {
+      height: 100vh; min-height: 640px; padding-top: 76px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: stretch; overflow: hidden;
+    }
+    .hero-left { padding: 64px 48px 72px; display: flex; flex-direction: column; justify-content: space-between; }
+    .hero-services { display: flex; flex-direction: column; }
+    .hs {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(64px, 7.5vw, 128px);
+      font-weight: 900; letter-spacing: -0.055em; line-height: 0.88; color: var(--text);
+      opacity: 0; transform: translateY(40px);
+    }
+    .hs.it { font-style: italic; color: var(--muted); }
+    .hero-bottom {
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0; transform: translateY(20px);
+    }
+    .pill { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px; text-transform: uppercase; }
+    .hero-right {
+      border-left: 1px solid var(--border); display: flex; flex-direction: column;
+      opacity: 0; transform: translateY(30px);
+      position: relative; z-index: 2;
+    }
+    .hero-img { position: relative; overflow: hidden; flex: 1; }
+    .hero-img img { width: 100%; height: 115%; min-height: 560px; object-fit: cover; filter: grayscale(15%); will-change: transform; transform-origin: center top; }
+    .hero-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(22,22,22,0.82) 0%, transparent 55%); }
+    .hero-img-caption { position: absolute; bottom: 32px; left: 32px; right: 32px; }
+    .hero-img-caption p { font-size: 15px; color: rgba(249,249,249,0.58); line-height: 1.65; max-width: 380px; }
+    .hero-desc-row { border-top: 1px solid var(--border); padding: 28px 40px; display: flex; gap: 32px; align-items: center; justify-content: space-between; }
+    .hero-desc { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 420px; }
+    .hero-desc strong { color: var(--text); }
+    .hero-cta { flex-shrink: 0; border: 1px solid var(--border); padding: 12px 22px; font-size: 13px; color: var(--text); cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .hero-cta:hover { background: rgba(255,255,255,0.06); }
+
+    /* ─── INTRO OVERLAY ─────────────────── */
+    #intro {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    #intro.done { opacity: 0; }
+    #intro-logo {
+      position: fixed; left: 50%; top: 50%;
+      height: 40px;
+      filter: brightness(0) invert(1);
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1);
+      transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.85s cubic-bezier(0.16,1,0.3,1);
+      will-change: transform, opacity;
+    }
+    /* JS-triggered reveal for hero elements */
+    .ir {
+      transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.85s cubic-bezier(0.16,1,0.3,1) !important;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* ─── REVEAL ANIMATIONS ──────────────── */
+    .sec-label { font-size: 10px; color: var(--dim); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+    [data-reveal] {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+
+    /* ─── ASCEND FRAMEWORK ──────────────── */
+    .ascend {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .ascend-left {
+      padding: 80px 64px;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: space-between;
+      gap: 48px;
+      background: #111111;
+    }
+    .ascend-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--orange); border: 1px solid rgba(254,76,4,0.28);
+      padding: 6px 14px; width: fit-content;
+    }
+    .ascend-tag::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); flex-shrink: 0;
+      box-shadow: 0 0 8px var(--orange);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .ascend-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(52px, 5.5vw, 92px);
+      font-weight: 900; letter-spacing: -0.05em; line-height: 0.88;
+    }
+    .ascend-hed em { font-style: italic; color: var(--muted); }
+    .ascend-desc {
+      font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 400px;
+    }
+    .ascend-desc strong { color: var(--text); }
+    .ascend-cta {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: var(--orange); color: #F9F9F9;
+      padding: 16px 32px; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.04em; cursor: pointer;
+      border: none; width: fit-content;
+      transition: background 0.2s, gap 0.3s cubic-bezier(0.16,1,0.3,1);
+      text-decoration: none;
+    }
+    .ascend-cta:hover { background: #d93e00; gap: 22px; }
+    .ascend-cta-arrow { font-size: 18px; font-weight: 300; }
+    .ascend-right {
+      padding: 80px 64px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      background: #111111;
+    }
+    .ascend-pillars {
+      display: flex; flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .ascend-pillar {
+      display: grid; grid-template-columns: 40px 1fr;
+      gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: start;
+    }
+    .ascend-pillar-num {
+      font-size: 11px; color: var(--orange); font-weight: 500;
+      letter-spacing: 0.06em; padding-top: 3px;
+    }
+    .ascend-pillar-body {}
+    .ascend-pillar-title {
+      font-size: 15px; font-weight: 600; letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .ascend-pillar-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .ascend-bottom {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 40px;
+    }
+    .ascend-stat-row { display: flex; gap: 40px; }
+    .ascend-stat-n {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 36px; font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+    }
+    .ascend-stat-l { font-size: 11px; color: var(--dim); margin-top: 4px; }
+
+    /* ─── WORKS ───────────────────────────── */
+    .works { padding: 64px 0 0; }
+    .works-meta { display: flex; justify-content: space-between; align-items: center; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+    .view-all { font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 3px; }
+    .view-all:hover { color: var(--text); border-color: var(--text); }
+    .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+    .work-card { position: relative; overflow: hidden; cursor: pointer; }
+    .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(25%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; will-change: transform; }
+    .work-card:hover img { transform: scale(1.13); filter: grayscale(0%); }
+    .work-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 56px 28px 28px; background: linear-gradient(to top, rgba(22,22,22,0.9), transparent); }
+    .work-title { font-family: 'Inter Display', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
+    .work-type { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    /* ─── HERO BANNER ────────────────────── */
+    .hero-banner {
+      position: relative; z-index: 1;
+      margin-top: -52px;
+      background: #F9F9F9;
+      overflow: hidden;
+      border-top: 1px solid rgba(0,0,0,0.12);
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+      opacity: 0;
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .hero-banner-track {
+      display: flex; align-items: center;
+      animation: hb-scroll 40s linear infinite;
+      white-space: nowrap; width: max-content;
+      padding: 14px 0;
+    }
+    @keyframes hb-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .hb-item {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #161616;
+      padding: 0 28px;
+    }
+    .hb-dot { font-size: 7px; color: #FE4C04; flex-shrink: 0; }
+
+    /* ─── SERVICES ───────────────────────── */
+    .services { padding: 120px 0; }
+    .services-grid { display: grid; grid-template-columns: 320px 1fr; gap: 80px; border-top: 1px solid var(--border); padding-top: 40px; }
+    .services-left { position: sticky; top: 100px; }
+    .services-heading { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 68px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; margin-top: 20px; }
+    .services-heading sup { font-size: 0.35em; color: var(--dim); font-weight: 400; vertical-align: super; }
+    .svc-item { display: grid; grid-template-columns: 1fr 1fr 80px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--border); cursor: pointer; position: relative; }
+    .svc-item:first-child { border-top: 1px solid var(--border); }
+    .svc-name { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+    .svc-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .svc-meta { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
+    .svc-num { font-size: 11px; color: var(--dim); }
+    .svc-arrow { font-size: 18px; color: var(--muted); transition: transform 0.3s; }
+    .svc-item:hover .svc-arrow { transform: translate(4px, -4px); color: var(--orange); }
+
+    /* ─── SERVICE PREVIEW (9:16 cursor hover) ── */
+    #svcPreview {
+      position: fixed; width: 130px; aspect-ratio: 9/16;
+      overflow: hidden; pointer-events: none; z-index: 500;
+      opacity: 0; transform: scale(0.85) rotate(-5deg);
+      transition: opacity 0.28s cubic-bezier(0.16,1,0.3,1), transform 0.28s cubic-bezier(0.16,1,0.3,1);
+      border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.8);
+    }
+    #svcPreview.show { opacity: 1; transform: scale(1) rotate(0deg); }
+    #svcPreview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* ─── TENURE ─────────────────────────── */
+    .tenure { padding: 100px 0 120px; }
+    .tenure-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; border-top: 1px solid var(--border); padding-top: 40px; align-items: end; }
+    .tenure-hed { font-family: 'Inter Display', sans-serif; font-size: clamp(96px, 14vw, 200px); font-weight: 900; letter-spacing: -0.065em; line-height: 0.82; }
+    .tenure-hed .dot { color: var(--orange); }
+    .tenure-right { padding-bottom: 8px; }
+    .tenure-body { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 440px; }
+    .tenure-body strong { color: var(--text); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; border-top: 1px solid var(--border); }
+    .stat { padding: 28px 24px 0 0; border-right: 1px solid var(--border); }
+    .stat:last-child { border-right: none; padding-right: 0; padding-left: 24px; }
+    .stat:nth-child(2) { padding-left: 24px; }
+    .stat-n { font-family: 'Inter Display', sans-serif; font-size: 52px; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+    .stat-l { font-size: 12px; color: var(--dim); margin-top: 6px; }
+
+    /* ─── MARQUEE ─────────────────────────── */
+    .marquee-wrap { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; }
+    .marquee-track { display: flex; align-items: center; animation: mq 30s linear infinite; white-space: nowrap; }
+    .mq-item { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 72px); font-weight: 800; letter-spacing: -0.045em; padding: 20px 48px; flex-shrink: 0; border-right: 1px solid var(--border); }
+    .mq-item.it { font-style: italic; color: var(--muted); }
+    .mq-dot { padding: 0 32px; flex-shrink: 0; font-size: 10px; color: var(--orange); }
+    @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── TESTIMONIALS (SCROLL-DRIVEN) ───── */
+    .testi-outer { height: 260vh; position: relative; overflow: clip; }
+    .testi-sticky {
+      position: sticky; top: 0; height: 100vh;
+      overflow: hidden; display: flex; align-items: center; justify-content: center;
+    }
+    /* Giant background marquee */
+    .testi-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; overflow: hidden;
+      pointer-events: none; z-index: 0;
+    }
+    .testi-bg-track {
+      display: flex; align-items: center; gap: 48px;
+      white-space: nowrap; flex-shrink: 0;
+      animation: testi-mq 40s linear infinite;
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(72px, 11vw, 148px);
+      font-weight: 900; letter-spacing: -0.06em;
+      color: var(--text); opacity: 0.32;
+      user-select: none;
+    }
+    .testi-bg-track em { font-style: italic; }
+    @keyframes testi-mq {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    /* Cards rail — vertical floating column */
+    .testi-cards-wrap {
+      position: absolute; inset: 0;
+      overflow: visible; z-index: 2;
+      pointer-events: none;
+    }
+    .testi-cards-rail {
+      display: flex; flex-direction: column; gap: 28px;
+      align-items: center;
+      will-change: transform;
+      pointer-events: all;
+    }
+    /* Floating stagger — cards pushed far left/right to clear centred CTA */
+    .testi-card:nth-child(1) { transform: translateX(-440px) rotate(-2deg); }
+    .testi-card:nth-child(2) { transform: translateX(420px) rotate(1.5deg); }
+    .testi-card:nth-child(3) { transform: translateX(-420px) rotate(-1deg); }
+    .testi-card:nth-child(4) { transform: translateX(440px) rotate(2deg); }
+    .testi-card:nth-child(5) { transform: translateX(-400px) rotate(-0.8deg); }
+    .testi-card {
+      flex-shrink: 0; width: 360px;
+      background: #F9F9F9;
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 36px 30px 30px;
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .testi-quote { font-size: 14px; color: #4A4A4A; line-height: 1.9; font-style: italic; flex: 1; }
+    .testi-author { display: flex; gap: 14px; align-items: center; }
+    .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: #D8D8D8; overflow: hidden; flex-shrink: 0; }
+    .testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .testi-name { font-size: 14px; font-weight: 600; color: #161616; }
+    .testi-role { font-size: 12px; color: #868686; margin-top: 2px; }
+    /* Centred CTA */
+    .testi-cta-wrap { position: absolute; z-index: 10; pointer-events: all; }
+    .testi-btn {
+      display: block; padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,0.28);
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text); background: rgba(22,22,22,0.88);
+      backdrop-filter: blur(10px);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .testi-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.5); }
+
+    /* ─── GALLERY (3D Y-AXIS CYLINDER) ───── */
+    .gallery { padding: 24px 0 0; }
+    .gallery-head { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border); padding-top: 24px; margin-bottom: 0; }
+    .gallery-hed { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 80px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; }
+    .gallery-hed sup { font-size: 0.35em; color: var(--dim); font-weight: 400; vertical-align: super; }
+    /* Gallery — vertical S-shaped flowing rail */
+    .cylinder-section { height: 480vh; }
+    .cylinder-sticky {
+      position: sticky; top: 0; height: 100vh;
+      overflow: hidden; /* clips cards above/below viewport */
+    }
+    /* Top/bottom gradient vignette */
+    .cylinder-sticky::before, .cylinder-sticky::after {
+      content: ''; position: absolute; left: 0; right: 0;
+      height: 200px; pointer-events: none; z-index: 20;
+    }
+    .cylinder-sticky::before { top: 0; background: linear-gradient(to bottom, var(--bg) 30%, transparent); }
+    .cylinder-sticky::after  { bottom: 0; background: linear-gradient(to top, var(--bg) 30%, transparent); }
+    /* Perspective wrapper — unchanged for .cylinder-vp so HTML needs no edits */
+    .cylinder-vp { width: 100%; height: 100%; }
+    /* The rail — vertical column that translates upward */
+    .cylinder-drum {
+      display: flex; flex-direction: column;
+      gap: 72px;
+      padding: 20px 0;
+      will-change: transform;
+      width: 100%;
+    }
+    /* Individual gallery cards */
+    .g-item {
+      flex-shrink: 0;
+      width: 580px; height: 362px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.55);
+      cursor: pointer;
+      position: relative;
+      will-change: transform, filter;
+    }
+    /* S-shaped alternating positions */
+    .g-item:nth-child(1) { align-self: flex-start; margin-left: 6%; }
+    .g-item:nth-child(2) { align-self: flex-end;   margin-right: 8%; }
+    .g-item:nth-child(3) { align-self: flex-start; margin-left: 22%; }
+    .g-item:nth-child(4) { align-self: center; }
+    .g-item:nth-child(5) { align-self: flex-end;   margin-right: 22%; }
+    .g-item:nth-child(6) { align-self: flex-start; margin-left: 8%; }
+    .g-item:nth-child(7) { align-self: flex-end;   margin-right: 6%; }
+    .g-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+      display: block;
+    }
+    .g-item:hover img { transform: scale(1.06); }
+    .g-cap {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 48px 22px 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.88), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .g-item:hover .g-cap { opacity: 1; }
+    .g-cap-title { font-family: 'Inter Display', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+    .g-cap-type { font-size: 11px; color: var(--muted); margin-top: 4px; letter-spacing: 0.04em; }
+    /* Scroll hint */
+    .cyl-counter {
+      position: absolute; bottom: 44px; z-index: 30;
+      font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ─── FOOTER ─────────────────────────── */
+    footer { padding: 40px 0 0; }
+    .footer-logos { display: flex; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .f-logo { font-size: 12px; color: var(--dim); letter-spacing: 0.06em; font-weight: 500; padding: 22px 32px; border-right: 1px solid var(--border); transition: color 0.2s; }
+    .f-logo:last-child { border-right: none; }
+    .f-logo:hover { color: var(--muted); }
+    .footer-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 80px; padding: 64px 0; border-bottom: 1px solid var(--border); }
+    .f-brand p { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; }
+    .f-nav h4 { font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px; }
+    .f-nav ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .f-nav ul a { font-size: 14px; color: var(--muted); transition: color 0.2s; }
+    .f-nav ul a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+    .footer-bottom p { font-size: 12px; color: var(--dim); }
+    .copyright-bar { overflow: hidden; border-top: 1px solid var(--border); }
+    .copyright-inner { font-family: 'Inter Display', sans-serif; font-size: clamp(96px, 18vw, 288px); font-weight: 900; letter-spacing: -0.07em; line-height: 0.78; padding: 16px 48px 0; color: var(--text); white-space: nowrap; }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ─── INTRO OVERLAY ────────────────────────────────── -->
+<div id="intro">
+  <img id="intro-logo" src="brand_assets/logo.png" alt="7EMPLE">
+</div>
+
+<!-- ─── SERVICE PREVIEW (cursor-follow 9:16) ── -->
+<div id="svcPreview"><img id="svcPreviewImg" src="" alt=""></div>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <div class="nav-right">
+    <span class="nav-tag">©2025 — Digital Agency</span>
+    <ul class="nav-links">
+      <li><a href="#">Work</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-services">
+      <div class="hs">Art</div>
+      <div class="hs">Direction</div>
+      <div class="hs it">Branding</div>
+      <div class="hs">Strategy</div>
+    </div>
+    <div class="hero-bottom">
+      <span class="pill">Digital Agency</span>
+      <span class="pill">Est. 2020</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img">
+      <img src="https://placehold.co/960x1080/0a0a0a/1a1a1a" alt="7EMPLE Creative Work" id="heroImg">
+      <div class="hero-img-overlay"></div>
+      <div class="hero-img-caption">
+        <p>13+ years™ of digital form, sharp interactions, and relentless creative discipline and effort.</p>
+      </div>
+    </div>
+    <div class="hero-desc-row">
+      <p class="hero-desc"><strong>More than just an agency.</strong> We craft bold digital experiences that drive real results for ambitious brands.</p>
+      <a href="#" class="hero-cta">Get in touch →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HERO BANNER ──────────────────────────────────── -->
+<div class="hero-banner">
+  <div class="hero-banner-track">
+    <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
+    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
+    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
+    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
+    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
+    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+    <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
+    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
+    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
+    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
+    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
+    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+  </div>
+</div>
+
+<!-- ─── ASCEND FRAMEWORK ─────────────────────────────── -->
+<section class="ascend" data-reveal>
+  <div class="ascend-left">
+    <div>
+      <span class="ascend-tag">Best Selling Service</span>
+      <h2 class="ascend-hed" style="margin-top:28px;">Ascend<br><em>Framework</em><span style="color:var(--orange);">.</span></h2>
+    </div>
+    <p class="ascend-desc">
+      The complete system for ambitious brands ready to grow. <strong>Strategy, content, and execution</strong> — all unified under one proven framework that has scaled 200+ brands worldwide.
+    </p>
+    <a href="#" class="ascend-cta">
+      Start Ascending
+      <span class="ascend-cta-arrow">→</span>
+    </a>
+  </div>
+  <div class="ascend-right">
+    <div class="ascend-pillars">
+      <div class="ascend-pillar">
+        <span class="ascend-pillar-num">01</span>
+        <div class="ascend-pillar-body">
+          <div class="ascend-pillar-title">Brand Architecture</div>
+          <p class="ascend-pillar-text">Full identity system — positioning, visual language, and messaging built to outlast the algorithm.</p>
+        </div>
+      </div>
+      <div class="ascend-pillar">
+        <span class="ascend-pillar-num">02</span>
+        <div class="ascend-pillar-body">
+          <div class="ascend-pillar-title">Content Engine</div>
+          <p class="ascend-pillar-text">Weekly photo, video, and copy assets tailored to your audience — delivered consistently, every month.</p>
+        </div>
+      </div>
+      <div class="ascend-pillar">
+        <span class="ascend-pillar-num">03</span>
+        <div class="ascend-pillar-body">
+          <div class="ascend-pillar-title">Growth Strategy</div>
+          <p class="ascend-pillar-text">Paid media, funnel optimisation, and data-driven campaigns that compound over time and actually scale.</p>
+        </div>
+      </div>
+    </div>
+    <div class="ascend-bottom">
+      <div class="ascend-stat-row">
+        <div><div class="ascend-stat-n">3×</div><div class="ascend-stat-l">Avg. ROAS increase</div></div>
+        <div><div class="ascend-stat-n">60d</div><div class="ascend-stat-l">To first results</div></div>
+        <div><div class="ascend-stat-n">200+</div><div class="ascend-stat-l">Brands scaled</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED WORKS ────────────────────────────────── -->
+<section class="works">
+  <div class="wrap">
+    <div class="works-meta" data-reveal>
+      <p class="sec-label">Selected Work</p>
+      <a href="#" class="view-all">View all →</a>
+    </div>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
+      <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
+      <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
+      <span class="mq-dot">●</span>
+      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
+      <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
+      <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
+      <span class="mq-dot">●</span>
+    </div>
+  </div>
+  <div class="works-grid">
+    <div class="work-card" data-reveal data-delay="0">
+      <img src="https://placehold.co/1200x750/080808/1e1e1e" alt="Brand Identity">
+      <div class="work-overlay"><div class="work-title">Brand Identity — Apex Co.</div><div class="work-type">Branding · Strategy</div></div>
+    </div>
+    <div class="work-card" data-reveal data-delay="0.1">
+      <img src="https://placehold.co/1200x750/0c0c0c/242424" alt="Campaign">
+      <div class="work-overlay"><div class="work-title">Campaign — Noir Label</div><div class="work-type">Art Direction · Content</div></div>
+    </div>
+    <div class="work-card" data-reveal data-delay="0.05">
+      <img src="https://placehold.co/1200x750/0a0a0a/202020" alt="Social Media">
+      <div class="work-overlay"><div class="work-title">Social Strategy — Visionary</div><div class="work-type">Social Media · Videography</div></div>
+    </div>
+    <div class="work-card" data-reveal data-delay="0.15">
+      <img src="https://placehold.co/1200x750/0e0e0e/262626" alt="Landing Page">
+      <div class="work-overlay"><div class="work-title">Landing Page — Forma</div><div class="work-type">Web Design · Marketing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─────────────────────────────────────── -->
+<section class="services">
+  <div class="wrap">
+    <div class="services-grid">
+      <div class="services-left" data-reveal>
+        <p class="sec-label">What we do</p>
+        <h2 class="services-heading">Services<sup>®</sup></h2>
+      </div>
+      <div>
+        <div class="svc-item" data-reveal data-delay="0" data-img="https://placehold.co/400x711/1a0808/3a1212">
+          <div class="svc-name">Branding</div>
+          <div class="svc-desc">Identity systems, logos, and visual language that make your brand unmistakable and unforgettable.</div>
+          <div class="svc-meta"><span class="svc-num">01</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.07" data-img="https://placehold.co/400x711/081a1a/123a3a">
+          <div class="svc-name">Content Creation</div>
+          <div class="svc-desc">Photography, videography, and social content crafted to convert audiences into loyal customers.</div>
+          <div class="svc-meta"><span class="svc-num">02</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.14" data-img="https://placehold.co/400x711/081a08/123a12">
+          <div class="svc-name">Marketing & Strategy</div>
+          <div class="svc-desc">Data-driven campaigns, funnel building, and paid media that actually performs and scales.</div>
+          <div class="svc-meta"><span class="svc-num">03</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.21" data-img="https://placehold.co/400x711/08081a/12123a">
+          <div class="svc-name">Web Design</div>
+          <div class="svc-desc">Landing pages and sites crafted for conversion, speed, and a lasting first impression.</div>
+          <div class="svc-meta"><span class="svc-num">04</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.28" data-img="https://placehold.co/400x711/1a1008/3a2a10">
+          <div class="svc-name">Personal Brand</div>
+          <div class="svc-desc">Position yourself as the authority. Strategy, content, and creative — all under one roof.</div>
+          <div class="svc-meta"><span class="svc-num">05</span><span class="svc-arrow">↗</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TENURE ────────────────────────────────────────── -->
+<section class="tenure">
+  <div class="wrap">
+    <div class="tenure-inner">
+      <div data-reveal>
+        <div class="tenure-hed">Tenure<span class="dot">.</span></div>
+      </div>
+      <div class="tenure-right" data-reveal data-delay="0.15">
+        <p class="tenure-body"><strong>13+ years™</strong> of digital form, sharp interactions, and relentless creative discipline and effort — building brands that outlast the algorithm.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-n">13+</div><div class="stat-l">Years in market</div></div>
+          <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Brands built</div></div>
+          <div class="stat"><div class="stat-n">48M</div><div class="stat-l">Impressions driven</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ─── TESTIMONIALS (scroll-driven) ─────────────────── -->
+<div class="testi-outer" id="testiOuter">
+  <div class="testi-sticky">
+    <!-- Giant auto-scrolling background text -->
+    <div class="testi-bg">
+      <div class="testi-bg-track">
+        Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> ·
+        Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> ·
+      </div>
+    </div>
+    <!-- Horizontally scrolling cards (scroll-linked) -->
+    <div class="testi-cards-wrap">
+      <div class="testi-cards-rail" id="testiRail">
+        <div class="testi-card">
+          <p class="testi-quote">"7EMPLE transformed our brand from invisible to undeniable. The results speak for themselves — 10x reach in 60 days."</p>
+          <div class="testi-author">
+            <div class="testi-avatar"><img src="https://placehold.co/88x88/222/444" alt=""></div>
+            <div><div class="testi-name">Sarah M.</div><div class="testi-role">CEO, NovaBrand</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Content that actually converts. 3× ROAS within the first month. The team understood our audience better than we did."</p>
+          <div class="testi-author">
+            <div class="testi-avatar"><img src="https://placehold.co/88x88/1e1e1e/3e3e3e" alt=""></div>
+            <div><div class="testi-name">James T.</div><div class="testi-role">Founder, Volta</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Professional, creative, and relentlessly strategic. 7EMPLE is the only creative partner we'll ever need."</p>
+          <div class="testi-author">
+            <div class="testi-avatar"><img src="https://placehold.co/88x88/252525/454545" alt=""></div>
+            <div><div class="testi-name">Aisha K.</div><div class="testi-role">Director, Meridian</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Complete rebrand in under 3 weeks. Our engagement doubled overnight. The 7EMPLE team operates on a different level entirely."</p>
+          <div class="testi-author">
+            <div class="testi-avatar"><img src="https://placehold.co/88x88/1a1a1a/3a3a3a" alt=""></div>
+            <div><div class="testi-name">Marcus L.</div><div class="testi-role">CMO, Drifter Co.</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <p class="testi-quote">"Our landing page converts at 8.4% now. Before 7EMPLE it was below 1%. I can't recommend them highly enough."</p>
+          <div class="testi-author">
+            <div class="testi-avatar"><img src="https://placehold.co/88x88/202020/404040" alt=""></div>
+            <div><div class="testi-name">Elena R.</div><div class="testi-role">Founder, Lumis</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Centred CTA -->
+    <div class="testi-cta-wrap">
+      <a href="#" class="testi-btn">Get in touch</a>
+    </div>
+  </div>
+</div>
+
+<!-- ─── GALLERY (3D Y-AXIS CYLINDER) ─────────────────── -->
+<section class="gallery">
+  <div class="wrap">
+    <div class="gallery-head" data-reveal style="padding-bottom:12px;">
+      <div>
+        <p class="sec-label">Latest Work</p>
+        <h2 class="gallery-hed" style="margin-top:12px;">Featured<br>Articles<sup>®</sup></h2>
+      </div>
+      <a href="#" class="view-all">See all →</a>
+    </div>
+  </div>
+  <div class="cylinder-section" id="cylSection">
+    <div class="cylinder-sticky">
+      <div class="cylinder-vp">
+        <div class="cylinder-drum" id="cylDrum">
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/0d0d20/5555ff" alt="Work 1">
+            <div class="g-cap"><div class="g-cap-title">Brand Identity — Apex Co.</div><div class="g-cap-type">Branding · Strategy</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/20080a/ff3344" alt="Work 2">
+            <div class="g-cap"><div class="g-cap-title">Campaign — Noir Label</div><div class="g-cap-type">Art Direction · Content</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/061206/33cc55" alt="Work 3">
+            <div class="g-cap"><div class="g-cap-title">Social Strategy — Visionary</div><div class="g-cap-type">Social Media · Videography</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/1a1200/ccaa00" alt="Work 4">
+            <div class="g-cap"><div class="g-cap-title">Landing Page — Forma</div><div class="g-cap-type">Web Design · Marketing</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/061a1a/00cccc" alt="Work 5">
+            <div class="g-cap"><div class="g-cap-title">Rebrand — Studio Nuo</div><div class="g-cap-type">Branding · Identity</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/160816/cc44cc" alt="Work 6">
+            <div class="g-cap"><div class="g-cap-title">Campaign — Crest Labs</div><div class="g-cap-type">Strategy · Media</div></div>
+          </div>
+          <div class="g-item">
+            <img src="https://placehold.co/520x325/100808/ff8844" alt="Work 7">
+            <div class="g-cap"><div class="g-cap-title">Personal Brand — A. Cole</div><div class="g-cap-type">Personal · Social</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="cyl-counter" id="cylCounter">01 / 07</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logos" data-reveal>
+      <span class="f-logo">VOGUE</span><span class="f-logo">HYPEBEAST</span>
+      <span class="f-logo">COMPLEX</span><span class="f-logo">ADWEEK</span>
+      <span class="f-logo">DEZEEN</span><span class="f-logo">WALLPAPER*</span>
+      <span class="f-logo">DAZED</span>
+    </div>
+    <div class="footer-body" data-reveal data-delay="0.1">
+      <div class="f-brand">
+        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px; filter:brightness(0) invert(1);"></div>
+        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+      </div>
+      <div class="f-nav">
+        <h4>Navigation</h4>
+        <ul><li><a href="#">Work</a></li><li><a href="#">Services</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+      </div>
+      <div class="f-nav">
+        <h4>Contact</h4>
+        <ul><li><a href="#">hello@7emple.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">TikTok</a></li></ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2025 7EMPLE. All rights reserved.</p>
+      <p>Designed & built by 7EMPLE.</p>
+    </div>
+  </div>
+  <div class="copyright-bar"><div class="copyright-inner">©2025</div></div>
+</footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────── -->
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// GRAIN — animated canvas film grain overlay
+// ═══════════════════════════════════════════════════════
+(function setupGrain() {
+  const c = document.createElement('canvas');
+  c.id = 'grain';
+  c.width = Math.round(Math.min(window.innerWidth, 1400));
+  c.height = Math.round(Math.min(window.innerHeight, 900));
+  document.body.appendChild(c);
+  const ctx = c.getContext('2d');
+  let last = 0;
+  function draw(t) {
+    if (t - last > 45) { // ~22fps grain refresh
+      last = t;
+      const img = ctx.createImageData(c.width, c.height);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = (Math.random() * 255) | 0;
+        d[i] = d[i+1] = d[i+2] = v;
+        d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ═══════════════════════════════════════════════════════
+// LENIS — smooth scroll
+// ═══════════════════════════════════════════════════════
+const lenis = new Lenis({
+  lerp: 0.08,
+  smoothWheel: true,
+  wheelMultiplier: 1.0,
+});
+
+// ═══════════════════════════════════════════════════════
+// REVEAL — IntersectionObserver fade-up
+// ═══════════════════════════════════════════════════════
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const delay = parseFloat(el.dataset.delay || 0) * 1000;
+      setTimeout(() => el.classList.add('in-view'), delay);
+      revealObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+// ═══════════════════════════════════════════════════════
+// SERVICE PREVIEW — cursor-following 9:16 photo
+// ═══════════════════════════════════════════════════════
+const svcPreview    = document.getElementById('svcPreview');
+const svcPreviewImg = document.getElementById('svcPreviewImg');
+let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+let cx = mx, cy = my;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+document.querySelectorAll('.svc-item[data-img]').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    svcPreviewImg.src = item.dataset.img;
+    svcPreview.classList.add('show');
+  });
+  item.addEventListener('mouseleave', () => {
+    svcPreview.classList.remove('show');
+  });
+});
+
+function updatePreview() {
+  cx += (mx - cx) * 0.1;
+  cy += (my - cy) * 0.1;
+  svcPreview.style.left = (cx + 28) + 'px';
+  svcPreview.style.top  = (cy - svcPreview.offsetHeight * 0.5) + 'px';
+}
+
+// ═══════════════════════════════════════════════════════
+// GALLERY — vertical S-shaped flowing rail, scroll-driven
+// Rail translates upward; per-card depth effect (rotateX +
+// brightness) based on distance from viewport centre.
+// ═══════════════════════════════════════════════════════
+const cylSection = document.getElementById('cylSection');
+const cylDrum    = document.getElementById('cylDrum');
+const cylCounter = document.getElementById('cylCounter');
+const cylItems   = [...cylDrum.querySelectorAll('.g-item')];
+const TOTAL      = cylItems.length; // 7
+
+// Scroll velocity tracking for dynamic tilt feel
+let _lastScrollY = window.scrollY;
+let _scrollVel   = 0;
+
+function updateCylinder() {
+  if (!cylSection) return;
+
+  // Smooth scroll velocity (px/frame, exponential decay)
+  const currScrollY = window.scrollY;
+  const delta = currScrollY - _lastScrollY;
+  _scrollVel += (delta - _scrollVel) * 0.14;
+  _lastScrollY = currScrollY;
+
+  const rect     = cylSection.getBoundingClientRect();
+  const sTotal   = cylSection.offsetHeight - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const progress = Math.min(1, scrolled / sTotal);
+
+  // Translate the rail upward
+  const railH  = cylDrum.scrollHeight;
+  const startY = window.innerHeight * 0.55;
+  const endY   = -(railH - window.innerHeight * 0.45);
+  cylDrum.style.transform = `translateY(${startY + (endY - startY) * progress}px)`;
+
+  // Per-card 3D tilt: rotateX (vertical depth) + rotateY (horizontal depth)
+  let closest = 0, minDist = Infinity;
+  const vpCX = window.innerWidth  * 0.5;
+  const vpCY = window.innerHeight * 0.5;
+
+  cylItems.forEach((card, i) => {
+    const cr   = card.getBoundingClientRect();
+    const midY = cr.top  + cr.height * 0.5;
+    const midX = cr.left + cr.width  * 0.5;
+
+    // Vertical distance from viewport centre (-1 … +1)
+    const dY = Math.max(-1, Math.min(1, (midY - vpCY) / (window.innerHeight * 0.6)));
+    // Horizontal distance from viewport centre (-1 … +1)
+    const dX = Math.max(-1, Math.min(1, (midX - vpCX) / vpCX));
+
+    // rotateX: above-centre tilts back, below tilts forward; scrolling adds extra kick
+    const rotX  = dY * 16 + _scrollVel * 0.45;
+    // rotateY: left cards face inward (positive), right cards face inward (negative)
+    const rotY  = dX * 18;
+    const scale = 1 - Math.abs(dY) * 0.09;
+    const bright = Math.max(0.22, 1 - Math.abs(dY) * 0.78);
+
+    card.style.transform = `perspective(1300px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+    card.style.filter    = `brightness(${bright.toFixed(2)})`;
+
+    const absDist = Math.abs(midY - vpCY);
+    if (absDist < minDist) { minDist = absDist; closest = i; }
+  });
+
+  cylCounter.textContent = `${String(closest + 1).padStart(2, '0')} / ${String(TOTAL).padStart(2, '0')}`;
+}
+
+// ═══════════════════════════════════════════════════════
+// TESTIMONIALS — scroll-driven horizontal translate
+// ═══════════════════════════════════════════════════════
+const testiOuter = document.getElementById('testiOuter');
+const testiRail  = document.getElementById('testiRail');
+
+function updateTesti() {
+  if (!testiOuter) return;
+  const rect     = testiOuter.getBoundingClientRect();
+  const total    = testiOuter.offsetHeight - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const progress = Math.min(1, scrolled / total);
+  // Cards float upward: start below viewport, end above
+  const railH  = testiRail.scrollHeight;
+  const startY = window.innerHeight * 0.5;
+  const endY   = -(railH - window.innerHeight * 0.05);
+  testiRail.style.transform = `translateY(${startY + (endY - startY) * progress}px)`;
+}
+
+// ═══════════════════════════════════════════════════════
+// HERO PARALLAX
+// ═══════════════════════════════════════════════════════
+const heroImgEl   = document.getElementById('heroImg');
+const heroSection = document.querySelector('.hero');
+
+function updateHeroParallax() {
+  if (!heroImgEl || !heroSection) return;
+  const rect     = heroSection.getBoundingClientRect();
+  const progress = 1 - rect.bottom / (rect.height + window.innerHeight);
+  heroImgEl.style.transform = `translateY(${progress * 72}px)`;
+}
+
+// ═══════════════════════════════════════════════════════
+// CUSTOM CURSOR
+// ═══════════════════════════════════════════════════════
+const cursorEl = document.getElementById('cursor');
+let _mx = 0, _my = 0, _cx = 0, _cy = 0;
+
+document.addEventListener('mousemove', e => {
+  _mx = e.clientX;
+  _my = e.clientY;
+  const under = document.elementFromPoint(_mx, _my);
+  if (under) {
+    const cur = window.getComputedStyle(under).cursor;
+    cursorEl.classList.toggle('is-pointer', cur === 'pointer');
+  }
+});
+document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+// ═══════════════════════════════════════════════════════
+// RAF LOOP — runs everything together
+// ═══════════════════════════════════════════════════════
+function raf(time) {
+  lenis.raf(time);
+  updateCylinder();
+  updateTesti();
+  updateHeroParallax();
+  updatePreview();
+  // Cursor lerp
+  _cx += (_mx - _cx) * 0.22;
+  _cy += (_my - _cy) * 0.22;
+  cursorEl.style.left = _cx + 'px';
+  cursorEl.style.top  = _cy + 'px';
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// ═══════════════════════════════════════════════════════
+// INTRO SEQUENCE
+// ═══════════════════════════════════════════════════════
+(async function introSequence() {
+  const overlay  = document.getElementById('intro');
+  const iLogo    = document.getElementById('intro-logo');
+  const navEl    = document.querySelector('nav');
+  const navLogo  = document.querySelector('.nav-logo img');
+  const hsEls    = document.querySelectorAll('.hs');
+  const hBottom  = document.querySelector('.hero-bottom');
+  const hRight   = document.querySelector('.hero-right');
+
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+
+  // Phase 1 — logo fades in centered
+  await wait(300);
+  iLogo.style.opacity = '1';
+
+  // Phase 2 — logo grows
+  await wait(750);
+  iLogo.style.transform = 'translate(-50%, -50%) scale(3.8)';
+
+  // Phase 3 — logo flies to nav corner
+  await wait(950);
+  const nr     = navLogo.getBoundingClientRect();
+  const deltaX = (nr.left + nr.width  * 0.5) - window.innerWidth  * 0.5;
+  const deltaY = (nr.top  + nr.height * 0.5) - window.innerHeight * 0.5;
+  const sc     = nr.height / 40;
+  iLogo.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.76,0,0.24,1)';
+  iLogo.style.transform  = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(${sc})`;
+
+  // Phase 4 — overlay fades out, nav appears
+  await wait(650);
+  overlay.classList.add('done');
+  navEl.style.opacity = '1';
+
+  // Phase 5 — hero text staggers in
+  await wait(250);
+  hsEls.forEach((el, i) => setTimeout(() => el.classList.add('ir'), i * 90));
+
+  await wait(200);
+  hBottom.classList.add('ir');
+
+  await wait(120);
+  hRight.classList.add('ir');
+
+  await wait(400);
+  document.querySelector('.hero-banner').style.opacity = '1';
+
+  // Cleanup
+  await wait(800);
+  overlay.style.display = 'none';
+})();
+</script>
+
+</body>
+</html>

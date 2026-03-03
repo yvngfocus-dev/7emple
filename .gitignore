@@ -1,0 +1,20 @@
+# Dev dependencies
+node_modules/
+
+# Dev/build tools
+serve.mjs
+shots.mjs
+screenshot.mjs
+package.json
+package-lock.json
+
+# Temp files
+temporary screenshots/
+index.backup-*.html
+
+# Reference images (not part of site)
+361220162fc211d1fdaaeb5f4503f995.jpg
+99c12b9d16516d29f9f965dfad5bb5c5.png
+af74853d67acd541cddc37ed332066db.png
+screencapture-*.png
+CLAUDE (1).md
