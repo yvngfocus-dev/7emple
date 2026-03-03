@@ -59,7 +59,7 @@
       transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1);
     }
     .nav-logo { display: flex; align-items: center; }
-    .nav-logo img { height: 30px; filter: brightness(0) invert(1); }
+    .nav-logo img { height: 30px; }
     .nav-right { display: flex; align-items: center; gap: 48px; }
     .nav-tag { font-size: 10px; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
     .nav-links { display: flex; gap: 32px; list-style: none; }
@@ -75,6 +75,12 @@
       background: var(--bg);
     }
     .hero-left { padding: 140px 48px 72px; display: flex; flex-direction: column; justify-content: space-between; }
+    .hero-brand {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 20px;
+      opacity: 0; transform: translateY(20px);
+    }
     .hero-services { display: flex; flex-direction: column; }
     .hs {
       font-family: 'Inter Display', sans-serif;
@@ -116,7 +122,6 @@
     #intro-logo {
       position: fixed; left: 50%; top: 50%;
       height: 40px;
-      filter: brightness(0) invert(1);
       opacity: 0;
       transform: translate(-50%, -50%) scale(1);
       transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
@@ -512,7 +517,7 @@
       /* ── Works ── */
       .works { padding: 40px 0 0; }
       .works-grid { grid-template-columns: 1fr; gap: 2px; }
-      .marquee-track { animation-duration: 7s; }
+      .marquee-track { animation: mq 4s linear infinite; will-change: transform; }
 
       /* ── Services ── */
       .services { padding: 56px 0; }
@@ -610,6 +615,7 @@
 <!-- ─── HERO ──────────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-left">
+    <div class="hero-brand">7EMPLE</div>
     <div class="hero-services">
       <div class="hs">Art</div>
       <div class="hs">Direction</div>
@@ -942,7 +948,7 @@
     </div>
     <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
-        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px; filter:brightness(0) invert(1);"></div>
+        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
         <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
       </div>
       <div class="f-nav">
@@ -1187,6 +1193,7 @@ requestAnimationFrame(raf);
   const iLogo    = document.getElementById('intro-logo');
   const navEl    = document.querySelector('nav');
   const navLogo  = document.querySelector('.nav-logo img');
+  const hBrand   = document.querySelector('.hero-brand');
   const hsEls    = document.querySelectorAll('.hs');
   const hBottom  = document.querySelector('.hero-bottom');
   const hRight   = document.querySelector('.hero-right');
@@ -1218,6 +1225,7 @@ requestAnimationFrame(raf);
 
   // Phase 5 — hero text staggers in
   await wait(250);
+  hBrand.classList.add('ir');
   hsEls.forEach((el, i) => setTimeout(() => el.classList.add('ir'), i * 90));
 
   await wait(200);
