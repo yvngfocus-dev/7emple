@@ -607,7 +607,7 @@
       <li><a href="#">Work</a></li>
       <li><a href="#">Services</a></li>
       <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
 </nav>
@@ -637,7 +637,7 @@
     </div>
     <div class="hero-desc-row">
       <p class="hero-desc"><strong>More than just an agency.</strong> We craft bold digital experiences that drive real results for ambitious brands.</p>
-      <a href="#" class="hero-cta">Get in touch →</a>
+      <a href="contact.html" class="hero-cta">Get in touch →</a>
     </div>
   </div>
 </section>
@@ -690,7 +690,7 @@
     <p class="ascend-desc">
       The complete system for ambitious brands ready to grow. <strong>Strategy, content, and execution</strong> — all unified under one proven framework that has scaled 200+ brands worldwide.
     </p>
-    <a href="#" class="ascend-cta">
+    <a href="contact.html" class="ascend-cta">
       Start Ascending
       <span class="ascend-cta-arrow">→</span>
     </a>
@@ -846,8 +846,8 @@
     <!-- Giant auto-scrolling background text -->
     <div class="testi-bg">
       <div class="testi-bg-track">
-        Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> ·
-        Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> · Reviews · <em>Testimonial©</em> ·
+        Reviews · <em>Testimonials©</em> · Reviews · <em>Testimonials©</em> · Reviews · <em>Testimonials©</em> ·
+        Reviews · <em>Testimonials©</em> · Reviews · <em>Testimonials©</em> · Reviews · <em>Testimonials©</em> ·
       </div>
     </div>
     <!-- Horizontally scrolling cards (scroll-linked) -->
@@ -892,7 +892,7 @@
     </div>
     <!-- Centred CTA -->
     <div class="testi-cta-wrap">
-      <a href="#" class="testi-btn">Get in touch</a>
+      <a href="contact.html" class="testi-btn">Get in touch</a>
     </div>
   </div>
 </div>
@@ -963,11 +963,11 @@
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
-        <ul><li><a href="#">Work</a></li><li><a href="#">Services</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+        <ul><li><a href="#">Work</a></li><li><a href="#">Services</a></li><li><a href="#">About</a></li><li><a href="contact.html">Contact</a></li></ul>
       </div>
       <div class="f-nav">
         <h4>Contact</h4>
-        <ul><li><a href="#">hello@7emple.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">TikTok</a></li></ul>
+        <ul><li><a href="mailto:hello@7emple.com">hello@7emple.com</a></li><li><a href="#">Instagram</a></li><li><a href="#">LinkedIn</a></li><li><a href="#">Twitter / X</a></li><li><a href="#">TikTok</a></li></ul>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1269,6 +1269,25 @@ requestAnimationFrame(raf);
   // Cleanup
   await wait(800);
   overlay.style.display = 'none';
+})();
+
+// ═══════════════════════════════════════════════════════
+// PAGE TRANSITION — seamless zoom
+// Page zooms in + fades to black, contact page surfaces
+// from that same darkness zooming out to normal.
+// ═══════════════════════════════════════════════════════
+(function() {
+  document.querySelectorAll('a[href="contact.html"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.body.style.transformOrigin = 'center center';
+      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+      document.body.style.opacity   = '0';
+      document.body.style.transform = 'scale(1.07)';
+      sessionStorage.setItem('7emple_txOrigin', '1');
+      setTimeout(() => { window.location.href = 'contact.html'; }, 340);
+    });
+  });
 })();
 </script>
 
