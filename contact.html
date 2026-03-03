@@ -67,6 +67,15 @@
     .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
 
+    /* ─── BACK LINK ──────────────────────── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--dim); letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 500;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--text); }
+
     /* ─── CONTACT HERO ────────────────────── */
     .contact-hero {
       min-height: 100vh;
@@ -279,7 +288,7 @@
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
       <li><a href="index.html">Work</a></li>
-      <li><a href="index.html">Services</a></li>
+      <li><a href="services.html">Services</a></li>
       <li><a href="index.html">About</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
@@ -289,6 +298,7 @@
 <!-- ─── CONTACT HERO ─────────────────────────────────── -->
 <section class="contact-hero">
   <div class="ch-left">
+    <a href="index.html" class="back-link">← Home</a>
     <div class="ch-label">Get In Touch</div>
     <div class="ch-hed-wrap">
       <div class="ch-hed">Let's</div>
@@ -349,12 +359,13 @@
           <p class="cfs-sub">We work with brands, founders, and creators who are serious about standing out. Share your vision and let's make it real.</p>
         </div>
         <div class="cfs-services">
-          <div class="cfs-svc"><span>Art Direction</span><span class="cfs-svc-num">01</span></div>
-          <div class="cfs-svc"><span>Branding</span><span class="cfs-svc-num">02</span></div>
-          <div class="cfs-svc"><span>Strategy</span><span class="cfs-svc-num">03</span></div>
-          <div class="cfs-svc"><span>Web Design</span><span class="cfs-svc-num">04</span></div>
-          <div class="cfs-svc"><span>Content</span><span class="cfs-svc-num">05</span></div>
-          <div class="cfs-svc"><span>Social Media</span><span class="cfs-svc-num">06</span></div>
+          <div class="cfs-svc"><span>Brand Content Strategy</span><span class="cfs-svc-num">01</span></div>
+          <div class="cfs-svc"><span>Videography</span><span class="cfs-svc-num">02</span></div>
+          <div class="cfs-svc"><span>Photography</span><span class="cfs-svc-num">03</span></div>
+          <div class="cfs-svc"><span>Social Media Management</span><span class="cfs-svc-num">04</span></div>
+          <div class="cfs-svc"><span>Advertising</span><span class="cfs-svc-num">05</span></div>
+          <div class="cfs-svc"><span>Social Media Branding</span><span class="cfs-svc-num">06</span></div>
+          <div class="cfs-svc"><span>Aftermovies</span><span class="cfs-svc-num">07</span></div>
         </div>
       </div>
       <div class="cfs-form-wrap">
@@ -382,13 +393,14 @@
           <div class="form-field">
             <label>Service(s) Needed</label>
             <div class="form-pills">
-              <span class="form-pill" data-val="Art Direction">Art Direction</span>
-              <span class="form-pill" data-val="Branding">Branding</span>
-              <span class="form-pill" data-val="Strategy">Strategy</span>
-              <span class="form-pill" data-val="Web Design">Web Design</span>
-              <span class="form-pill" data-val="Content">Content</span>
-              <span class="form-pill" data-val="Social Media">Social Media</span>
-              <span class="form-pill" data-val="Full Package">Full Package</span>
+              <span class="form-pill" data-val="Brand Content Strategy">Brand Content Strategy</span>
+              <span class="form-pill" data-val="Videography">Videography</span>
+              <span class="form-pill" data-val="Photography">Photography</span>
+              <span class="form-pill" data-val="Social Media Management">Social Media Management</span>
+              <span class="form-pill" data-val="Advertising">Advertising</span>
+              <span class="form-pill" data-val="Social Media Branding">Social Media Branding</span>
+              <span class="form-pill" data-val="Aftermovies">Aftermovies</span>
+              <span class="form-pill" data-val="Ascend">Ascend</span>
             </div>
             <input type="hidden" id="services" name="services">
           </div>
@@ -426,7 +438,7 @@
         <h4>Navigation</h4>
         <ul>
           <li><a href="index.html">Work</a></li>
-          <li><a href="index.html">Services</a></li>
+          <li><a href="services.html">Services</a></li>
           <li><a href="index.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
@@ -560,12 +572,12 @@ requestAnimationFrame(raf);
   } catch(e) {}
 
   if (fromTransition) {
-    // Start zoomed in + invisible — mirror of the exit
+    // Start slightly zoomed out + invisible — continues the zoom-in momentum
     document.body.style.transformOrigin = 'center center';
-    document.body.style.transform = 'scale(1.07)';
+    document.body.style.transform = 'scale(0.95)';
     document.body.style.opacity   = '0';
 
-    // One frame to paint, then zoom out into the scene
+    // One frame to paint, then zoom in to reveal the scene
     await wait(20);
     document.body.style.transition = 'opacity 0.48s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
     document.body.style.opacity   = '1';
@@ -610,6 +622,24 @@ requestAnimationFrame(raf);
     await wait(200);
     scrollHint.classList.add('visible');
   }
+})();
+
+// ═══════════════════════════════════════════════════════
+// PAGE EXIT — zoom out on navigation away
+// ═══════════════════════════════════════════════════════
+(function() {
+  document.querySelectorAll('a[href="index.html"], a[href="services.html"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const dest = link.getAttribute('href');
+      document.body.style.transformOrigin = 'center center';
+      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+      document.body.style.opacity   = '0';
+      document.body.style.transform = 'scale(1.07)';
+      sessionStorage.setItem('7emple_txOrigin', '1');
+      setTimeout(() => { window.location.href = dest; }, 340);
+    });
+  });
 })();
 </script>
 

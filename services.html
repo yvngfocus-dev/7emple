@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — 7EMPLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616;
+      --text: #F9F9F9;
+      --muted: #868686;
+      --dim: #4A4A4A;
+      --border: rgba(249,249,249,0.1);
+      --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+
+    /* ─── CURSOR ──────────────────────────── */
+    #cursor {
+      position: fixed; left: 0; top: 0; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff; mix-blend-mode: difference;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
+      will-change: left, top;
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+
+    /* ─── GRAIN ──────────────────────────── */
+    #grain {
+      position: fixed; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9998; opacity: .013; mix-blend-mode: screen;
+      image-rendering: pixelated;
+    }
+
+    /* ─── REVEAL ─────────────────────────── */
+    .sec-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+    [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1); }
+    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+    .ir { transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1) !important; opacity: 1 !important; transform: translateY(0) !important; }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(22,22,22,.92); backdrop-filter: blur(12px);
+      opacity: 0; transition: opacity .6s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 30px; }
+    .nav-right { display: flex; align-items: center; gap: 48px; }
+    .nav-tag { font-size: 10px; color: var(--dim); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    /* ─── BACK LINK ──────────────────────── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--dim); letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 500;
+      transition: color .2s;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* ─── SERVICES HERO ───────────────────── */
+    .sv-hero {
+      padding: 160px 0 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .sv-hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: end; gap: 80px;
+      border-top: 1px solid var(--border); padding-top: 40px;
+    }
+    .sv-hero-left { display: flex; flex-direction: column; gap: 24px; }
+    .sv-heading {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(72px, 10vw, 160px);
+      font-weight: 900; letter-spacing: -.055em; line-height: .86;
+    }
+    .sv-heading em { font-style: italic; color: var(--muted); }
+    .sv-hero-right {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      gap: 40px; padding-bottom: 8px;
+    }
+    .sv-intro { font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 500px; }
+    .sv-intro strong { color: var(--text); }
+    .sv-count {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(96px, 12vw, 180px); font-weight: 900;
+      letter-spacing: -.07em; line-height: 1; color: var(--dim);
+      opacity: .25;
+    }
+
+    /* ─── SERVICES LIST ───────────────────── */
+    .sv-list { padding: 0 0 120px; }
+    .sv-item {
+      display: grid; grid-template-columns: 80px 1fr 1fr 60px;
+      gap: 32px; align-items: center;
+      padding: 36px 0; border-bottom: 1px solid var(--border);
+      cursor: pointer; position: relative;
+      transition: background .2s;
+    }
+    .sv-item:hover { background: rgba(249,249,249,.018); }
+    .sv-num { font-size: 11px; color: var(--dim); font-weight: 500; letter-spacing: .06em; }
+    .sv-name { font-size: 22px; font-weight: 700; letter-spacing: -.025em; }
+    .sv-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
+    .sv-arrow {
+      font-size: 20px; color: var(--muted); text-align: right;
+      transition: transform .3s cubic-bezier(.16,1,.3,1), color .2s;
+    }
+    .sv-item:hover .sv-arrow { transform: translate(4px,-4px); color: var(--orange); }
+
+    /* ─── CTA SECTION ─────────────────────── */
+    .sv-cta {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .sv-cta-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 40px;
+    }
+    .sv-cta-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(48px, 6vw, 96px);
+      font-weight: 900; letter-spacing: -.045em; line-height: .9;
+    }
+    .sv-cta-hed em { font-style: italic; color: var(--muted); }
+    .sv-cta-btn {
+      display: inline-flex; align-items: center; gap: 14px;
+      background: var(--orange); color: #F9F9F9;
+      padding: 20px 40px; font-size: 14px; font-weight: 600;
+      letter-spacing: .04em; white-space: nowrap; flex-shrink: 0;
+      transition: background .2s, gap .3s cubic-bezier(.16,1,.3,1);
+    }
+    .sv-cta-btn:hover { background: #d93e00; gap: 22px; }
+
+    /* ─── FOOTER ─────────────────────────── */
+    footer { padding: 40px 0 0; }
+    .footer-logos { display: flex; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .f-logo { font-size: 12px; color: var(--dim); letter-spacing: .06em; font-weight: 500; padding: 22px 32px; border-right: 1px solid var(--border); transition: color .2s; }
+    .f-logo:last-child { border-right: none; }
+    .f-logo:hover { color: var(--muted); }
+    .footer-body { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 80px; padding: 64px 0; border-bottom: 1px solid var(--border); }
+    .f-brand p { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; }
+    .f-nav h4 { font-size: 11px; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 24px; }
+    .f-nav ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .f-nav ul a { font-size: 14px; color: var(--muted); transition: color .2s; }
+    .f-nav ul a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+    .footer-bottom p { font-size: 12px; color: var(--dim); }
+    .copyright-bar { overflow: hidden; border-top: 1px solid var(--border); }
+    .copyright-inner { font-family: 'Inter Display', sans-serif; font-size: clamp(96px,18vw,288px); font-weight: 900; letter-spacing: -.07em; line-height: .78; padding: 16px 48px 0; white-space: nowrap; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE — MOBILE (≤ 768px)
+       ═══════════════════════════════════════ */
+    @media (max-width: 768px) {
+      html, body { cursor: auto; }
+      #cursor { display: none; }
+      .wrap { padding: 0 20px; }
+      nav { padding: 14px 20px; }
+      .nav-tag { display: none; }
+      .nav-right { gap: 20px; }
+      .nav-links { gap: 20px; }
+      .nav-links a { font-size: 12px; }
+      .sv-hero { padding: 100px 0 56px; }
+      .sv-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .sv-count { display: none; }
+      .sv-item { grid-template-columns: 40px 1fr 32px; gap: 16px; }
+      .sv-desc { grid-column: 2 / -1; }
+      .sv-cta-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .footer-body { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
+      .copyright-inner { font-size: clamp(56px,18vw,288px); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <div class="nav-right">
+    <span class="nav-tag">©2026 — Digital Agency</span>
+    <ul class="nav-links">
+      <li><a href="#">Work</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── SERVICES HERO ─────────────────────────────────── -->
+<section class="sv-hero">
+  <div class="wrap">
+    <div class="sv-hero-inner">
+      <div class="sv-hero-left">
+        <a href="index.html" class="back-link">← Home</a>
+        <p class="sec-label">What we do</p>
+        <h1 class="sv-heading">Our<br><em>Services.</em></h1>
+      </div>
+      <div class="sv-hero-right">
+        <p class="sv-intro"><strong>Seven focused services.</strong> All under one roof. We're not a generalist agency — every offering is built around one goal: making your brand the obvious choice in your market.</p>
+        <div class="sv-count">07</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES LIST ──────────────────────────────────── -->
+<section class="sv-list">
+  <div class="wrap">
+
+    <div class="sv-item" data-reveal data-delay="0">
+      <div class="sv-num">01</div>
+      <div class="sv-name">Brand Content Strategy</div>
+      <div class="sv-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.07">
+      <div class="sv-num">02</div>
+      <div class="sv-name">Videography</div>
+      <div class="sv-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.14">
+      <div class="sv-num">03</div>
+      <div class="sv-name">Photography</div>
+      <div class="sv-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.21">
+      <div class="sv-num">04</div>
+      <div class="sv-name">Social Media Management</div>
+      <div class="sv-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.28">
+      <div class="sv-num">05</div>
+      <div class="sv-name">Advertising</div>
+      <div class="sv-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.35">
+      <div class="sv-num">06</div>
+      <div class="sv-name">Social Media Branding</div>
+      <div class="sv-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+    <div class="sv-item" data-reveal data-delay="0.42">
+      <div class="sv-num">07</div>
+      <div class="sv-name">Aftermovies</div>
+      <div class="sv-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</div>
+      <div class="sv-arrow">↗</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CTA ────────────────────────────────────────────── -->
+<section class="sv-cta">
+  <div class="wrap">
+    <div class="sv-cta-inner" data-reveal>
+      <div class="sv-cta-hed">Ready to<br><em>start?</em></div>
+      <a href="contact.html" class="sv-cta-btn">Get in touch ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logos" data-reveal>
+      <span class="f-logo">VOGUE</span><span class="f-logo">HYPEBEAST</span>
+      <span class="f-logo">COMPLEX</span><span class="f-logo">ADWEEK</span>
+      <span class="f-logo">DEZEEN</span><span class="f-logo">WALLPAPER*</span>
+      <span class="f-logo">DAZED</span>
+    </div>
+    <div class="footer-body" data-reveal data-delay="0.1">
+      <div class="f-brand">
+        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
+        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+      </div>
+      <div class="f-nav">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="f-nav">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@7emple.com">hello@7emple.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2026 7EMPLE. All rights reserved.</p>
+      <p>Designed & built by 7EMPLE.</p>
+    </div>
+  </div>
+  <div class="copyright-bar"><div class="copyright-inner">©2026</div></div>
+</footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────── -->
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// GRAIN
+// ═══════════════════════════════════════════════════════
+(function() {
+  const c = document.createElement('canvas');
+  c.id = 'grain';
+  c.width  = Math.round(Math.min(window.innerWidth, 1400));
+  c.height = Math.round(Math.min(window.innerHeight, 900));
+  document.body.appendChild(c);
+  const ctx = c.getContext('2d');
+  let last = 0;
+  function draw(t) {
+    if (t - last > 45) {
+      last = t;
+      const img = ctx.createImageData(c.width, c.height);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = (Math.random() * 255) | 0;
+        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ═══════════════════════════════════════════════════════
+// LENIS
+// ═══════════════════════════════════════════════════════
+const lenis = new Lenis({ lerp: 0.08, smoothWheel: true, wheelMultiplier: 1.0 });
+
+// ═══════════════════════════════════════════════════════
+// REVEAL
+// ═══════════════════════════════════════════════════════
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      setTimeout(() => el.classList.add('in-view'), parseFloat(el.dataset.delay || 0) * 1000);
+      revealObs.unobserve(el);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+// ═══════════════════════════════════════════════════════
+// CURSOR
+// ═══════════════════════════════════════════════════════
+const cursorEl = document.getElementById('cursor');
+let _mx = 0, _my = 0, _cx = 0, _cy = 0;
+document.addEventListener('mousemove', e => {
+  _mx = e.clientX; _my = e.clientY;
+  const under = document.elementFromPoint(_mx, _my);
+  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+});
+document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+// ═══════════════════════════════════════════════════════
+// RAF LOOP
+// ═══════════════════════════════════════════════════════
+function raf(time) {
+  lenis.raf(time);
+  _cx += (_mx - _cx) * 0.22;
+  _cy += (_my - _cy) * 0.22;
+  cursorEl.style.left = _cx + 'px';
+  cursorEl.style.top  = _cy + 'px';
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// ═══════════════════════════════════════════════════════
+// PAGE ENTER — zoom in from slight underscale
+// ═══════════════════════════════════════════════════════
+(async function pageEnter() {
+  const navEl = document.querySelector('nav');
+  const svHero = document.querySelector('.sv-hero');
+  const wait   = ms => new Promise(r => setTimeout(r, ms));
+
+  let fromTransition = false;
+  try {
+    fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
+    sessionStorage.removeItem('7emple_txOrigin');
+  } catch(e) {}
+
+  if (fromTransition) {
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transform = 'scale(0.95)';
+    document.body.style.opacity   = '0';
+
+    await wait(20);
+    document.body.style.transition = 'opacity 0.48s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
+    document.body.style.opacity   = '1';
+    document.body.style.transform = 'scale(1)';
+
+    await wait(160);
+    navEl.style.opacity = '1';
+
+    await wait(700);
+    document.body.style.transition = '';
+    document.body.style.transform  = '';
+    document.body.style.opacity    = '';
+
+  } else {
+    navEl.style.opacity = '1';
+  }
+})();
+
+// ═══════════════════════════════════════════════════════
+// PAGE EXIT — seamless zoom out on navigation
+// ═══════════════════════════════════════════════════════
+(function() {
+  document.querySelectorAll('a[href="contact.html"], a[href="index.html"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const dest = link.getAttribute('href');
+      document.body.style.transformOrigin = 'center center';
+      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+      document.body.style.opacity   = '0';
+      document.body.style.transform = 'scale(1.07)';
+      sessionStorage.setItem('7emple_txOrigin', '1');
+      setTimeout(() => { window.location.href = dest; }, 340);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -605,7 +605,7 @@
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
       <li><a href="#">Work</a></li>
-      <li><a href="#">Services</a></li>
+      <li><a href="services.html">Services</a></li>
       <li><a href="#">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
@@ -791,29 +791,39 @@
       </div>
       <div>
         <div class="svc-item" data-reveal data-delay="0" data-img="https://placehold.co/400x711/1a0808/3a1212">
-          <div class="svc-name">Branding</div>
-          <div class="svc-desc">Identity systems, logos, and visual language that make your brand unmistakable and unforgettable.</div>
+          <div class="svc-name">Brand Content Strategy</div>
+          <div class="svc-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</div>
           <div class="svc-meta"><span class="svc-num">01</span><span class="svc-arrow">↗</span></div>
         </div>
         <div class="svc-item" data-reveal data-delay="0.07" data-img="https://placehold.co/400x711/081a1a/123a3a">
-          <div class="svc-name">Content Creation</div>
-          <div class="svc-desc">Photography, videography, and social content crafted to convert audiences into loyal customers.</div>
+          <div class="svc-name">Videography</div>
+          <div class="svc-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</div>
           <div class="svc-meta"><span class="svc-num">02</span><span class="svc-arrow">↗</span></div>
         </div>
         <div class="svc-item" data-reveal data-delay="0.14" data-img="https://placehold.co/400x711/081a08/123a12">
-          <div class="svc-name">Marketing & Strategy</div>
-          <div class="svc-desc">Data-driven campaigns, funnel building, and paid media that actually performs and scales.</div>
+          <div class="svc-name">Photography</div>
+          <div class="svc-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</div>
           <div class="svc-meta"><span class="svc-num">03</span><span class="svc-arrow">↗</span></div>
         </div>
         <div class="svc-item" data-reveal data-delay="0.21" data-img="https://placehold.co/400x711/08081a/12123a">
-          <div class="svc-name">Web Design</div>
-          <div class="svc-desc">Landing pages and sites crafted for conversion, speed, and a lasting first impression.</div>
+          <div class="svc-name">Social Media Management</div>
+          <div class="svc-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</div>
           <div class="svc-meta"><span class="svc-num">04</span><span class="svc-arrow">↗</span></div>
         </div>
         <div class="svc-item" data-reveal data-delay="0.28" data-img="https://placehold.co/400x711/1a1008/3a2a10">
-          <div class="svc-name">Personal Brand</div>
-          <div class="svc-desc">Position yourself as the authority. Strategy, content, and creative — all under one roof.</div>
+          <div class="svc-name">Advertising</div>
+          <div class="svc-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</div>
           <div class="svc-meta"><span class="svc-num">05</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.35" data-img="https://placehold.co/400x711/1a0a1a/3a1a3a">
+          <div class="svc-name">Social Media Branding</div>
+          <div class="svc-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</div>
+          <div class="svc-meta"><span class="svc-num">06</span><span class="svc-arrow">↗</span></div>
+        </div>
+        <div class="svc-item" data-reveal data-delay="0.42" data-img="https://placehold.co/400x711/0a1a0a/1a3a1a">
+          <div class="svc-name">Aftermovies</div>
+          <div class="svc-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</div>
+          <div class="svc-meta"><span class="svc-num">07</span><span class="svc-arrow">↗</span></div>
         </div>
       </div>
     </div>
@@ -963,7 +973,7 @@
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
-        <ul><li><a href="#">Work</a></li><li><a href="#">Services</a></li><li><a href="#">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+        <ul><li><a href="#">Work</a></li><li><a href="services.html">Services</a></li><li><a href="#">About</a></li><li><a href="contact.html">Contact</a></li></ul>
       </div>
       <div class="f-nav">
         <h4>Contact</h4>
@@ -1229,6 +1239,40 @@ requestAnimationFrame(raf);
 
   const wait = ms => new Promise(r => setTimeout(r, ms));
 
+  // Check if arriving via page transition — skip intro, zoom in instead
+  let fromTransition = false;
+  try {
+    fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
+    sessionStorage.removeItem('7emple_txOrigin');
+  } catch(e) {}
+
+  if (fromTransition) {
+    overlay.style.display = 'none';
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transform = 'scale(0.95)';
+    document.body.style.opacity   = '0';
+    await wait(20);
+    document.body.style.transition = 'opacity 0.48s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
+    document.body.style.opacity   = '1';
+    document.body.style.transform = 'scale(1)';
+    await wait(160);
+    navEl.style.opacity = '1';
+    await wait(80);
+    hBrand.classList.add('ir');
+    hsEls.forEach((el, i) => setTimeout(() => el.classList.add('ir'), i * 60));
+    await wait(200);
+    hBottom.classList.add('ir');
+    await wait(80);
+    hRight.classList.add('ir');
+    await wait(300);
+    document.querySelector('.hero-banner').style.opacity = '1';
+    await wait(500);
+    document.body.style.transition = '';
+    document.body.style.transform  = '';
+    document.body.style.opacity    = '';
+    return;
+  }
+
   // Phase 1 — logo fades in centered
   await wait(300);
   iLogo.style.opacity = '1';
@@ -1277,15 +1321,16 @@ requestAnimationFrame(raf);
 // from that same darkness zooming out to normal.
 // ═══════════════════════════════════════════════════════
 (function() {
-  document.querySelectorAll('a[href="contact.html"]').forEach(link => {
+  document.querySelectorAll('a[href="contact.html"], a[href="services.html"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
+      const dest = link.getAttribute('href');
       document.body.style.transformOrigin = 'center center';
       document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
       document.body.style.opacity   = '0';
       document.body.style.transform = 'scale(1.07)';
       sessionStorage.setItem('7emple_txOrigin', '1');
-      setTimeout(() => { window.location.href = 'contact.html'; }, 340);
+      setTimeout(() => { window.location.href = dest; }, 340);
     });
   });
 })();
