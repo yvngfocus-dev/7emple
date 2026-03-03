@@ -488,9 +488,12 @@
       .nav-links { gap: 20px; }
       .nav-links a { font-size: 12px; }
 
+      /* ── Intro logo — larger base so scaling stays sharp ── */
+      #intro-logo { height: 72px; }
+
       /* ── Hero ── */
       .hero { grid-template-columns: 1fr; height: auto; min-height: unset; }
-      .hero-left { padding: 88px 20px 32px; }
+      .hero-left { padding: 88px 20px 32px; justify-content: flex-start; gap: 28px; }
       .hs { font-size: clamp(40px, 13vw, 72px); }
       .hero-right { border-left: none; border-top: 1px solid var(--border); }
       .hero-img { flex: none; height: 60vw; min-height: 220px; }
@@ -509,6 +512,7 @@
       /* ── Works ── */
       .works { padding: 40px 0 0; }
       .works-grid { grid-template-columns: 1fr; gap: 2px; }
+      .marquee-track { animation-duration: 14s; }
 
       /* ── Services ── */
       .services { padding: 56px 0; }
@@ -1202,7 +1206,7 @@ requestAnimationFrame(raf);
   const nr     = navLogo.getBoundingClientRect();
   const deltaX = (nr.left + nr.width  * 0.5) - window.innerWidth  * 0.5;
   const deltaY = (nr.top  + nr.height * 0.5) - window.innerHeight * 0.5;
-  const sc     = nr.height / 40;
+  const sc     = nr.height / iLogo.getBoundingClientRect().height;
   iLogo.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.76,0,0.24,1)';
   iLogo.style.transform  = `translate(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px)) scale(${sc})`;
 
