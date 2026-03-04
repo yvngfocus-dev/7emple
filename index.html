@@ -1557,6 +1557,16 @@ requestAnimationFrame(raf);
     });
   });
 })();
+
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    document.body.style.opacity = '';
+    document.body.style.transform = '';
+    document.body.style.transition = '';
+    document.body.style.transformOrigin = '';
+    sessionStorage.removeItem('7emple_txOrigin');
+  }
+});
 </script>
 
 </body>

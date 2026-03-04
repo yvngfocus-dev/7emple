@@ -70,7 +70,7 @@
       background: linear-gradient(to bottom, rgba(22,22,22,.2) 0%, rgba(22,22,22,.75) 70%, rgba(22,22,22,1) 100%);
     }
     .cs-hero-content { position: relative; z-index: 2; padding: 120px 48px 64px; max-width: 1480px; margin: 0 auto; width: 100%; }
-    .cs-hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; flex-wrap: wrap; }
+    .cs-hero-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; position: relative; z-index: 1; }
     .cs-service-pill {
       font-size: 10px; color: var(--orange); letter-spacing: .14em;
       text-transform: uppercase; font-weight: 600;
@@ -465,6 +465,16 @@ if (heroBgImg && heroBgImg.src) {
     setTimeout(() => { window.location.href = href; }, 340);
   });
 })();
+
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    document.body.style.opacity = '';
+    document.body.style.transform = '';
+    document.body.style.transition = '';
+    document.body.style.transformOrigin = '';
+    sessionStorage.removeItem('7emple_txOrigin');
+  }
+});
 </script>
 </body>
 </html>
