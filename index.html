@@ -28,8 +28,8 @@
       mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
       transform: translate(-50%, -50%);
-      transition: width 0.22s cubic-bezier(0.16,1,0.3,1), height 0.22s cubic-bezier(0.16,1,0.3,1);
-      will-change: left, top;
+      transition: width 0.22s cubic-bezier(0.16,1,0.3,1), height 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+      opacity: 0;
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
     img { display: block; max-width: 100%; }
@@ -41,7 +41,7 @@
       position: fixed; inset: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      z-index: 9998;
+      z-index: 10001;
       opacity: 0.013;
       mix-blend-mode: screen;
       image-rendering: pixelated;
@@ -270,20 +270,83 @@
     }
     .hb-dot { font-size: 7px; color: #FE4C04; flex-shrink: 0; }
 
+    /* ─── CLIENT LOGOS ───────────────────── */
+    .clients { padding: 72px 0; border-top: 1px solid var(--border); }
+    .clients-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 48px;
+    }
+    .clients-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+    .clients-line { flex: 1; height: 1px; background: var(--border); margin: 0 24px; }
+    .clients-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 2px;
+    }
+    .client-item {
+      display: flex; align-items: center; justify-content: center;
+      padding: 32px 24px; border: 1px solid var(--border);
+      transition: border-color .2s, background .2s;
+      cursor: none; text-decoration: none; color: inherit;
+    }
+    .client-item:hover { border-color: rgba(249,249,249,.22); background: rgba(249,249,249,.04); }
+    .client-name {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(13px, 1.4vw, 18px); font-weight: 800;
+      letter-spacing: -.02em; color: var(--dim);
+      transition: color .2s; user-select: none;
+    }
+    .client-item:hover .client-name { color: var(--text); }
+
     /* ─── SERVICES ───────────────────────── */
     .services { padding: 120px 0; }
-    .services-grid { display: grid; grid-template-columns: 320px 1fr; gap: 80px; border-top: 1px solid var(--border); padding-top: 40px; }
-    .services-left { position: sticky; top: 100px; }
+    .services-head {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      border-top: 1px solid var(--border); padding-top: 40px; padding-bottom: 48px;
+    }
     .services-heading { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 68px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; margin-top: 20px; }
     .services-heading sup { font-size: 0.35em; color: var(--dim); font-weight: 400; vertical-align: super; }
-    .svc-item { display: grid; grid-template-columns: 1fr 1fr 80px; gap: 24px; align-items: center; padding: 24px 0; border-bottom: 1px solid var(--border); cursor: pointer; position: relative; }
+    .services-count { font-size: 11px; color: var(--dim); letter-spacing: .08em; padding-bottom: 8px; }
+    /* Accordion */
+    .svc-item { border-bottom: 1px solid var(--border); overflow: hidden; }
     .svc-item:first-child { border-top: 1px solid var(--border); }
-    .svc-name { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
-    .svc-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
-    .svc-meta { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
-    .svc-num { font-size: 11px; color: var(--dim); }
-    .svc-arrow { font-size: 18px; color: var(--muted); transition: transform 0.3s; }
-    .svc-item:hover .svc-arrow { transform: translate(4px, -4px); color: var(--orange); }
+    .svc-header {
+      display: grid; grid-template-columns: 56px 1fr auto;
+      gap: 32px; align-items: center; padding: 28px 0; cursor: pointer;
+    }
+    .svc-num { font-size: 11px; color: var(--dim); font-weight: 500; letter-spacing: .06em; }
+    .svc-name { font-size: clamp(20px, 2.2vw, 30px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; transition: color 0.2s; }
+    .svc-teaser { font-size: 11px; color: var(--dim); margin-top: 5px; letter-spacing: .06em; text-transform: uppercase; }
+    .svc-toggle {
+      width: 34px; height: 34px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 300; color: var(--muted); line-height: 1;
+      transition: transform 0.45s cubic-bezier(0.76,0,0.24,1), border-color 0.2s, color 0.2s;
+      flex-shrink: 0; user-select: none;
+    }
+    .svc-item.open .svc-toggle { transform: rotate(45deg); border-color: var(--orange); color: var(--orange); }
+    .svc-item.open .svc-name { color: var(--orange); }
+    .svc-item:hover:not(.open) .svc-name { color: var(--text); }
+    .svc-body { height: 0; overflow: hidden; transition: height 0.55s cubic-bezier(0.76,0,0.24,1); }
+    .svc-body-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; padding: 0 0 44px 88px;
+    }
+    .svc-long-desc { font-size: 15px; color: var(--muted); line-height: 1.8; }
+    .svc-cta-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 28px; font-size: 13px; font-weight: 600; color: var(--text);
+      border-bottom: 1px solid var(--border); padding-bottom: 4px;
+      transition: border-color 0.2s, gap 0.3s cubic-bezier(0.16,1,0.3,1), color 0.2s;
+    }
+    .svc-cta-link:hover { border-color: var(--orange); gap: 18px; color: var(--orange); }
+    .svc-deliverables { display: flex; flex-direction: column; }
+    .svc-deliverable {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 13px 0; border-bottom: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .svc-deliverable:first-child { border-top: 1px solid var(--border); }
+    .svc-del-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
 
     /* ─── SERVICE PREVIEW (9:16 cursor hover) ── */
     #svcPreview {
@@ -521,10 +584,9 @@
 
       /* ── Services ── */
       .services { padding: 56px 0; }
-      .services-grid { grid-template-columns: 1fr; gap: 24px; }
-      .services-left { position: static; }
-      .svc-item { grid-template-columns: 1fr auto; gap: 12px; }
-      .svc-desc { grid-column: 1 / -1; }
+      .services-head { padding-bottom: 24px; }
+      .svc-header { grid-template-columns: 36px 1fr auto; gap: 16px; padding: 20px 0; }
+      .svc-body-inner { grid-template-columns: 1fr; padding: 0 0 28px 52px; gap: 28px; }
 
       /* ── Tenure ── */
       .tenure { padding: 56px 0 72px; }
@@ -604,9 +666,9 @@
   <div class="nav-right">
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
-      <li><a href="#">Work</a></li>
+      <li><a href="work.html">Work</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
@@ -781,51 +843,176 @@
   </div>
 </section>
 
+<!-- ─── CLIENT LOGOS ─────────────────────────────────── -->
+<section class="clients">
+  <div class="wrap">
+    <div class="clients-head" data-reveal>
+      <span class="clients-label">Trusted by</span>
+      <span class="clients-line"></span>
+      <span class="clients-label">Brands we've built</span>
+    </div>
+    <div class="clients-grid" data-reveal data-delay="0.1">
+      <a href="work-nova-brand.html" class="client-item"><span class="client-name">NOVA&nbsp;BRAND</span></a>
+      <a href="work-volta.html" class="client-item"><span class="client-name">VOLTA</span></a>
+      <a href="work-meridian.html" class="client-item"><span class="client-name">MERIDIAN</span></a>
+      <a href="work-drifter-co.html" class="client-item"><span class="client-name">DRIFTER&nbsp;CO.</span></a>
+      <a href="work-lumis.html" class="client-item"><span class="client-name">LUMIS</span></a>
+      <a href="work-arcform.html" class="client-item"><span class="client-name">ARCFORM</span></a>
+      <a href="work-klave.html" class="client-item"><span class="client-name">KLAVE</span></a>
+      <a href="work-obsidian.html" class="client-item"><span class="client-name">OBSIDIAN</span></a>
+      <a href="work-strata.html" class="client-item"><span class="client-name">STRATA</span></a>
+      <a href="work-vekta.html" class="client-item"><span class="client-name">VEKTA</span></a>
+      <a href="work-onyx-labs.html" class="client-item"><span class="client-name">ONYX&nbsp;LABS</span></a>
+      <a href="work-cipher.html" class="client-item"><span class="client-name">CIPHER</span></a>
+    </div>
+  </div>
+</section>
+
 <!-- ─── SERVICES ─────────────────────────────────────── -->
 <section class="services">
   <div class="wrap">
-    <div class="services-grid">
-      <div class="services-left" data-reveal>
+    <div class="services-head" data-reveal>
+      <div>
         <p class="sec-label">What we do</p>
         <h2 class="services-heading">Services<sup>®</sup></h2>
       </div>
-      <div>
-        <div class="svc-item" data-reveal data-delay="0" data-img="https://placehold.co/400x711/1a0808/3a1212">
-          <div class="svc-name">Brand Content Strategy</div>
-          <div class="svc-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</div>
-          <div class="svc-meta"><span class="svc-num">01</span><span class="svc-arrow">↗</span></div>
+      <span class="services-count">07 services</span>
+    </div>
+    <div class="services-list">
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/1a0808/3a1212">
+        <div class="svc-header">
+          <span class="svc-num">01</span>
+          <div><div class="svc-name">Brand Content Strategy</div><div class="svc-teaser">Strategy · Planning · Growth</div></div>
+          <div class="svc-toggle">+</div>
         </div>
-        <div class="svc-item" data-reveal data-delay="0.07" data-img="https://placehold.co/400x711/081a1a/123a3a">
-          <div class="svc-name">Videography</div>
-          <div class="svc-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</div>
-          <div class="svc-meta"><span class="svc-num">02</span><span class="svc-arrow">↗</span></div>
-        </div>
-        <div class="svc-item" data-reveal data-delay="0.14" data-img="https://placehold.co/400x711/081a08/123a12">
-          <div class="svc-name">Photography</div>
-          <div class="svc-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</div>
-          <div class="svc-meta"><span class="svc-num">03</span><span class="svc-arrow">↗</span></div>
-        </div>
-        <div class="svc-item" data-reveal data-delay="0.21" data-img="https://placehold.co/400x711/08081a/12123a">
-          <div class="svc-name">Social Media Management</div>
-          <div class="svc-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</div>
-          <div class="svc-meta"><span class="svc-num">04</span><span class="svc-arrow">↗</span></div>
-        </div>
-        <div class="svc-item" data-reveal data-delay="0.28" data-img="https://placehold.co/400x711/1a1008/3a2a10">
-          <div class="svc-name">Advertising</div>
-          <div class="svc-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</div>
-          <div class="svc-meta"><span class="svc-num">05</span><span class="svc-arrow">↗</span></div>
-        </div>
-        <div class="svc-item" data-reveal data-delay="0.35" data-img="https://placehold.co/400x711/1a0a1a/3a1a3a">
-          <div class="svc-name">Social Media Branding</div>
-          <div class="svc-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</div>
-          <div class="svc-meta"><span class="svc-num">06</span><span class="svc-arrow">↗</span></div>
-        </div>
-        <div class="svc-item" data-reveal data-delay="0.42" data-img="https://placehold.co/400x711/0a1a0a/1a3a1a">
-          <div class="svc-name">Aftermovies</div>
-          <div class="svc-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</div>
-          <div class="svc-meta"><span class="svc-num">07</span><span class="svc-arrow">↗</span></div>
-        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</p>
+            <a href="services.html#brand-content-strategy" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Content Calendar</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Brand Voice</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Market Positioning</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
       </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/081a1a/123a3a">
+        <div class="svc-header">
+          <span class="svc-num">02</span>
+          <div><div class="svc-name">Videography</div><div class="svc-teaser">Brand Films · Short-Form · Campaigns</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</p>
+            <a href="services.html#videography" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Brand Films</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Short-Form Content</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Campaign Visuals</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/081a08/123a12">
+        <div class="svc-header">
+          <span class="svc-num">03</span>
+          <div><div class="svc-name">Photography</div><div class="svc-teaser">Branding · Editorial · Campaign</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</p>
+            <a href="services.html#photography" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Brand Shoots</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Campaign Imagery</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Editorial Stills</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/08081a/12123a">
+        <div class="svc-header">
+          <span class="svc-num">04</span>
+          <div><div class="svc-name">Social Media Management</div><div class="svc-teaser">Planning · Creation · Growth</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</p>
+            <a href="services.html#social-media-management" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Content Planning</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Creation & Posting</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Analytics Reports</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/1a1008/3a2a10">
+        <div class="svc-header">
+          <span class="svc-num">05</span>
+          <div><div class="svc-name">Advertising</div><div class="svc-teaser">Creative · Targeting · Conversion</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</p>
+            <a href="services.html#advertising" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Ad Creative</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Targeting Strategy</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Campaign Management</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/1a0a1a/3a1a3a">
+        <div class="svc-header">
+          <span class="svc-num">06</span>
+          <div><div class="svc-name">Social Media Branding</div><div class="svc-teaser">Identity · Templates · Guidelines</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</p>
+            <a href="services.html#social-media-branding" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Feed Layout</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Post Templates</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Brand Guidelines</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="svc-item" data-img="https://placehold.co/400x711/0a1a0a/1a3a1a">
+        <div class="svc-header">
+          <span class="svc-num">07</span>
+          <div><div class="svc-name">Aftermovies</div><div class="svc-teaser">Events · Cinematic · Hype</div></div>
+          <div class="svc-toggle">+</div>
+        </div>
+        <div class="svc-body"><div class="svc-body-inner">
+          <div>
+            <p class="svc-long-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</p>
+            <a href="services.html#aftermovies" class="svc-cta-link">See full service →</a>
+          </div>
+          <div class="svc-deliverables">
+            <div class="svc-deliverable"><span>Event Coverage</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Cinematic Edit</span><span class="svc-del-dot"></span></div>
+            <div class="svc-deliverable"><span>Short-Form Cut</span><span class="svc-del-dot"></span></div>
+          </div>
+        </div></div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -915,41 +1102,41 @@
         <p class="sec-label">Latest Work</p>
         <h2 class="gallery-hed" style="margin-top:12px;">Featured<br>Articles<sup>®</sup></h2>
       </div>
-      <a href="#" class="view-all">See all →</a>
+      <a href="work.html" class="view-all">See all →</a>
     </div>
   </div>
   <div class="cylinder-section" id="cylSection">
     <div class="cylinder-sticky">
       <div class="cylinder-vp">
         <div class="cylinder-drum" id="cylDrum">
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/0d0d20/5555ff" alt="Work 1">
-            <div class="g-cap"><div class="g-cap-title">Brand Identity — Apex Co.</div><div class="g-cap-type">Branding · Strategy</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/20080a/ff3344" alt="Work 2">
-            <div class="g-cap"><div class="g-cap-title">Campaign — Noir Label</div><div class="g-cap-type">Art Direction · Content</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/061206/33cc55" alt="Work 3">
-            <div class="g-cap"><div class="g-cap-title">Social Strategy — Visionary</div><div class="g-cap-type">Social Media · Videography</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/1a1200/ccaa00" alt="Work 4">
-            <div class="g-cap"><div class="g-cap-title">Landing Page — Forma</div><div class="g-cap-type">Web Design · Marketing</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/061a1a/00cccc" alt="Work 5">
-            <div class="g-cap"><div class="g-cap-title">Rebrand — Studio Nuo</div><div class="g-cap-type">Branding · Identity</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/160816/cc44cc" alt="Work 6">
-            <div class="g-cap"><div class="g-cap-title">Campaign — Crest Labs</div><div class="g-cap-type">Strategy · Media</div></div>
-          </div>
-          <div class="g-item">
-            <img src="https://placehold.co/520x325/100808/ff8844" alt="Work 7">
-            <div class="g-cap"><div class="g-cap-title">Personal Brand — A. Cole</div><div class="g-cap-type">Personal · Social</div></div>
-          </div>
+          <a href="work-nova-brand.html" class="g-item">
+            <img src="https://placehold.co/520x325/0d0d20/5555ff" alt="NOVA BRAND">
+            <div class="g-cap"><div class="g-cap-title">Nova Brand</div><div class="g-cap-type">Brand Content Strategy · Social Media</div></div>
+          </a>
+          <a href="work-drifter-co.html" class="g-item">
+            <img src="https://placehold.co/520x325/20080a/ff3344" alt="DRIFTER CO.">
+            <div class="g-cap"><div class="g-cap-title">Drifter Co.</div><div class="g-cap-type">Videography · Social Media Branding</div></div>
+          </a>
+          <a href="work-strata.html" class="g-item">
+            <img src="https://placehold.co/520x325/061206/33cc55" alt="STRATA">
+            <div class="g-cap"><div class="g-cap-title">Strata</div><div class="g-cap-type">Photography · Aftermovies</div></div>
+          </a>
+          <a href="work-meridian.html" class="g-item">
+            <img src="https://placehold.co/520x325/1a1200/ccaa00" alt="MERIDIAN">
+            <div class="g-cap"><div class="g-cap-title">Meridian</div><div class="g-cap-type">Videography · Social Media Branding</div></div>
+          </a>
+          <a href="work-arcform.html" class="g-item">
+            <img src="https://placehold.co/520x325/061a1a/00cccc" alt="ARCFORM">
+            <div class="g-cap"><div class="g-cap-title">Arcform</div><div class="g-cap-type">Brand Content Strategy · Advertising</div></div>
+          </a>
+          <a href="work-cipher.html" class="g-item">
+            <img src="https://placehold.co/520x325/160816/cc44cc" alt="CIPHER">
+            <div class="g-cap"><div class="g-cap-title">Cipher</div><div class="g-cap-type">Social Media Management · Aftermovies</div></div>
+          </a>
+          <a href="work-lumis.html" class="g-item">
+            <img src="https://placehold.co/520x325/100808/ff8844" alt="LUMIS">
+            <div class="g-cap"><div class="g-cap-title">Lumis</div><div class="g-cap-type">Photography · Aftermovies</div></div>
+          </a>
         </div>
       </div>
       <div class="cyl-counter" id="cylCounter">01 / 07</div>
@@ -973,7 +1160,7 @@
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
-        <ul><li><a href="#">Work</a></li><li><a href="services.html">Services</a></li><li><a href="#">About</a></li><li><a href="contact.html">Contact</a></li></ul>
+        <ul><li><a href="work.html">Work</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul>
       </div>
       <div class="f-nav">
         <h4>Contact</h4>
@@ -1054,12 +1241,35 @@ let cx = mx, cy = my;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 
 document.querySelectorAll('.svc-item[data-img]').forEach(item => {
-  item.addEventListener('mouseenter', () => {
+  const hdr = item.querySelector('.svc-header');
+  hdr.addEventListener('mouseenter', () => {
     svcPreviewImg.src = item.dataset.img;
     svcPreview.classList.add('show');
   });
-  item.addEventListener('mouseleave', () => {
+  hdr.addEventListener('mouseleave', () => {
     svcPreview.classList.remove('show');
+  });
+});
+
+// ═══════════════════════════════════════════════════════
+// SERVICES ACCORDION
+// ═══════════════════════════════════════════════════════
+document.querySelectorAll('.svc-item').forEach(item => {
+  const header = item.querySelector('.svc-header');
+  const body   = item.querySelector('.svc-body');
+  if (!header || !body) return;
+  header.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    // close all
+    document.querySelectorAll('.svc-item.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.svc-body').style.height = '0';
+    });
+    // open clicked if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.height = body.scrollHeight + 'px';
+    }
   });
 });
 
@@ -1270,6 +1480,7 @@ requestAnimationFrame(raf);
     document.body.style.transition = '';
     document.body.style.transform  = '';
     document.body.style.opacity    = '';
+    document.getElementById('cursor').style.opacity = '1';
     return;
   }
 
@@ -1310,18 +1521,30 @@ requestAnimationFrame(raf);
   await wait(400);
   document.querySelector('.hero-banner').style.opacity = '1';
 
-  // Cleanup
+  // Cleanup — show cursor after intro is done
   await wait(800);
   overlay.style.display = 'none';
+  document.getElementById('cursor').style.opacity = '1';
 })();
 
 // ═══════════════════════════════════════════════════════
-// PAGE TRANSITION — seamless zoom
-// Page zooms in + fades to black, contact page surfaces
-// from that same darkness zooming out to normal.
+// PAGE TRANSITIONS — zoom out on navigation
 // ═══════════════════════════════════════════════════════
 (function() {
-  document.querySelectorAll('a[href="contact.html"], a[href="services.html"]').forEach(link => {
+  document.querySelectorAll('a[href="contact.html"], a[href="about.html"], a[href="work.html"], a[href^="services.html"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.body.style.transformOrigin = 'center center';
+      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+      document.body.style.opacity   = '0';
+      document.body.style.transform = 'scale(1.07)';
+      sessionStorage.setItem('7emple_txOrigin', '1');
+      setTimeout(() => { window.location.href = link.getAttribute('href'); }, 340);
+    });
+  });
+
+  // Zoom transition for services.html (including deep-links like services.html#anchor)
+  document.querySelectorAll('a[href^="services.html"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const dest = link.getAttribute('href');

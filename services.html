@@ -27,7 +27,6 @@
       pointer-events: none; z-index: 99999;
       transform: translate(-50%,-50%);
       transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
-      will-change: left, top;
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
 
@@ -40,7 +39,7 @@
       position: fixed; inset: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      z-index: 9998; opacity: .013; mix-blend-mode: screen;
+      z-index: 10001; opacity: .013; mix-blend-mode: screen;
       image-rendering: pixelated;
     }
 
@@ -106,24 +105,115 @@
       opacity: .25;
     }
 
-    /* ─── SERVICES LIST ───────────────────── */
-    .sv-list { padding: 0 0 120px; }
-    .sv-item {
-      display: grid; grid-template-columns: 80px 1fr 1fr 60px;
-      gap: 32px; align-items: center;
-      padding: 36px 0; border-bottom: 1px solid var(--border);
-      cursor: pointer; position: relative;
-      transition: background .2s;
+    /* ─── SERVICES LIST — ACCORDION ─────── */
+    .sv-list { padding: 0; }
+    .sv-item { border-bottom: 1px solid var(--border); overflow: hidden; }
+    .sv-item:first-child { border-top: 1px solid var(--border); }
+
+    .sv-header {
+      display: grid; grid-template-columns: 80px 1fr auto;
+      gap: 40px; align-items: center; padding: 36px 0; cursor: pointer;
     }
-    .sv-item:hover { background: rgba(249,249,249,.018); }
-    .sv-num { font-size: 11px; color: var(--dim); font-weight: 500; letter-spacing: .06em; }
-    .sv-name { font-size: 22px; font-weight: 700; letter-spacing: -.025em; }
-    .sv-desc { font-size: 13px; color: var(--muted); line-height: 1.75; }
-    .sv-arrow {
-      font-size: 20px; color: var(--muted); text-align: right;
-      transition: transform .3s cubic-bezier(.16,1,.3,1), color .2s;
+    .sv-header-num {
+      font-size: 11px; color: var(--orange); font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase; line-height: 1.4;
     }
-    .sv-item:hover .sv-arrow { transform: translate(4px,-4px); color: var(--orange); }
+    .sv-header-name {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(28px, 3.8vw, 60px);
+      font-weight: 900; letter-spacing: -.045em; line-height: .92;
+      transition: color .3s;
+    }
+    .sv-header-name em { font-style: italic; color: var(--muted); transition: color .3s; }
+    .sv-item.open .sv-header-name { color: var(--orange); }
+    .sv-item.open .sv-header-name em { color: rgba(254,76,4,.55); }
+    .sv-header-cat {
+      font-size: 11px; color: var(--dim); letter-spacing: .08em;
+      text-transform: uppercase; margin-top: 8px; font-weight: 500;
+    }
+    .sv-toggle {
+      width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 300; color: var(--muted); line-height: 1;
+      transition: transform .5s cubic-bezier(.76,0,.24,1), border-color .3s, color .3s;
+      flex-shrink: 0; user-select: none;
+    }
+    .sv-item.open .sv-toggle { transform: rotate(45deg); border-color: var(--orange); color: var(--orange); }
+
+    .sv-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .65s cubic-bezier(.76,0,.24,1);
+    }
+    .sv-item.open .sv-body { grid-template-rows: 1fr; }
+    .sv-body-inner {
+      min-height: 0; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 64px; padding: 0 0 64px 120px;
+    }
+    .sv-desc { font-size: 16px; color: var(--muted); line-height: 1.85; }
+    .sv-cta-row {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-size: 12px; font-weight: 600; color: var(--muted);
+      letter-spacing: .04em; margin-top: 32px; transition: color .2s;
+    }
+    .sv-cta-row:hover { color: var(--text); }
+    .sv-cta-circle {
+      width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 16px;
+      transition: border-color .3s, color .3s, transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .sv-cta-row:hover .sv-cta-circle { border-color: var(--orange); color: var(--orange); transform: translate(3px,-3px); }
+    .sv-tags { display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start; }
+    .sv-tag {
+      font-size: 11px; color: var(--dim); letter-spacing: .08em; text-transform: uppercase;
+      border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px;
+    }
+
+    /* ─── CASE STUDIES ────────────────────── */
+    .sv-cases {
+      grid-column: 1 / -1;
+      border-top: 1px solid var(--border);
+      padding-top: 40px; margin-top: 32px;
+    }
+    .sv-cases-label {
+      font-size: 10px; color: var(--dim); letter-spacing: .14em;
+      text-transform: uppercase; font-weight: 500; margin-bottom: 20px;
+    }
+    .sv-cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .sv-case { display: flex; flex-direction: column; gap: 12px; cursor: none; text-decoration: none; color: inherit; }
+    .sv-case-img {
+      aspect-ratio: 16/10;
+      background: #111; border: 1px solid var(--border);
+      overflow: hidden; position: relative;
+      transition: border-color .3s;
+    }
+    .sv-case:hover .sv-case-img { border-color: rgba(249,249,249,.2); }
+    .sv-case-img img { width: 100%; height: 100%; object-fit: cover; opacity: .75; transition: opacity .4s; display: block; }
+    .sv-case:hover .sv-case-img img { opacity: 1; }
+    .sv-case-client { font-size: 13px; font-weight: 600; letter-spacing: -.01em; color: var(--text); }
+    .sv-case-desc { font-size: 11px; color: var(--dim); line-height: 1.5; letter-spacing: .02em; }
+
+    /* ─── SERVICE MARQUEE ─────────────────── */
+    .sv-marquee-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      background: var(--bg);
+    }
+    .sv-marquee-track {
+      display: flex; align-items: center; gap: 56px;
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(52px, 7vw, 112px);
+      font-weight: 900; letter-spacing: -.06em; line-height: .9;
+      white-space: nowrap; color: var(--dim);
+      animation: svMqScroll 22s linear infinite;
+    }
+    .sv-mq-sep { width: 14px; height: 14px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+    @keyframes svMqScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
     /* ─── CTA SECTION ─────────────────────── */
     .sv-cta {
@@ -182,8 +272,10 @@
       .sv-hero { padding: 100px 0 56px; }
       .sv-hero-inner { grid-template-columns: 1fr; gap: 32px; }
       .sv-count { display: none; }
-      .sv-item { grid-template-columns: 40px 1fr 32px; gap: 16px; }
-      .sv-desc { grid-column: 2 / -1; }
+      .sv-header { grid-template-columns: 48px 1fr auto; gap: 16px; padding: 24px 0; }
+      .sv-header-name { font-size: clamp(22px, 7vw, 36px); }
+      .sv-body-inner { grid-template-columns: 1fr; padding: 0 0 40px 0; gap: 32px; }
+      .sv-cases-grid { grid-template-columns: 1fr; }
       .sv-cta-inner { flex-direction: column; align-items: flex-start; gap: 32px; }
       .footer-body { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
       .copyright-inner { font-size: clamp(56px,18vw,288px); }
@@ -200,9 +292,9 @@
   <div class="nav-right">
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
-      <li><a href="#">Work</a></li>
+      <li><a href="work.html">Work</a></li>
       <li><a href="services.html" class="active">Services</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </div>
@@ -225,57 +317,238 @@
   </div>
 </section>
 
+<!-- ─── SERVICE MARQUEE ──────────────────────────────────── -->
+<div class="sv-marquee-wrap">
+  <div class="sv-marquee-track">
+    <span>Brand Content Strategy</span><span class="sv-mq-sep"></span>
+    <span>Videography</span><span class="sv-mq-sep"></span>
+    <span>Photography</span><span class="sv-mq-sep"></span>
+    <span>Social Media Management</span><span class="sv-mq-sep"></span>
+    <span>Advertising</span><span class="sv-mq-sep"></span>
+    <span>Social Media Branding</span><span class="sv-mq-sep"></span>
+    <span>Aftermovies</span><span class="sv-mq-sep"></span>
+    <span>Brand Content Strategy</span><span class="sv-mq-sep"></span>
+    <span>Videography</span><span class="sv-mq-sep"></span>
+    <span>Photography</span><span class="sv-mq-sep"></span>
+    <span>Social Media Management</span><span class="sv-mq-sep"></span>
+    <span>Advertising</span><span class="sv-mq-sep"></span>
+    <span>Social Media Branding</span><span class="sv-mq-sep"></span>
+    <span>Aftermovies</span><span class="sv-mq-sep"></span>
+  </div>
+</div>
+
 <!-- ─── SERVICES LIST ──────────────────────────────────── -->
 <section class="sv-list">
   <div class="wrap">
 
-    <div class="sv-item" data-reveal data-delay="0">
-      <div class="sv-num">01</div>
-      <div class="sv-name">Brand Content Strategy</div>
-      <div class="sv-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="brand-content-strategy">
+      <div class="sv-header">
+        <div class="sv-header-num">01<br>Strategy</div>
+        <div>
+          <h2 class="sv-header-name">Brand Content <em>Strategy</em></h2>
+          <div class="sv-header-cat">Content Calendar · Brand Voice · Market Positioning</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Content Calendar</span>
+          <span class="sv-tag">Brand Voice</span>
+          <span class="sv-tag">Market Positioning</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-nova-brand.html" class="sv-case"><div class="sv-case-img"><img src="" alt="NOVA BRAND"></div><div class="sv-case-client">NOVA BRAND</div><div class="sv-case-desc">Repositioned from local gym to premium wellness brand — 0 to 40K followers in 6 months</div></a>
+            <a href="work-volta.html" class="sv-case"><div class="sv-case-img"><img src="" alt="VOLTA"></div><div class="sv-case-client">VOLTA</div><div class="sv-case-desc">Built a full 6-month content framework that turned a product launch into a category moment</div></a>
+            <a href="work-arcform.html" class="sv-case"><div class="sv-case-img"><img src="" alt="ARCFORM"></div><div class="sv-case-client">ARCFORM</div><div class="sv-case-desc">Complete brand voice overhaul ahead of Series A — shaped how investors and press perceived them</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.07">
-      <div class="sv-num">02</div>
-      <div class="sv-name">Videography</div>
-      <div class="sv-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="videography">
+      <div class="sv-header">
+        <div class="sv-header-num">02<br>Visual</div>
+        <div>
+          <h2 class="sv-header-name">Video<em>graphy</em></h2>
+          <div class="sv-header-cat">Brand Films · Short-Form Content · Campaign Visuals</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Brand Films</span>
+          <span class="sv-tag">Short-Form Content</span>
+          <span class="sv-tag">Campaign Visuals</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-meridian.html" class="sv-case"><div class="sv-case-img"><img src="" alt="MERIDIAN"></div><div class="sv-case-client">MERIDIAN</div><div class="sv-case-desc">Brand film for London launch event — screened to 800 guests and used across all paid channels</div></a>
+            <a href="work-drifter-co.html" class="sv-case"><div class="sv-case-img"><img src="" alt="DRIFTER CO."></div><div class="sv-case-client">DRIFTER CO.</div><div class="sv-case-desc">Short-form content campaign — 12 assets delivered, 2.4M total views in 30 days</div></a>
+            <a href="work-klave.html" class="sv-case"><div class="sv-case-img"><img src="" alt="KLAVE"></div><div class="sv-case-client">KLAVE</div><div class="sv-case-desc">Quarterly campaign video series — 8 assets across 3 months, tied to seasonal product drops</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.14">
-      <div class="sv-num">03</div>
-      <div class="sv-name">Photography</div>
-      <div class="sv-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="photography">
+      <div class="sv-header">
+        <div class="sv-header-num">03<br>Visual</div>
+        <div>
+          <h2 class="sv-header-name">Photo<em>graphy</em></h2>
+          <div class="sv-header-cat">Brand Shoots · Campaign Imagery · Editorial Stills</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Brand Shoots</span>
+          <span class="sv-tag">Campaign Imagery</span>
+          <span class="sv-tag">Editorial Stills</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-lumis.html" class="sv-case"><div class="sv-case-img"><img src="" alt="LUMIS"></div><div class="sv-case-client">LUMIS</div><div class="sv-case-desc">Full brand shoot — 180 campaign images delivered across two locations in a single day</div></a>
+            <a href="work-obsidian.html" class="sv-case"><div class="sv-case-img"><img src="" alt="OBSIDIAN"></div><div class="sv-case-client">OBSIDIAN</div><div class="sv-case-desc">Editorial stills for product launch — used in press, OOH and e-commerce across 4 markets</div></a>
+            <a href="work-strata.html" class="sv-case"><div class="sv-case-img"><img src="" alt="STRATA"></div><div class="sv-case-client">STRATA</div><div class="sv-case-desc">Quarterly campaign imagery retainer — consistent visual identity maintained for 18+ months</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.21">
-      <div class="sv-num">04</div>
-      <div class="sv-name">Social Media Management</div>
-      <div class="sv-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="social-media-management">
+      <div class="sv-header">
+        <div class="sv-header-num">04<br>Growth</div>
+        <div>
+          <h2 class="sv-header-name">Social Media <em>Management</em></h2>
+          <div class="sv-header-cat">Content Planning · Creation & Posting · Analytics</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Content Planning</span>
+          <span class="sv-tag">Creation & Posting</span>
+          <span class="sv-tag">Analytics Reports</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-vekta.html" class="sv-case"><div class="sv-case-img"><img src="" alt="VEKTA"></div><div class="sv-case-client">VEKTA</div><div class="sv-case-desc">0 to 28K followers in 5 months — consistent content cadence across Instagram and TikTok</div></a>
+            <a href="work-nova-brand.html" class="sv-case"><div class="sv-case-img"><img src="" alt="NOVA BRAND"></div><div class="sv-case-client">NOVA BRAND</div><div class="sv-case-desc">Full content takeover — 4× engagement lift within 60 days of handover</div></a>
+            <a href="work-cipher.html" class="sv-case"><div class="sv-case-img"><img src="" alt="CIPHER"></div><div class="sv-case-client">CIPHER</div><div class="sv-case-desc">Monthly content retainer across 3 platforms — zero missed posts in 12 months</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.28">
-      <div class="sv-num">05</div>
-      <div class="sv-name">Advertising</div>
-      <div class="sv-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="advertising">
+      <div class="sv-header">
+        <div class="sv-header-num">05<br>Paid</div>
+        <div>
+          <h2 class="sv-header-name"><em>Advert</em>ising</h2>
+          <div class="sv-header-cat">Ad Creative · Targeting Strategy · Campaign Management</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Ad Creative</span>
+          <span class="sv-tag">Targeting Strategy</span>
+          <span class="sv-tag">Campaign Management</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-arcform.html" class="sv-case"><div class="sv-case-img"><img src="" alt="ARCFORM"></div><div class="sv-case-client">ARCFORM</div><div class="sv-case-desc">Meta campaign — 4.2× ROAS in 90 days on a £15K budget, generating 340 qualified leads</div></a>
+            <a href="work-volta.html" class="sv-case"><div class="sv-case-img"><img src="" alt="VOLTA"></div><div class="sv-case-client">VOLTA</div><div class="sv-case-desc">Lead generation push — £8 cost-per-lead against an industry average of £34</div></a>
+            <a href="work-onyx-labs.html" class="sv-case"><div class="sv-case-img"><img src="" alt="ONYX LABS"></div><div class="sv-case-client">ONYX LABS</div><div class="sv-case-desc">Brand awareness campaign — 1.8M impressions in 3 weeks ahead of UK market entry</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.35">
-      <div class="sv-num">06</div>
-      <div class="sv-name">Social Media Branding</div>
-      <div class="sv-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="social-media-branding">
+      <div class="sv-header">
+        <div class="sv-header-num">06<br>Identity</div>
+        <div>
+          <h2 class="sv-header-name">Social Media <em>Branding</em></h2>
+          <div class="sv-header-cat">Feed Layout · Post Templates · Brand Guidelines</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Feed Layout</span>
+          <span class="sv-tag">Post Templates</span>
+          <span class="sv-tag">Brand Guidelines</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-drifter-co.html" class="sv-case"><div class="sv-case-img"><img src="" alt="DRIFTER CO."></div><div class="sv-case-client">DRIFTER CO.</div><div class="sv-case-desc">Full Instagram identity built from scratch — feed layout, 40 templates, tone of voice guide</div></a>
+            <a href="work-klave.html" class="sv-case"><div class="sv-case-img"><img src="" alt="KLAVE"></div><div class="sv-case-client">KLAVE</div><div class="sv-case-desc">Profile redesign ahead of product drop — new grid aesthetic drove a 3× save rate on launch posts</div></a>
+            <a href="work-meridian.html" class="sv-case"><div class="sv-case-img"><img src="" alt="MERIDIAN"></div><div class="sv-case-client">MERIDIAN</div><div class="sv-case-desc">Visual guidelines + 60 Canva templates — their in-house team now posts on-brand without us</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
-    <div class="sv-item" data-reveal data-delay="0.42">
-      <div class="sv-num">07</div>
-      <div class="sv-name">Aftermovies</div>
-      <div class="sv-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</div>
-      <div class="sv-arrow">↗</div>
+    <div class="sv-item" id="aftermovies">
+      <div class="sv-header">
+        <div class="sv-header-num">07<br>Events</div>
+        <div>
+          <h2 class="sv-header-name"><em>After</em>movies</h2>
+          <div class="sv-header-cat">Event Coverage · Cinematic Edit · Short-Form Cut</div>
+        </div>
+        <div class="sv-toggle">+</div>
+      </div>
+      <div class="sv-body"><div class="sv-body-inner">
+        <div>
+          <p class="sv-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</p>
+          <a href="contact.html" class="sv-cta-row"><span class="sv-cta-circle">↗</span> Start this service</a>
+        </div>
+        <div class="sv-tags">
+          <span class="sv-tag">Event Coverage</span>
+          <span class="sv-tag">Cinematic Edit</span>
+          <span class="sv-tag">Short-Form Cut</span>
+        </div>
+        <div class="sv-cases">
+          <p class="sv-cases-label">Case Studies</p>
+          <div class="sv-cases-grid">
+            <a href="work-strata.html" class="sv-case"><div class="sv-case-img"><img src="" alt="STRATA"></div><div class="sv-case-client">STRATA</div><div class="sv-case-desc">Annual conference aftermovie — 180K organic views, used to sell tickets for the following year</div></a>
+            <a href="work-cipher.html" class="sv-case"><div class="sv-case-img"><img src="" alt="CIPHER"></div><div class="sv-case-client">CIPHER</div><div class="sv-case-desc">Private members event — cinematic full-length film plus 3 short-form cuts for social</div></a>
+            <a href="work-lumis.html" class="sv-case"><div class="sv-case-img"><img src="" alt="LUMIS"></div><div class="sv-case-client">LUMIS</div><div class="sv-case-desc">Product launch event — full coverage, headline film and 5 platform-native cuts delivered in 48h</div></a>
+          </div>
+        </div>
+      </div></div>
     </div>
 
   </div>
@@ -308,9 +581,9 @@
       <div class="f-nav">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="#">Work</a></li>
+          <li><a href="work.html">Work</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="#">About</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -443,23 +716,108 @@ requestAnimationFrame(raf);
   } else {
     navEl.style.opacity = '1';
   }
+
+  // Open + scroll to anchor if arriving via deep-link (e.g. services.html#videography)
+  const hash = window.location.hash;
+  if (hash) {
+    try {
+      const target = document.querySelector(hash);
+      if (target) {
+        target.classList.add('open');
+        setTimeout(() => lenis.scrollTo(target, { offset: -90, duration: 1.4 }), fromTransition ? 800 : 80);
+      }
+    } catch(e) {}
+  }
 })();
+
+// ═══════════════════════════════════════════════════════
+// ACCORDION
+// ═══════════════════════════════════════════════════════
+const SERVICE_NAMES = {
+  'brand-content-strategy':  'Brand Content Strategy',
+  'videography':             'Videography',
+  'photography':             'Photography',
+  'social-media-management': 'Social Media Management',
+  'advertising':             'Advertising',
+  'social-media-branding':   'Social Media Branding',
+  'aftermovies':             'Aftermovies'
+};
+
+const svCountEl = document.querySelector('.sv-count');
+const svItems   = [...document.querySelectorAll('.sv-item')];
+
+function animateSvCount(targetStr) {
+  if (!svCountEl) return;
+  svCountEl.style.transition = 'opacity .15s';
+  svCountEl.style.opacity = '0';
+  setTimeout(() => {
+    svCountEl.textContent = targetStr;
+    svCountEl.style.opacity = '.25';
+  }, 150);
+}
+
+document.querySelectorAll('.sv-item').forEach(item => {
+  const cta = item.querySelector('.sv-cta-row');
+  if (cta && SERVICE_NAMES[item.id]) cta.dataset.service = SERVICE_NAMES[item.id];
+
+  const header = item.querySelector('.sv-header');
+  if (!header) return;
+  header.addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+
+    // Check if any currently-open item sits ABOVE the clicked one.
+    // If so, closing it will shrink the page upward and shift `item`'s
+    // position — we must wait for that animation to finish before scrolling.
+    const openAbove = [...document.querySelectorAll('.sv-item.open')].some(o =>
+      o.compareDocumentPosition(item) & Node.DOCUMENT_POSITION_FOLLOWING
+    );
+
+    document.querySelectorAll('.sv-item.open').forEach(o => o.classList.remove('open'));
+
+    if (!isOpen) {
+      const idx = svItems.indexOf(item) + 1;
+      animateSvCount(String(idx).padStart(2, '0'));
+      if (openAbove) {
+        // Close animation runs first (0.65s), THEN open + scroll together
+        // so layout has settled and the scroll target is accurate
+        setTimeout(() => {
+          item.classList.add('open');
+          setTimeout(() => {
+            lenis.scrollTo(item, { offset: -90, duration: 1.1, easing: t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t });
+          }, 60);
+        }, 680);
+      } else {
+        item.classList.add('open');
+        setTimeout(() => {
+          lenis.scrollTo(item, { offset: -90, duration: 1.1, easing: t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t });
+        }, 60);
+      }
+    } else {
+      animateSvCount('07');
+    }
+  });
+});
 
 // ═══════════════════════════════════════════════════════
 // PAGE EXIT — seamless zoom out on navigation
 // ═══════════════════════════════════════════════════════
 (function() {
-  document.querySelectorAll('a[href="contact.html"], a[href="index.html"]').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      const dest = link.getAttribute('href');
-      document.body.style.transformOrigin = 'center center';
-      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
-      document.body.style.opacity   = '0';
-      document.body.style.transform = 'scale(1.07)';
-      sessionStorage.setItem('7emple_txOrigin', '1');
-      setTimeout(() => { window.location.href = dest; }, 340);
-    });
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href === '#' || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
+    if (href === 'services.html' || href === window.location.pathname.split('/').pop()) return;
+    e.preventDefault();
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+    document.body.style.opacity   = '0';
+    document.body.style.transform = 'scale(1.07)';
+    sessionStorage.setItem('7emple_txOrigin', '1');
+    if (href === 'contact.html' && link.dataset.service) {
+      sessionStorage.setItem('7emple_service', link.dataset.service);
+    }
+    setTimeout(() => { window.location.href = href; }, 340);
   });
 })();
 </script>

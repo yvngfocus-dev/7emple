@@ -27,7 +27,6 @@
       pointer-events: none; z-index: 99999;
       transform: translate(-50%,-50%);
       transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
-      will-change: left, top;
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
 
@@ -40,10 +39,11 @@
       position: fixed; inset: 0;
       width: 100%; height: 100%;
       pointer-events: none;
-      z-index: 9998; opacity: .013; mix-blend-mode: screen;
+      z-index: 10001; opacity: .013; mix-blend-mode: screen;
       image-rendering: pixelated;
     }
 
+    /* ─── PAGE COVER (orange bloom transition) ── */
     /* ─── REVEAL ─────────────────────────── */
     .sec-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
     [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1); }
@@ -94,7 +94,7 @@
       text-transform: uppercase; color: var(--orange);
       opacity: 0; transform: translateY(20px);
     }
-    .ch-hed-wrap { opacity: 0; transform: translateY(40px); }
+    .ch-hed-wrap { opacity: 1; transform: none; }
     .ch-hed {
       font-family: 'Inter Display', sans-serif;
       font-size: clamp(72px, 9vw, 148px);
@@ -133,6 +133,41 @@
     .ch-social:hover { color: var(--text); }
     .ch-social-arrow { font-size: 12px; opacity: .4; transition: opacity .2s, transform .2s; }
     .ch-social:hover .ch-social-arrow { opacity: 1; transform: translate(3px,-3px); }
+
+    /* ─── HEADLINE CLIP REVEAL ────────────── */
+    .ch-hl { display: block; overflow: hidden; }
+    .ch-hli {
+      display: block;
+      transform: translateY(110%);
+      transition: transform 1.1s cubic-bezier(.16,1,.3,1);
+    }
+    .ch-hli.em { font-style: italic; color: var(--muted); }
+    .ch-hli.visible { transform: translateY(0); }
+
+    /* ─── INFO TICKER ──────────────────────── */
+    .ch-ticker {
+      position: absolute; bottom: 68px; left: 0; right: 0;
+      overflow: hidden;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 11px 0;
+      pointer-events: none; z-index: 2;
+      opacity: 0; transition: opacity .6s cubic-bezier(.16,1,.3,1);
+    }
+    .ch-ticker.visible { opacity: 1; }
+    .ch-ticker-track {
+      display: flex; align-items: center; gap: 40px;
+      white-space: nowrap;
+      font-size: 10px; color: var(--dim); letter-spacing: .14em;
+      text-transform: uppercase; font-weight: 500;
+      animation: chTickerScroll 24s linear infinite;
+    }
+    .ch-ticker-sep { color: var(--orange); flex-shrink: 0; }
+    @keyframes chTickerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
 
     /* ─── SCROLL HINT ─────────────────────── */
     /* Full-width bar spanning both hero columns */
@@ -287,9 +322,9 @@
   <div class="nav-right">
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
-      <li><a href="index.html">Work</a></li>
+      <li><a href="work.html">Work</a></li>
       <li><a href="services.html">Services</a></li>
-      <li><a href="index.html">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
   </div>
@@ -301,9 +336,9 @@
     <a href="index.html" class="back-link">← Home</a>
     <div class="ch-label">Get In Touch</div>
     <div class="ch-hed-wrap">
-      <div class="ch-hed">Let's</div>
-      <div class="ch-hed"><em>Build</em></div>
-      <div class="ch-hed">Together.</div>
+      <span class="ch-hl"><span class="ch-hli">Let's</span></span>
+      <span class="ch-hl"><span class="ch-hli em">Build</span></span>
+      <span class="ch-hl"><span class="ch-hli">Together.</span></span>
     </div>
     <div class="ch-bottom">
       <p class="ch-desc"><strong>Ready to start something great?</strong> Tell us about your project and we'll get back to you within 24 hours.</p>
@@ -333,6 +368,22 @@
           <a href="#" class="ch-social">TikTok <span class="ch-social-arrow">↗</span></a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Info ticker -->
+  <div class="ch-ticker" id="chTicker">
+    <div class="ch-ticker-track">
+      <span>Currently accepting new projects</span><span class="ch-ticker-sep">·</span>
+      <span>London, UK</span><span class="ch-ticker-sep">·</span>
+      <span>hello@7emple.com</span><span class="ch-ticker-sep">·</span>
+      <span>Response within 24 hours</span><span class="ch-ticker-sep">·</span>
+      <span>Available worldwide</span><span class="ch-ticker-sep">·</span>
+      <span>Currently accepting new projects</span><span class="ch-ticker-sep">·</span>
+      <span>London, UK</span><span class="ch-ticker-sep">·</span>
+      <span>hello@7emple.com</span><span class="ch-ticker-sep">·</span>
+      <span>Response within 24 hours</span><span class="ch-ticker-sep">·</span>
+      <span>Available worldwide</span><span class="ch-ticker-sep">·</span>
     </div>
   </div>
 
@@ -437,9 +488,9 @@
       <div class="f-nav">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="index.html">Work</a></li>
+          <li><a href="work.html">Work</a></li>
           <li><a href="services.html">Services</a></li>
-          <li><a href="index.html">About</a></li>
+          <li><a href="about.html">About</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
@@ -553,74 +604,84 @@ function raf(time) {
 requestAnimationFrame(raf);
 
 // ═══════════════════════════════════════════════════════
-// PAGE ENTER — zoom out from darkness, content surfaces
+// PAGE ENTER — orange circle retracts, content surfaces
 // ═══════════════════════════════════════════════════════
 (async function pageEnter() {
   const navEl      = document.querySelector('nav');
   const chLabel    = document.querySelector('.ch-label');
-  const chHed      = document.querySelector('.ch-hed-wrap');
+  const hedLines   = document.querySelectorAll('.ch-hli');
   const chBot      = document.querySelector('.ch-bottom');
   const chRight    = document.querySelector('.ch-right');
   const scrollHint = document.getElementById('scrollHint');
+  const ticker     = document.getElementById('chTicker');
   const wait       = ms => new Promise(r => setTimeout(r, ms));
 
-  // Detect if arriving via zoom transition
   let fromTransition = false;
   try {
     fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
     sessionStorage.removeItem('7emple_txOrigin');
   } catch(e) {}
 
+  const serviceToSelect = sessionStorage.getItem('7emple_service');
+  if (serviceToSelect) {
+    sessionStorage.removeItem('7emple_service');
+    const pill = document.querySelector(`.form-pill[data-val="${serviceToSelect}"]`);
+    if (pill) pill.click();
+  }
+
+  const scrollToForm = !!serviceToSelect;
+
+  function revealLines(baseDelay) {
+    hedLines.forEach((line, i) => {
+      setTimeout(() => line.classList.add('visible'), baseDelay + i * 130);
+    });
+  }
+
   if (fromTransition) {
-    // Start slightly zoomed out + invisible — continues the zoom-in momentum
     document.body.style.transformOrigin = 'center center';
     document.body.style.transform = 'scale(0.95)';
     document.body.style.opacity   = '0';
 
-    // One frame to paint, then zoom in to reveal the scene
     await wait(20);
     document.body.style.transition = 'opacity 0.48s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
     document.body.style.opacity   = '1';
     document.body.style.transform = 'scale(1)';
 
-    // Content staggers in as the zoom settles
     await wait(160);
     navEl.style.opacity = '1';
-
-    await wait(100);
+    await wait(120);
     chLabel.classList.add('ir');
-
     await wait(80);
-    chHed.classList.add('ir');
-
-    await wait(200);
+    revealLines(0);
+    await wait(420);
     chBot.classList.add('ir');
-
     await wait(80);
     chRight.classList.add('ir');
-
-    await wait(280);
+    await wait(200);
     scrollHint.classList.add('visible');
-
-    // Clean up inline styles so CSS takes over
+    if (ticker) ticker.classList.add('visible');
     await wait(700);
     document.body.style.transition = '';
     document.body.style.transform  = '';
     document.body.style.opacity    = '';
+    if (scrollToForm) {
+      const formEl = document.querySelector('.contact-form-section');
+      if (formEl) lenis.scrollTo(formEl, { offset: -80, duration: 1.6 });
+    }
 
   } else {
-    // Direct navigation — clean stagger, no zoom
     navEl.style.opacity = '1';
     await wait(80);
     chLabel.classList.add('ir');
     await wait(80);
-    chHed.classList.add('ir');
-    await wait(160);
+    revealLines(0);
+    await wait(420);
     chBot.classList.add('ir');
     await wait(80);
     chRight.classList.add('ir');
     await wait(200);
     scrollHint.classList.add('visible');
+    if (ticker) ticker.classList.add('visible');
   }
 })();
 
@@ -628,7 +689,7 @@ requestAnimationFrame(raf);
 // PAGE EXIT — zoom out on navigation away
 // ═══════════════════════════════════════════════════════
 (function() {
-  document.querySelectorAll('a[href="index.html"], a[href="services.html"]').forEach(link => {
+  document.querySelectorAll('a[href="index.html"], a[href="services.html"], a[href="about.html"], a[href="work.html"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const dest = link.getAttribute('href');

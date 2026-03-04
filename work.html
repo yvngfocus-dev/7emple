@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — 7EMPLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616;
+      --text: #F9F9F9;
+      --muted: #868686;
+      --dim: #4A4A4A;
+      --border: rgba(249,249,249,0.1);
+      --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+
+    /* ─── CURSOR ──────────────────────────── */
+    #cursor {
+      position: fixed; left: 0; top: 0; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff; mix-blend-mode: difference;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      opacity: 0;
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), opacity .3s;
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+
+    /* ─── GRAIN ──────────────────────────── */
+    #grain {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 10001; opacity: .013;
+      mix-blend-mode: screen; image-rendering: pixelated;
+    }
+
+    /* ─── REVEAL ─────────────────────────── */
+    [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1); }
+    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(22,22,22,.92); backdrop-filter: blur(12px);
+      opacity: 0; transition: opacity .6s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-logo { display: flex; align-items: center; }
+    .nav-logo img { height: 30px; }
+    .nav-right { display: flex; align-items: center; gap: 48px; }
+    .nav-tag { font-size: 10px; color: var(--dim); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+    .sec-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+
+    /* ─── HERO ────────────────────────────── */
+    .wk-hero { padding: 160px 0 72px; }
+    .wk-hero-top {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      padding-bottom: 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px;
+    }
+    .wk-heading {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(72px, 9.5vw, 152px);
+      font-weight: 800; line-height: .92; letter-spacing: -.04em;
+    }
+    .wk-heading em { font-style: italic; color: var(--orange); }
+    .wk-hero-right { text-align: right; }
+    .wk-hero-tagline {
+      font-size: 13px; color: var(--muted); max-width: 300px;
+      line-height: 1.7; margin-bottom: 24px; margin-left: auto;
+    }
+    .wk-hero-stat {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 80px; font-weight: 800; color: var(--dim);
+      line-height: 1; letter-spacing: -.04em;
+    }
+
+    /* ─── FILTER ──────────────────────────── */
+    .wk-filter {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 48px;
+    }
+    .wk-filter-left { display: flex; align-items: center; gap: 20px; }
+    .wk-filter-label {
+      font-size: 10px; color: var(--dim); letter-spacing: .14em;
+      text-transform: uppercase; font-weight: 500; white-space: nowrap;
+    }
+    .wk-select-wrap { position: relative; }
+    .wk-select {
+      appearance: none; -webkit-appearance: none;
+      background: rgba(255,255,255,.04); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Inter', sans-serif; font-size: 13px;
+      padding: 10px 40px 10px 16px; border-radius: 100px;
+      cursor: none; outline: none; transition: border-color .2s;
+    }
+    .wk-select:hover { border-color: rgba(249,249,249,.3); }
+    .wk-select option { background: #1a1a1a; }
+    .wk-select-caret {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      pointer-events: none; font-size: 10px; color: var(--muted);
+    }
+    .wk-visible-count {
+      font-size: 11px; color: var(--dim); letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 500;
+    }
+
+    /* ─── FLOATING HEADLINE PREVIEW ───────── */
+    #wk-preview {
+      position: fixed; pointer-events: none; z-index: 500;
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(14px, 1.6vw, 22px);
+      font-style: italic; font-weight: 900;
+      color: var(--orange); letter-spacing: -.03em; line-height: 1.2;
+      max-width: 260px;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity .2s, transform .28s cubic-bezier(.16,1,.3,1);
+    }
+    #wk-preview.active { opacity: 1; transform: translateY(0); }
+
+    /* ─── GRID ────────────────────────────── */
+    .wk-grid-wrap { padding-bottom: 120px; }
+    .wk-grid { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+
+    /* ─── ROW CARD ─────────────────────────── */
+    .wk-card-outer {
+      border-bottom: 1px solid var(--border);
+      transition: opacity .35s cubic-bezier(.4,0,.2,1);
+    }
+    .wk-card {
+      display: grid;
+      grid-template-columns: 64px 1fr auto 220px 48px;
+      align-items: center; gap: 40px; padding: 28px 0;
+      text-decoration: none; color: inherit;
+      position: relative; cursor: none;
+      transition: background .3s;
+    }
+    .wk-card:hover { background: rgba(249,249,249,.016); }
+    .wk-card-num {
+      font-size: 11px; color: var(--orange); font-weight: 700;
+      letter-spacing: .12em; text-transform: uppercase; flex-shrink: 0;
+    }
+    .wk-card-client {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(26px, 3vw, 48px);
+      font-weight: 900; letter-spacing: -.045em; line-height: 1;
+      transition: color .3s;
+    }
+    .wk-card:hover .wk-card-client { color: var(--orange); }
+    .wk-card-tags { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
+    .wk-card-tag {
+      font-size: 9px; color: var(--dim); letter-spacing: .1em;
+      text-transform: uppercase; font-weight: 600; white-space: nowrap;
+    }
+    .wk-card-result { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .wk-card-arrow {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border: 1px solid rgba(249,249,249,.12); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; color: rgba(249,249,249,.35);
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+    }
+    .wk-card:hover .wk-card-arrow {
+      border-color: var(--orange); color: var(--orange);
+      background: rgba(254,76,4,.1); transform: rotate(45deg);
+    }
+
+    /* ─── FOOTER ──────────────────────────── */
+    footer { border-top: 1px solid var(--border); }
+    .footer-logos {
+      display: flex; gap: 32px; align-items: center;
+      padding: 40px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .f-logo { font-size: 11px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; }
+    .footer-body {
+      display: grid; grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 80px; padding: 60px 0; border-bottom: 1px solid var(--border);
+    }
+    .f-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; max-width: 280px; }
+    .f-nav h4 { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-bottom: 20px; }
+    .f-nav ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .f-nav a { font-size: 13px; color: var(--muted); transition: color .2s; }
+    .f-nav a:hover { color: var(--text); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 24px 0; font-size: 11px; color: var(--dim);
+    }
+    .copyright-bar { overflow: hidden; border-top: 1px solid var(--border); padding: 8px 0 0; }
+    .copyright-inner {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(72px, 22vw, 360px); font-weight: 900;
+      color: transparent; -webkit-text-stroke: 1px var(--border);
+      letter-spacing: -.04em; line-height: .85; white-space: nowrap;
+    }
+
+    /* ─── RESPONSIVE ──────────────────────── */
+    @media (max-width: 960px) {
+      .wk-hero-top { flex-direction: column; align-items: flex-start; gap: 32px; }
+      .wk-hero-right { text-align: left; }
+      .wk-hero-tagline { margin-left: 0; }
+      .wk-card { grid-template-columns: 48px 1fr 48px; gap: 20px; }
+      .wk-card-tags, .wk-card-result { display: none; }
+      .footer-body { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
+      .copyright-inner { font-size: clamp(56px, 18vw, 288px); }
+    }
+    @media (max-width: 560px) {
+      .wk-card { grid-template-columns: 40px 1fr 40px; gap: 16px; padding: 22px 0; }
+      .wk-card-client { font-size: clamp(22px, 6vw, 36px); }
+      .wrap { padding: 0 24px; }
+      nav { padding: 18px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ─── NAV ──────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <div class="nav-right">
+    <span class="nav-tag">©2026 — Digital Agency</span>
+    <ul class="nav-links">
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO + FILTER ─────────────────────────────────── -->
+<section class="wk-hero">
+  <div class="wrap">
+    <div class="wk-hero-top">
+      <h1 class="wk-heading">Our<br><em>Work.</em></h1>
+      <div class="wk-hero-right">
+        <p class="wk-hero-tagline">Real results for ambitious brands. Every project built to make you the obvious choice.</p>
+        <div class="wk-hero-stat" id="wk-count">12</div>
+        <div class="sec-label" style="margin-top:8px;">Projects</div>
+      </div>
+    </div>
+    <div class="wk-filter">
+      <div class="wk-filter-left">
+        <span class="wk-filter-label">Filter by service</span>
+        <div class="wk-select-wrap">
+          <select class="wk-select" id="wk-service-select">
+            <option value="">All services</option>
+            <option value="Brand Content Strategy">Brand Content Strategy</option>
+            <option value="Videography">Videography</option>
+            <option value="Photography">Photography</option>
+            <option value="Social Media Management">Social Media Management</option>
+            <option value="Advertising">Advertising</option>
+            <option value="Social Media Branding">Social Media Branding</option>
+            <option value="Aftermovies">Aftermovies</option>
+          </select>
+          <span class="wk-select-caret">▾</span>
+        </div>
+      </div>
+      <span class="wk-visible-count" id="wk-visible-count">12 projects</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GRID ──────────────────────────────────────────── -->
+<section class="wk-grid-wrap">
+  <div class="wrap">
+    <div class="wk-grid" id="wk-grid"></div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logos" data-reveal>
+      <span class="f-logo">VOGUE</span><span class="f-logo">HYPEBEAST</span>
+      <span class="f-logo">COMPLEX</span><span class="f-logo">ADWEEK</span>
+      <span class="f-logo">DEZEEN</span><span class="f-logo">WALLPAPER*</span>
+      <span class="f-logo">DAZED</span>
+    </div>
+    <div class="footer-body" data-reveal data-delay="0.1">
+      <div class="f-brand">
+        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
+        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+      </div>
+      <div class="f-nav">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="f-nav">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@7emple.com">hello@7emple.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2026 7EMPLE. All rights reserved.</p>
+      <p>Designed & built by 7EMPLE.</p>
+    </div>
+  </div>
+  <div class="copyright-bar"><div class="copyright-inner">©2026</div></div>
+</footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────── -->
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════
+// GRAIN
+// ═══════════════════════════════════════════════════════
+(function() {
+  const c = document.createElement('canvas');
+  c.id = 'grain';
+  c.width  = Math.round(Math.min(window.innerWidth, 1400));
+  c.height = Math.round(Math.min(window.innerHeight, 900));
+  document.body.appendChild(c);
+  const ctx = c.getContext('2d'); let last = 0;
+  function draw(t) {
+    if (t - last > 45) {
+      last = t;
+      const img = ctx.createImageData(c.width, c.height);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = (Math.random() * 255) | 0;
+        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ═══════════════════════════════════════════════════════
+// LENIS + CURSOR + RAF (integrated — cursor stays correct during scroll)
+// ═══════════════════════════════════════════════════════
+const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+
+const cursorEl = document.getElementById('cursor');
+let _mx = 0, _my = 0;
+
+document.addEventListener('mousemove', e => {
+  _mx = e.clientX; _my = e.clientY;
+  cursorEl.style.opacity = '1';
+  const under = document.elementFromPoint(_mx, _my);
+  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+  const pv = document.getElementById('wk-preview');
+  if (pv) {
+    pv.style.left = (_mx + 28) + 'px';
+    pv.style.top  = (_my - 10) + 'px';
+  }
+});
+document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+(function raf(t) {
+  lenis.raf(t);
+  cursorEl.style.left = _mx + 'px';
+  cursorEl.style.top  = _my + 'px';
+  requestAnimationFrame(raf);
+})(0);
+
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(({ target, isIntersecting }) => {
+    if (isIntersecting) { target.classList.add('in-view'); revealObs.unobserve(target); }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+// ═══════════════════════════════════════════════════════
+// CLIENT DATA
+// ═══════════════════════════════════════════════════════
+const CLIENTS = [
+  { slug: 'nova-brand',  name: 'NOVA BRAND',  services: ['Brand Content Strategy', 'Social Media Management'], result: '0 → 40K followers in 6 months',         headline: 'Local gym turned premium wellness brand' },
+  { slug: 'volta',       name: 'VOLTA',        services: ['Brand Content Strategy', 'Advertising'],             result: '£8 cost-per-lead vs £34 industry avg',    headline: 'Product launch turned category moment' },
+  { slug: 'arcform',     name: 'ARCFORM',      services: ['Brand Content Strategy', 'Advertising'],             result: '4.2× ROAS in 90 days',                    headline: 'Series A brand voice + paid media' },
+  { slug: 'meridian',    name: 'MERIDIAN',     services: ['Videography', 'Social Media Branding'],              result: '800-guest London launch film',             headline: 'Brand film used across all paid channels' },
+  { slug: 'drifter-co',  name: 'DRIFTER CO.',  services: ['Videography', 'Social Media Branding'],              result: '2.4M views in 30 days',                   headline: '12 short-form assets + Instagram identity' },
+  { slug: 'klave',       name: 'KLAVE',        services: ['Videography', 'Social Media Branding'],              result: '3× save rate on launch posts',             headline: 'Quarterly video series + profile redesign' },
+  { slug: 'lumis',       name: 'LUMIS',        services: ['Photography', 'Aftermovies'],                        result: '180 campaign images in a single day',     headline: 'Full brand shoot + launch event film' },
+  { slug: 'obsidian',    name: 'OBSIDIAN',     services: ['Photography'],                                       result: 'Used in press, OOH and e-commerce',       headline: 'Editorial stills across 4 markets' },
+  { slug: 'strata',      name: 'STRATA',       services: ['Photography', 'Aftermovies'],                        result: '180K organic views on a conference film',  headline: 'Campaign imagery + ticket-selling aftermovie' },
+  { slug: 'vekta',       name: 'VEKTA',        services: ['Social Media Management'],                           result: '0 → 28K followers in 5 months',            headline: 'Instagram & TikTok management' },
+  { slug: 'cipher',      name: 'CIPHER',       services: ['Social Media Management', 'Aftermovies'],            result: 'Zero missed posts in 12 months',           headline: 'Multi-platform retainer + event film' },
+  { slug: 'onyx-labs',   name: 'ONYX LABS',    services: ['Advertising'],                                       result: '1.8M impressions in 3 weeks',              headline: 'Brand awareness ahead of UK market entry' }
+];
+
+// ═══════════════════════════════════════════════════════
+// RENDER GRID
+// ═══════════════════════════════════════════════════════
+const grid = document.getElementById('wk-grid');
+CLIENTS.forEach((client, i) => {
+  const outer = document.createElement('div');
+  outer.className = 'wk-card-outer';
+  outer.dataset.services = client.services.join('|');
+  outer.innerHTML = `
+    <a href="work-${client.slug}.html" class="wk-card">
+      <div class="wk-card-num">${String(i + 1).padStart(2, '0')}</div>
+      <div class="wk-card-client">${client.name}</div>
+      <div class="wk-card-tags">${client.services.map(s => `<span class="wk-card-tag">${s}</span>`).join('')}</div>
+      <div class="wk-card-result">${client.result}</div>
+      <div class="wk-card-arrow">↗</div>
+    </a>`;
+  grid.appendChild(outer);
+});
+
+// Floating headline preview on row hover
+(function() {
+  const preview = document.createElement('div');
+  preview.id = 'wk-preview';
+  document.body.appendChild(preview);
+  document.querySelectorAll('.wk-card').forEach((card, i) => {
+    card.addEventListener('mouseenter', () => {
+      preview.textContent = CLIENTS[i].headline;
+      preview.classList.add('active');
+    });
+    card.addEventListener('mouseleave', () => preview.classList.remove('active'));
+  });
+})();
+
+// ═══════════════════════════════════════════════════════
+// FILTER
+// ═══════════════════════════════════════════════════════
+const select    = document.getElementById('wk-service-select');
+const countBig  = document.getElementById('wk-count');
+const countSmall = document.getElementById('wk-visible-count');
+const outers    = [...document.querySelectorAll('.wk-card-outer')];
+let filterTimer;
+
+select.addEventListener('change', () => {
+  const val = select.value;
+  clearTimeout(filterTimer);
+
+  let visible = 0;
+  outers.forEach(outer => {
+    const srvs = outer.dataset.services.split('|');
+    const show = !val || srvs.includes(val);
+
+    if (show) {
+      outer.style.display = '';
+      outer.offsetHeight; // force reflow so opacity transition fires
+      outer.style.opacity = '1';
+      outer.style.transform = 'scale(1)';
+      outer.style.pointerEvents = '';
+      visible++;
+    } else {
+      outer.style.opacity = '0';
+      outer.style.transform = 'scale(0.96)';
+      outer.style.pointerEvents = 'none';
+    }
+  });
+
+  countBig.textContent   = visible;
+  countSmall.textContent = `${visible} project${visible !== 1 ? 's' : ''}`;
+
+  filterTimer = setTimeout(() => {
+    outers.forEach(outer => {
+      if (outer.style.opacity === '0') outer.style.display = 'none';
+    });
+  }, 380);
+});
+
+// ═══════════════════════════════════════════════════════
+// PAGE ENTRY — zoom in from transition
+// ═══════════════════════════════════════════════════════
+(function() {
+  const fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
+  sessionStorage.removeItem('7emple_txOrigin');
+  if (fromTransition) {
+    document.body.style.opacity   = '0';
+    document.body.style.transform = 'scale(0.95)';
+    document.body.style.transition = 'none';
+    requestAnimationFrame(() => {
+      document.body.style.transition = 'opacity 0.62s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
+      requestAnimationFrame(() => {
+        document.body.style.opacity   = '1';
+        document.body.style.transform = 'scale(1)';
+      });
+    });
+    // Clear transform after animation — leaving transform:scale(1) on body
+    // breaks position:fixed (cursor) by making it scroll with the page
+    setTimeout(() => {
+      document.body.style.transition = '';
+      document.body.style.transform  = '';
+      document.body.style.opacity    = '';
+    }, 700);
+  }
+  setTimeout(() => { document.querySelector('nav').style.opacity = '1'; }, fromTransition ? 300 : 80);
+})();
+
+// ═══════════════════════════════════════════════════════
+// PAGE EXIT — zoom out on any internal navigation
+// ═══════════════════════════════════════════════════════
+(function() {
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href === '#' || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
+    // Don't intercept the current page or anchor links
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    if (href === page || href === window.location.href) return;
+    e.preventDefault();
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+    document.body.style.opacity   = '0';
+    document.body.style.transform = 'scale(1.07)';
+    sessionStorage.setItem('7emple_txOrigin', '1');
+    setTimeout(() => { window.location.href = href; }, 340);
+  });
+})();
+</script>
+
+</body>
+</html>
