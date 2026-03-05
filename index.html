@@ -314,6 +314,7 @@
     .services-heading { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 68px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; margin-top: 20px; }
     .services-heading sup { font-size: 0.35em; color: var(--dim); font-weight: 400; vertical-align: super; }
     .services-count { font-size: 11px; color: var(--dim); letter-spacing: .08em; padding-bottom: 8px; }
+    .services-intro { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 560px; padding-bottom: 48px; }
     /* Accordion */
     .svc-item { border-bottom: 1px solid var(--border); overflow: hidden; }
     .svc-item:first-child { border-top: 1px solid var(--border); }
@@ -390,6 +391,16 @@
     .mq-item.it { font-style: italic; color: var(--muted); }
     .mq-dot { padding: 0 32px; flex-shrink: 0; font-size: 10px; color: var(--orange); }
     @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── TESTIMONIALS HEADER ────────────── */
+    .testi-header { padding: 100px 0 0; }
+    .testi-header-inner { border-top: 1px solid var(--border); padding-top: 40px; }
+    .testi-header-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(40px, 5vw, 76px);
+      font-weight: 900; letter-spacing: -0.05em; line-height: 0.92;
+    }
+    .testi-header-hed em { font-style: italic; color: var(--muted); }
 
     /* ─── TESTIMONIALS (SCROLL-DRIVEN) ───── */
     .testi-outer { height: 260vh; position: relative; overflow: clip; }
@@ -529,6 +540,27 @@
       font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase;
     }
 
+    /* ─── CLOSING CTA ────────────────────── */
+    .closing-cta { padding: 120px 0; border-top: 1px solid var(--border); }
+    .closing-cta-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; }
+    .closing-cta-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4.5vw, 72px);
+      font-weight: 900; letter-spacing: -0.05em; line-height: 0.92;
+      grid-column: 1 / -1;
+    }
+    .closing-cta-body { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 440px; }
+    .closing-cta-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .closing-cta-btn {
+      display: inline-flex; align-items: center;
+      background: var(--orange); color: #F9F9F9;
+      padding: 16px 36px; font-size: 14px; font-weight: 600;
+      letter-spacing: 0.02em; transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .closing-cta-btn:hover { background: #d93e00; }
+    .closing-cta-note { font-size: 12px; color: var(--dim); }
+
     /* ─── FOOTER ─────────────────────────── */
     footer { padding: 40px 0 0; }
     .footer-logos { display: flex; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -605,6 +637,16 @@
       .stat:nth-child(2) { border-right: none; padding-left: 16px; }
       .stat:last-child { border-right: 1px solid var(--border); padding-left: 0; padding-right: 16px; grid-column: 1 / -1; border-right: none; border-top: 1px solid var(--border); padding-top: 20px; }
       .stat-n { font-size: 40px; }
+
+      /* ── Testi Header ── */
+      .testi-header { padding: 60px 0 0; }
+      .testi-header-hed { font-size: clamp(32px, 9vw, 52px); }
+
+      /* ── Closing CTA ── */
+      .closing-cta { padding: 72px 0; }
+      .closing-cta-inner { grid-template-columns: 1fr; gap: 36px; }
+      .closing-cta-actions { align-items: flex-start; }
+      .closing-cta-btn { width: 100%; justify-content: center; }
 
       /* ── Testimonials ── */
       .testi-card { width: 260px; padding: 24px 20px 20px; }
@@ -709,8 +751,11 @@
       </div>
     </div>
     <div class="hero-desc-row">
-      <p class="hero-desc"><strong>More than just an agency.</strong> We craft bold digital experiences that drive real results for ambitious brands.</p>
-      <a href="contact.html" class="hero-cta">Get in touch →</a>
+      <p class="hero-desc"><strong>Your brand is either building equity or losing it.</strong> Every day you're not showing up right, someone else is. We build the systems, content, and strategy that make ambitious brands impossible to ignore. And we treat yours like it's the only one we have.</p>
+      <div class="hero-cta-wrap">
+        <a href="contact.html" class="hero-cta">Let's build something →</a>
+        <p class="hero-cta-note">We take on a limited number of clients each month.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -719,37 +764,33 @@
 <div class="hero-banner">
   <div class="hero-banner-track">
     <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
-    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
-    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
-    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
-    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
-    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+    <span class="hb-item">Your Brand, Our Obsession</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy First, Always</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Compounds</span><span class="hb-dot">●</span>
+    <span class="hb-item">Not Just Creative. Systematic.</span><span class="hb-dot">●</span>
+    <span class="hb-item">Built to Scale</span><span class="hb-dot">●</span>
+    <span class="hb-item">Results You Can Measure</span><span class="hb-dot">●</span>
     <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
-    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
-    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
-    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
-    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
-    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+    <span class="hb-item">Your Brand, Our Obsession</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy First, Always</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Compounds</span><span class="hb-dot">●</span>
+    <span class="hb-item">Not Just Creative. Systematic.</span><span class="hb-dot">●</span>
+    <span class="hb-item">Built to Scale</span><span class="hb-dot">●</span>
+    <span class="hb-item">Results You Can Measure</span><span class="hb-dot">●</span>
     <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
-    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
-    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
-    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
-    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
-    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+    <span class="hb-item">Your Brand, Our Obsession</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy First, Always</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Compounds</span><span class="hb-dot">●</span>
+    <span class="hb-item">Not Just Creative. Systematic.</span><span class="hb-dot">●</span>
+    <span class="hb-item">Built to Scale</span><span class="hb-dot">●</span>
+    <span class="hb-item">Results You Can Measure</span><span class="hb-dot">●</span>
     <span class="hb-item">7EMPLE</span><span class="hb-dot">●</span>
-    <span class="hb-item">Content That Wins</span><span class="hb-dot">●</span>
-    <span class="hb-item">Digital Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">More Than Just An Agency</span><span class="hb-dot">●</span>
-    <span class="hb-item">Branding</span><span class="hb-dot">●</span>
-    <span class="hb-item">Strategy</span><span class="hb-dot">●</span>
-    <span class="hb-item">Web Design</span><span class="hb-dot">●</span>
-    <span class="hb-item">Est. 2020</span><span class="hb-dot">●</span>
+    <span class="hb-item">Your Brand, Our Obsession</span><span class="hb-dot">●</span>
+    <span class="hb-item">Strategy First, Always</span><span class="hb-dot">●</span>
+    <span class="hb-item">Content That Compounds</span><span class="hb-dot">●</span>
+    <span class="hb-item">Not Just Creative. Systematic.</span><span class="hb-dot">●</span>
+    <span class="hb-item">Built to Scale</span><span class="hb-dot">●</span>
+    <span class="hb-item">Results You Can Measure</span><span class="hb-dot">●</span>
   </div>
 </div>
 
@@ -758,13 +799,16 @@
   <div class="ascend-left">
     <div>
       <span class="ascend-tag">Best Selling Service</span>
-      <h2 class="ascend-hed" style="margin-top:28px;">Ascend<br><em>Framework</em><span style="color:var(--orange);">.</span></h2>
+      <h2 class="ascend-hed" style="margin-top:28px;">Most agencies<br>give you content.<br><em>Ascend gives you<br>the system.</em></h2>
     </div>
     <p class="ascend-desc">
-      The complete system for ambitious brands ready to grow. <strong>Strategy, content, and execution</strong> — all unified under one proven framework that has scaled 200+ brands worldwide.
+      Content without strategy is noise. Strategy without execution is a slide deck. <strong>Ascend combines all three</strong> into one unified system built specifically around your brand.
     </p>
-    <a href="contact.html" class="ascend-cta">
-      Start Ascending
+    <p class="ascend-desc" style="margin-top:16px;">
+      Not a retainer. Not a package. A complete operating model for brands that are serious about growth.
+    </p>
+    <a href="ascend.html" class="ascend-cta">
+      See if Ascend is right for you
       <span class="ascend-cta-arrow">→</span>
     </a>
   </div>
@@ -774,29 +818,29 @@
         <span class="ascend-pillar-num">01</span>
         <div class="ascend-pillar-body">
           <div class="ascend-pillar-title">Brand Architecture</div>
-          <p class="ascend-pillar-text">Full identity system — positioning, visual language, and messaging built to outlast the algorithm.</p>
+          <p class="ascend-pillar-text">We don't just design your identity. We build the foundation everything else stands on. Positioning, visual language, and messaging that survives algorithm changes because it's built on something real.</p>
         </div>
       </div>
       <div class="ascend-pillar">
         <span class="ascend-pillar-num">02</span>
         <div class="ascend-pillar-body">
           <div class="ascend-pillar-title">Content Engine</div>
-          <p class="ascend-pillar-text">Weekly photo, video, and copy assets tailored to your audience — delivered consistently, every month.</p>
+          <p class="ascend-pillar-text">Photo, video, and copy. Weekly. Consistent. On brand every time. You focus on running the business. We make sure the world sees it the right way.</p>
         </div>
       </div>
       <div class="ascend-pillar">
         <span class="ascend-pillar-num">03</span>
         <div class="ascend-pillar-body">
           <div class="ascend-pillar-title">Growth Strategy</div>
-          <p class="ascend-pillar-text">Paid media, funnel optimisation, and data-driven campaigns that compound over time and actually scale.</p>
+          <p class="ascend-pillar-text">Paid media and funnel optimisation that compounds. Not campaigns that spike and die. Systems that get smarter every month and turn attention into revenue.</p>
         </div>
       </div>
     </div>
     <div class="ascend-bottom">
       <div class="ascend-stat-row">
-        <div><div class="ascend-stat-n">3×</div><div class="ascend-stat-l">Avg. ROAS increase</div></div>
-        <div><div class="ascend-stat-n">60d</div><div class="ascend-stat-l">To first results</div></div>
-        <div><div class="ascend-stat-n">200+</div><div class="ascend-stat-l">Brands scaled</div></div>
+        <div><div class="ascend-stat-n">3×</div><div class="ascend-stat-l">Average ROAS increase across Ascend clients</div></div>
+        <div><div class="ascend-stat-n">60d</div><div class="ascend-stat-l">To first measurable results</div></div>
+        <div><div class="ascend-stat-n">200+</div><div class="ascend-stat-l">Brands where we showed up like it was our own</div></div>
       </div>
     </div>
   </div>
@@ -885,10 +929,11 @@
     <div class="services-head" data-reveal>
       <div>
         <p class="sec-label">What we do</p>
-        <h2 class="services-heading">Services<sup>®</sup></h2>
+        <h2 class="services-heading">Seven ways we show up<br>for your brand.<br>All of them, all in.<sup>®</sup></h2>
       </div>
       <span class="services-count">07 services</span>
     </div>
+    <p class="services-intro" data-reveal>We don't save our best work for the biggest budgets. Every project gets the same obsessive attention because your brand deserves it — and frankly, so does our reputation.</p>
     <div class="services-list">
 
       <div class="svc-item" data-img="https://placehold.co/400x711/1a0808/3a1212">
@@ -899,7 +944,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</p>
+            <p class="svc-long-desc">Most brands are posting. Few are building. We design the content strategy that turns your brand into the obvious choice so clients find you, not the other way around.</p>
             <a href="services.html#brand-content-strategy" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -918,7 +963,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</p>
+            <p class="svc-long-desc">Before a client reads your proposal, they've already decided. We make sure that decision goes your way. Brand films and short-form content that do the selling before you're in the room.</p>
             <a href="services.html#videography" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -937,7 +982,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</p>
+            <p class="svc-long-desc">There's no neutral image. Every shot either earns trust or costs it. We make sure yours earns it every time, across every platform.</p>
             <a href="services.html#photography" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -956,7 +1001,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</p>
+            <p class="svc-long-desc">You didn't build a business to spend your days writing captions. We handle the full pipeline. Planning, creation, posting, reporting. You focus on the work that actually needs you.</p>
             <a href="services.html#social-media-management" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -975,7 +1020,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">Advertising without strategy is a donation. We build ad campaigns with the right creative, the right targeting and the right message to turn your budget into new clients.</p>
+            <p class="svc-long-desc">Every ad you run without the right strategy is money leaving and not coming back. We build campaigns with the creative, targeting, and message that make your budget work the way it's supposed to.</p>
             <a href="services.html#advertising" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -994,7 +1039,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</p>
+            <p class="svc-long-desc">Your feed is a pitch deck that runs 24 hours a day. We design the full visual identity so every post looks like it belongs to a brand worth paying attention to.</p>
             <a href="services.html#social-media-branding" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -1013,7 +1058,7 @@
         </div>
         <div class="svc-body"><div class="svc-body-inner">
           <div>
-            <p class="svc-long-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</p>
+            <p class="svc-long-desc">The event ends. The aftermovie doesn't. A well made film captures the energy, builds the mythology, and sells the next one before tickets even go live.</p>
             <a href="services.html#aftermovies" class="svc-cta-link">See full service →</a>
           </div>
           <div class="svc-deliverables">
@@ -1033,10 +1078,10 @@
   <div class="wrap">
     <div class="tenure-inner">
       <div data-reveal>
-        <div class="tenure-hed">Tenure<span class="dot">.</span></div>
+        <div class="tenure-hed">We've been<br>doing this<span class="dot">.</span></div>
       </div>
       <div class="tenure-right" data-reveal data-delay="0.15">
-        <p class="tenure-body"><strong>13+ years™</strong> of digital form, sharp interactions, and relentless creative discipline and effort — building brands that outlast the algorithm.</p>
+        <p class="tenure-body">13 years of combined experience across brand, content, and digital. <strong>200 plus brands built.</strong> One consistent belief: the work only matters if it moves something. A metric, a market, a mindset.</p>
         <div class="stats">
           <div class="stat"><div class="stat-n">13+</div><div class="stat-l">Years in market</div></div>
           <div class="stat"><div class="stat-n">200+</div><div class="stat-l">Brands built</div></div>
@@ -1047,6 +1092,15 @@
   </div>
 </section>
 
+
+<!-- ─── TESTIMONIALS HEADER ──────────────────────────── -->
+<section class="testi-header">
+  <div class="wrap">
+    <div class="testi-header-inner" data-reveal>
+      <h2 class="testi-header-hed">Don't take our word for it.<br><em>Take theirs.</em></h2>
+    </div>
+  </div>
+</section>
 
 <!-- ─── TESTIMONIALS (scroll-driven) ─────────────────── -->
 <div class="testi-outer" id="testiOuter">
@@ -1155,6 +1209,20 @@
   </div>
 </section>
 
+<!-- ─── CLOSING CTA ──────────────────────────────────── -->
+<section class="closing-cta">
+  <div class="wrap">
+    <div class="closing-cta-inner" data-reveal>
+      <h2 class="closing-cta-hed">Ready to stop being the best kept secret in your industry?</h2>
+      <p class="closing-cta-body">We work with a small roster of brands at a time, by choice. If you're building something worth backing, let's talk about what 7EMPLE can do for it.</p>
+      <div class="closing-cta-actions">
+        <a href="contact.html" class="closing-cta-btn">Start the conversation →</a>
+        <p class="closing-cta-note">We respond within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── FOOTER ────────────────────────────────────────── -->
 <footer>
   <div class="wrap">
@@ -1167,7 +1235,7 @@
     <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
         <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
-        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+        <p>Built on the belief that great brands aren't found. They're built, deliberately, with the right system behind them.</p>
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
