@@ -156,7 +156,7 @@
       position: relative; cursor: none;
       transition: background .3s;
     }
-    .wk-card:hover { background: rgba(249,249,249,.016); }
+    .wk-card.hovered { background: rgba(249,249,249,.016); }
     .wk-card-num {
       font-size: 11px; color: var(--orange); font-weight: 700;
       letter-spacing: .12em; text-transform: uppercase; flex-shrink: 0;
@@ -167,7 +167,7 @@
       font-weight: 900; letter-spacing: -.045em; line-height: 1;
       transition: color .3s;
     }
-    .wk-card:hover .wk-card-client { color: var(--orange); }
+    .wk-card.hovered .wk-card-client { color: var(--orange); }
     .wk-card-tags { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; flex-shrink: 0; }
     .wk-card-tag {
       font-size: 9px; color: var(--dim); letter-spacing: .1em;
@@ -181,7 +181,7 @@
       font-size: 15px; color: rgba(249,249,249,.35);
       transition: all .3s cubic-bezier(.16,1,.3,1);
     }
-    .wk-card:hover .wk-card-arrow {
+    .wk-card.hovered .wk-card-arrow {
       border-color: var(--orange); color: var(--orange);
       background: rgba(254,76,4,.1); transform: rotate(45deg);
     }
@@ -369,6 +369,29 @@ const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
 
 const cursorEl = document.getElementById('cursor');
 let _mx = 0, _my = 0;
+let _activeCard = null;
+const _cards = [];   // populated after grid render
+
+function updateHover() {
+  const under = document.elementFromPoint(_mx, _my);
+  if (!under) return;
+  const card = under.closest('.wk-card');
+  if (card === _activeCard) return;
+  if (_activeCard) {
+    _activeCard.classList.remove('hovered');
+    document.getElementById('wk-preview').classList.remove('active');
+  }
+  _activeCard = card;
+  if (card) {
+    const i = _cards.indexOf(card);
+    if (i >= 0) {
+      const pv = document.getElementById('wk-preview');
+      pv.textContent = CLIENTS[i].headline;
+      pv.classList.add('active');
+    }
+    card.classList.add('hovered');
+  }
+}
 
 document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
@@ -376,13 +399,13 @@ document.addEventListener('mousemove', e => {
   const under = document.elementFromPoint(_mx, _my);
   if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
   const pv = document.getElementById('wk-preview');
-  if (pv) {
-    pv.style.left = (_mx + 28) + 'px';
-    pv.style.top  = (_my - 10) + 'px';
-  }
+  if (pv) { pv.style.left = (_mx + 28) + 'px'; pv.style.top = (_my - 10) + 'px'; }
+  updateHover();
 });
 document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
 document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+lenis.on('scroll', updateHover);
 
 (function raf(t) {
   lenis.raf(t);
@@ -435,18 +458,12 @@ CLIENTS.forEach((client, i) => {
   grid.appendChild(outer);
 });
 
-// Floating headline preview on row hover
+// Floating headline preview — driven by updateHover() on scroll + mousemove
 (function() {
   const preview = document.createElement('div');
   preview.id = 'wk-preview';
   document.body.appendChild(preview);
-  document.querySelectorAll('.wk-card').forEach((card, i) => {
-    card.addEventListener('mouseenter', () => {
-      preview.textContent = CLIENTS[i].headline;
-      preview.classList.add('active');
-    });
-    card.addEventListener('mouseleave', () => preview.classList.remove('active'));
-  });
+  document.querySelectorAll('.wk-card').forEach(card => _cards.push(card));
 })();
 
 // ═══════════════════════════════════════════════════════
