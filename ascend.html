@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ascend — 7EMPLE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616;
+      --text: #F9F9F9;
+      --muted: #868686;
+      --dim: #4A4A4A;
+      --border: rgba(249,249,249,0.1);
+      --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+
+    /* ─── CURSOR ─────────────────────────── */
+    #cursor {
+      position: fixed; left: 0; top: 0; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff; mix-blend-mode: difference;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), opacity .4s;
+      opacity: 0;
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+
+    /* ─── GRAIN ──────────────────────────── */
+    #grain {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 10001; opacity: .013;
+      mix-blend-mode: screen; image-rendering: pixelated;
+    }
+
+    /* ─── REVEAL ─────────────────────────── */
+    [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1); }
+    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+    .ir { opacity: 1 !important; transform: translateY(0) !important; transition: opacity .85s cubic-bezier(.16,1,.3,1) !important, transform .85s cubic-bezier(.16,1,.3,1) !important; }
+    .sec-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
+
+    /* ─── NAV ─────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(22,22,22,.92); backdrop-filter: blur(12px);
+      opacity: 0; transition: opacity .6s cubic-bezier(.16,1,.3,1);
+    }
+    .nav-logo img { height: 30px; }
+    .nav-right { display: flex; align-items: center; gap: 48px; }
+    .nav-tag { font-size: 10px; color: var(--dim); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-ascend {
+      color: var(--orange) !important;
+      padding: 5px 14px;
+      border: 1px solid rgba(254,76,4,.35);
+      border-radius: 100px;
+      transition: background .2s, color .2s !important;
+    }
+    .nav-ascend:hover { background: rgba(254,76,4,.1); color: var(--orange) !important; }
+
+    /* ─── HERO ───────────────────────────── */
+    .asc-hero {
+      min-height: 100vh; display: flex; align-items: flex-end;
+      position: relative; padding-bottom: 80px;
+    }
+    .asc-hero-inner { padding-top: 160px; max-width: 1200px; }
+    .asc-hero-chip {
+      display: inline-block;
+      font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--orange); border: 1px solid rgba(254,76,4,.3);
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 48px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+    }
+    .asc-hero-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(64px, 9vw, 160px);
+      font-weight: 900; letter-spacing: -.055em; line-height: .88;
+      margin-bottom: 48px;
+    }
+    .asc-hl { display: block; overflow: hidden; }
+    .asc-hli { display: block; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+    .asc-hli.em { font-style: italic; color: var(--muted); }
+    .asc-hli.visible { transform: translateY(0); }
+    .asc-hero-sub {
+      font-size: clamp(15px, 1.4vw, 20px); color: var(--muted);
+      max-width: 560px; line-height: 1.65; margin-bottom: 52px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+    }
+    .asc-hero-ctas {
+      display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
+    }
+    .asc-cta-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: #fff;
+      font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      padding: 16px 32px; border-radius: 100px;
+      transition: background .2s, transform .2s; white-space: nowrap;
+    }
+    .asc-cta-primary:hover { background: #e04400; transform: scale(1.02); }
+    .asc-cta-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); color: var(--muted);
+      font-size: 13px; letter-spacing: .06em; text-transform: uppercase;
+      padding: 16px 32px; border-radius: 100px; transition: border-color .2s, color .2s; white-space: nowrap;
+    }
+    .asc-cta-ghost:hover { border-color: rgba(249,249,249,.4); color: var(--text); }
+    .asc-hero-scroll {
+      position: absolute; bottom: 32px; left: 48px;
+      font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase;
+    }
+
+    /* ─── VSL ────────────────────────────── */
+    .asc-vsl { padding: 120px 0; border-top: 1px solid var(--border); }
+    .asc-vsl-inner { max-width: 1000px; margin: 0 auto; }
+    .asc-vsl-label { margin-bottom: 32px; }
+    .asc-vsl-frame {
+      border: 1px solid rgba(254,76,4,.2); border-radius: 8px; overflow: hidden;
+      box-shadow: 0 0 80px rgba(254,76,4,.07);
+    }
+    .asc-vsl-placeholder {
+      aspect-ratio: 16/9; background: #0d0d0d;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; cursor: pointer;
+    }
+    .asc-vsl-play {
+      width: 88px; height: 88px;
+      border: 2px solid rgba(254,76,4,.5); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; color: var(--orange); padding-left: 6px;
+      transition: border-color .25s, transform .25s, background .25s;
+    }
+    .asc-vsl-placeholder:hover .asc-vsl-play {
+      border-color: var(--orange); transform: scale(1.1);
+      background: rgba(254,76,4,.08);
+    }
+    .asc-vsl-caption {
+      padding: 20px 32px; border-top: 1px solid var(--border);
+      font-size: 11px; color: var(--dim); letter-spacing: .1em; text-transform: uppercase;
+    }
+
+    /* ─── TRUST BAR ──────────────────────── */
+    .asc-trust {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .asc-trust-inner {
+      display: flex; align-items: center; justify-content: center;
+      gap: 40px; flex-wrap: wrap;
+    }
+    .asc-trust-stat { font-size: 14px; color: var(--muted); }
+    .asc-trust-stat strong { color: var(--text); font-weight: 700; }
+    .asc-trust-sep { color: var(--dim); font-size: 16px; }
+
+    /* ─── PROBLEM ────────────────────────── */
+    .asc-problem { padding: 140px 0; }
+    .asc-problem-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(40px, 5.5vw, 88px);
+      font-weight: 900; letter-spacing: -.04em; line-height: .95;
+      margin: 24px 0 80px; max-width: 900px;
+    }
+    .asc-problem-hed em { font-style: italic; color: var(--orange); }
+    .asc-problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+    .asc-pain-card {
+      padding: 52px 48px; border: 1px solid var(--border); background: #111;
+      transition: background .25s;
+    }
+    .asc-pain-card:hover { background: #141414; }
+    .asc-pain-num {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 11px; color: var(--orange); font-weight: 700;
+      letter-spacing: .14em; margin-bottom: 24px; display: block;
+    }
+    .asc-pain-card h3 {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(20px, 1.8vw, 28px); font-weight: 800;
+      letter-spacing: -.02em; margin-bottom: 16px;
+    }
+    .asc-pain-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+
+    /* ─── WHAT IS ASCEND ─────────────────── */
+    .asc-what { padding: 140px 0; border-top: 1px solid var(--border); }
+    .asc-what-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+    }
+    .asc-what-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; line-height: .95; margin: 24px 0 36px;
+    }
+    .asc-what-hed em { font-style: italic; color: var(--orange); }
+    .asc-what-body { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+    .asc-what-left .asc-cta-primary { margin-top: 16px; }
+    .asc-what-stat-block {
+      background: #0d0d0d; border: 1px solid var(--border);
+      padding: 64px; border-radius: 4px;
+    }
+    .asc-what-big-num {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(80px, 11vw, 180px); font-weight: 900;
+      letter-spacing: -.055em; line-height: .85; color: var(--orange); margin-bottom: 8px;
+    }
+    .asc-what-big-label {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(16px, 1.8vw, 24px); font-weight: 700;
+      letter-spacing: -.02em; margin-bottom: 40px;
+    }
+    .asc-what-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+    .asc-what-bullets li {
+      font-size: 13px; color: var(--muted); padding-left: 22px; position: relative;
+    }
+    .asc-what-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--orange); }
+
+    /* ─── INCLUDED ───────────────────────── */
+    .asc-included { padding: 140px 0; border-top: 1px solid var(--border); }
+    .asc-included-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; margin: 24px 0 72px;
+    }
+    .asc-included-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-bottom: 2px;
+    }
+    .asc-inc-card {
+      padding: 40px 36px; border: 1px solid var(--border);
+      transition: background .25s;
+    }
+    .asc-inc-card:hover { background: rgba(249,249,249,.025); }
+    .asc-inc-num {
+      font-size: 10px; color: var(--orange); font-weight: 700;
+      letter-spacing: .16em; display: block; margin-bottom: 20px;
+    }
+    .asc-inc-name {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(17px, 1.5vw, 22px); font-weight: 800;
+      letter-spacing: -.02em; margin-bottom: 12px;
+    }
+    .asc-inc-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+    .asc-upgrade-strip {
+      display: flex; align-items: center; gap: 24px;
+      padding: 28px 36px;
+      background: rgba(254,76,4,.05); border: 1px solid rgba(254,76,4,.18);
+      flex-wrap: wrap;
+    }
+    .asc-upgrade-label {
+      font-size: 10px; color: var(--orange); font-weight: 700; letter-spacing: .16em;
+      border: 1px solid rgba(254,76,4,.4); padding: 4px 12px; border-radius: 100px; flex-shrink: 0;
+    }
+    .asc-upgrade-text { font-size: 13px; color: var(--muted); flex: 1; min-width: 200px; }
+    .asc-upgrade-link {
+      font-size: 12px; color: var(--orange); letter-spacing: .06em;
+      text-transform: uppercase; font-weight: 600; flex-shrink: 0; transition: opacity .2s;
+    }
+    .asc-upgrade-link:hover { opacity: .6; }
+
+    /* ─── PROCESS ────────────────────────── */
+    .asc-process { padding: 140px 0; border-top: 1px solid var(--border); }
+    .asc-process-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; margin: 24px 0 0;
+    }
+    .asc-process-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--border); margin-top: 72px;
+    }
+    .asc-step {
+      padding: 48px 40px 48px 0; border-right: 1px solid var(--border);
+    }
+    .asc-step:last-child { border-right: none; padding-right: 0; }
+    .asc-step:not(:first-child) { padding-left: 40px; }
+    .asc-step-num {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 11px; color: var(--orange); font-weight: 700;
+      letter-spacing: .14em; margin-bottom: 28px; display: block;
+    }
+    .asc-step-name {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(20px, 1.8vw, 28px); font-weight: 800;
+      letter-spacing: -.025em; margin-bottom: 16px; line-height: 1.1;
+    }
+    .asc-step-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* ─── STATS BAND ─────────────────────── */
+    .asc-stats-band {
+      background: #0d0d0d; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 100px 0;
+    }
+    .asc-stats-inner {
+      max-width: 1480px; margin: 0 auto; padding: 0 48px;
+      display: flex; align-items: center;
+    }
+    .asc-stat-item { flex: 1; text-align: center; padding: 0 48px; }
+    .asc-stat-divider { width: 1px; height: 80px; background: var(--border); flex-shrink: 0; }
+    .asc-stat-val {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(48px, 6vw, 96px); font-weight: 900;
+      letter-spacing: -.04em; margin-bottom: 16px;
+    }
+    .asc-stat-val span { color: var(--orange); }
+    .asc-stat-lbl { font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; font-weight: 500; }
+
+    /* ─── TESTIMONIALS ───────────────────── */
+    .asc-testimonials { padding: 140px 0; }
+    .asc-testi-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; margin: 24px 0 72px;
+    }
+    .asc-testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .asc-testi-card {
+      padding: 48px 40px; border: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 28px;
+    }
+    .asc-testi-quote {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 72px; line-height: .8; color: var(--orange); font-weight: 900;
+    }
+    .asc-testi-text { font-size: 15px; color: var(--text); line-height: 1.75; flex: 1; }
+    .asc-testi-name { font-size: 14px; font-weight: 600; margin-top: auto; }
+    .asc-testi-role { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+    /* ─── PRICING ────────────────────────── */
+    .asc-pricing { padding: 140px 0; border-top: 1px solid var(--border); }
+    .asc-pricing-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; margin: 24px 0 72px;
+    }
+    .asc-pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .asc-price-card { padding: 52px; border: 1px solid var(--border); }
+    .asc-price-main {
+      border-color: rgba(254,76,4,.35); background: rgba(254,76,4,.025);
+    }
+    .asc-price-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .asc-price-tier {
+      font-family: 'Inter Display', sans-serif;
+      font-size: 22px; font-weight: 800; letter-spacing: -.02em;
+    }
+    .asc-price-badge {
+      font-size: 10px; letter-spacing: .14em; text-transform: uppercase; font-weight: 700;
+      color: var(--orange); border: 1px solid rgba(254,76,4,.3); padding: 5px 12px; border-radius: 100px;
+    }
+    .asc-price-val {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(40px, 5vw, 72px); font-weight: 900;
+      letter-spacing: -.04em; margin-bottom: 8px;
+    }
+    .asc-price-val span { font-size: .45em; color: var(--muted); vertical-align: super; font-weight: 500; }
+    .asc-price-sub { font-size: 13px; color: var(--muted); margin-bottom: 44px; }
+    .asc-price-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
+    .asc-price-list li { font-size: 14px; color: var(--muted); padding-left: 24px; position: relative; }
+    .asc-price-list li::before { content: '✓'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+    .asc-price-list li.muted { color: var(--dim); }
+    .asc-price-divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+    /* ─── FAQ ────────────────────────────── */
+    .asc-faq { padding: 140px 0; border-top: 1px solid var(--border); }
+    .asc-faq-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(36px, 4vw, 68px); font-weight: 900;
+      letter-spacing: -.04em; margin: 24px 0 72px;
+    }
+    .asc-faq-list { max-width: 900px; }
+    .asc-faq-item { border-bottom: 1px solid var(--border); }
+    .asc-faq-header {
+      display: flex; justify-content: space-between; align-items: center; gap: 24px;
+      padding: 28px 0; width: 100%;
+      background: none; border: none; cursor: pointer;
+      text-align: left; color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: 16px; font-weight: 500; line-height: 1.4; transition: color .2s;
+    }
+    .asc-faq-header:hover { color: var(--text); }
+    .asc-faq-icon {
+      font-size: 24px; color: var(--dim); font-weight: 300; flex-shrink: 0;
+      transition: transform .45s cubic-bezier(.76,0,.24,1), color .25s;
+      line-height: 1; display: block;
+    }
+    .asc-faq-item.open .asc-faq-icon { transform: rotate(45deg); color: var(--orange); }
+    .asc-faq-body {
+      display: grid; grid-template-rows: 0fr;
+      transition: grid-template-rows .55s cubic-bezier(.76,0,.24,1);
+      overflow: hidden;
+    }
+    .asc-faq-item.open .asc-faq-body { grid-template-rows: 1fr; }
+    .asc-faq-body-inner { overflow: hidden; padding-bottom: 32px; }
+    .asc-faq-body-inner p { font-size: 14px; color: var(--muted); line-height: 1.8; }
+
+    /* ─── FINAL CTA ──────────────────────── */
+    .asc-cta-final {
+      padding: 180px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .asc-final-inner { position: relative; z-index: 2; }
+    .asc-final-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(52px, 8vw, 140px); font-weight: 900;
+      letter-spacing: -.055em; line-height: .88; margin: 24px 0 40px;
+    }
+    .asc-final-hed em { font-style: italic; color: var(--orange); }
+    .asc-final-sub { font-size: 13px; color: var(--dim); margin-bottom: 52px; letter-spacing: .04em; }
+    .asc-final-cta { font-size: 14px; padding: 18px 40px; }
+
+    /* ─── FOOTER ─────────────────────────── */
+    footer { padding: 80px 0 0; border-top: 1px solid var(--border); }
+    .footer-logos { display: flex; flex-wrap: wrap; gap: 40px; margin-bottom: 80px; }
+    .f-logo { font-family: 'Inter Display', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .12em; color: var(--dim); text-transform: uppercase; }
+    .footer-body { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; padding: 64px 0; border-top: 1px solid var(--border); }
+    .f-brand p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-top: 12px; }
+    .f-nav h4 { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 600; margin-bottom: 20px; }
+    .f-nav ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .f-nav a { font-size: 13px; color: var(--muted); transition: color .2s; }
+    .f-nav a:hover { color: var(--text); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-size: 11px; color: var(--dim); border-top: 1px solid var(--border); }
+    .copyright-bar { overflow: hidden; border-top: 1px solid var(--border); padding: 8px 0 0; }
+    .copyright-inner { font-family: 'Inter Display', sans-serif; font-size: clamp(72px, 22vw, 360px); font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--border); letter-spacing: -.04em; line-height: .85; white-space: nowrap; }
+
+    /* ─── RESPONSIVE ─────────────────────── */
+    @media (max-width: 1024px) {
+      .asc-what-inner { grid-template-columns: 1fr; gap: 60px; }
+      .asc-testi-grid { grid-template-columns: 1fr 1fr; }
+      .asc-pricing-grid { grid-template-columns: 1fr; max-width: 640px; }
+      .asc-process-steps { grid-template-columns: 1fr 1fr; }
+      .asc-step { border-bottom: 1px solid var(--border); }
+      .asc-step:nth-child(2) { border-right: none; }
+      .asc-step:nth-child(3), .asc-step:nth-child(4) { border-bottom: none; }
+    }
+    @media (max-width: 768px) {
+      .asc-problem-grid { grid-template-columns: 1fr; }
+      .asc-included-grid { grid-template-columns: 1fr 1fr; }
+      .asc-testi-grid { grid-template-columns: 1fr; }
+      .asc-stats-inner { flex-direction: column; gap: 48px; }
+      .asc-stat-divider { width: 60px; height: 1px; }
+      .footer-body { grid-template-columns: 1fr; gap: 40px; padding: 40px 0; }
+    }
+    @media (max-width: 560px) {
+      .wrap { padding: 0 24px; }
+      nav { padding: 18px 24px; }
+      .asc-hero { padding-bottom: 48px; }
+      .asc-hero-scroll { left: 24px; }
+      .asc-included-grid { grid-template-columns: 1fr; }
+      .asc-process-steps { grid-template-columns: 1fr; }
+      .asc-step { border-right: none !important; border-bottom: 1px solid var(--border); }
+      .asc-step:last-child { border-bottom: none; }
+      .asc-trust-inner { gap: 16px; }
+      .asc-stats-inner { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+
+<!-- ─── NAV ────────────────────────────────────────────── -->
+<nav>
+  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <div class="nav-right">
+    <span class="nav-tag">©2026 — Digital Agency</span>
+    <ul class="nav-links">
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="ascend.html" class="nav-ascend active">Ascend ↗</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ─── HERO ────────────────────────────────────────────── -->
+<section class="asc-hero">
+  <div class="wrap">
+    <div class="asc-hero-inner">
+      <div class="asc-hero-chip">Ascend — by 7EMPLE</div>
+      <h1 class="asc-hero-hed">
+        <span class="asc-hl"><span class="asc-hli">Everything your brand</span></span>
+        <span class="asc-hl"><span class="asc-hli">needs. Built once.</span></span>
+        <span class="asc-hl"><span class="asc-hli em">Built right.</span></span>
+      </h1>
+      <p class="asc-hero-sub">One comprehensive package that takes your startup from zero to a brand that actually converts — strategy, identity, content, and execution under one roof.</p>
+      <div class="asc-hero-ctas">
+        <a href="contact.html" class="asc-cta-primary">Apply for Ascend ↗</a>
+        <a href="#vsl" class="asc-cta-ghost">Watch the overview</a>
+      </div>
+    </div>
+  </div>
+  <div class="asc-hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- ─── VSL ─────────────────────────────────────────────── -->
+<section class="asc-vsl" id="vsl">
+  <div class="wrap">
+    <p class="sec-label asc-vsl-label" data-reveal>Overview</p>
+    <div class="asc-vsl-inner">
+      <div class="asc-vsl-frame" data-reveal>
+        <div class="asc-vsl-placeholder">
+          <div class="asc-vsl-play">▶</div>
+        </div>
+        <div class="asc-vsl-caption">See how we take founders from idea to market-ready brand in 90 days — replace this placeholder with your VSL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST BAR ─────────────────────────────────────── -->
+<div class="asc-trust">
+  <div class="asc-trust-inner">
+    <span class="asc-trust-stat"><strong>50+</strong> Brands Built</span>
+    <span class="asc-trust-sep">·</span>
+    <span class="asc-trust-stat"><strong>£2.4M</strong> Client Revenue Generated</span>
+    <span class="asc-trust-sep">·</span>
+    <span class="asc-trust-stat"><strong>18</strong> Industries</span>
+    <span class="asc-trust-sep">·</span>
+    <span class="asc-trust-stat"><strong>98%</strong> Client Retention</span>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ───────────────────────────────────────── -->
+<section class="asc-problem">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>The problem</p>
+    <h2 class="asc-problem-hed" data-reveal data-delay="0.08">Most founders build their brand <em>backwards.</em></h2>
+    <div class="asc-problem-grid">
+      <div class="asc-pain-card" data-reveal>
+        <span class="asc-pain-num">01</span>
+        <h3>Piecemeal agencies</h3>
+        <p>Hiring multiple vendors means inconsistent brand voice, missed deadlines, and no single person accountable for the whole picture. You spend more time managing than building.</p>
+      </div>
+      <div class="asc-pain-card" data-reveal data-delay="0.08">
+        <span class="asc-pain-num">02</span>
+        <h3>Unreliable freelancers</h3>
+        <p>Cheap today, expensive in the long run. You end up managing six different people, chasing deliverables, and re-explaining your vision from scratch every time.</p>
+      </div>
+      <div class="asc-pain-card" data-reveal data-delay="0.16">
+        <span class="asc-pain-num">03</span>
+        <h3>DIY brand waste</h3>
+        <p>Every hour spent on Canva or building a Wix site is an hour not spent on your product, your customers, or your growth. Your time is worth more than this.</p>
+      </div>
+      <div class="asc-pain-card" data-reveal data-delay="0.24">
+        <span class="asc-pain-num">04</span>
+        <h3>Template brand packages</h3>
+        <p>Most agencies hand you a logo and a colour palette and call it a brand. That's decoration — not strategy. It looks the part but doesn't do the job.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT IS ASCEND ────────────────────────────────── -->
+<section class="asc-what">
+  <div class="wrap">
+    <div class="asc-what-inner">
+      <div class="asc-what-left" data-reveal>
+        <p class="sec-label">What is Ascend</p>
+        <h2 class="asc-what-hed">A complete brand, built for <em>the long game.</em></h2>
+        <p class="asc-what-body">Ascend is our all-in-one brand package — designed specifically for founders who are serious about building something that lasts. One fee. One team. One system that covers everything.</p>
+        <p class="asc-what-body">We handle strategy, identity, content, and digital presence from day one so you can focus on what you do best: running your business and serving your customers.</p>
+        <a href="contact.html" class="asc-cta-primary">Apply now ↗</a>
+      </div>
+      <div class="asc-what-right" data-reveal data-delay="0.15">
+        <div class="asc-what-stat-block">
+          <div class="asc-what-big-num">90</div>
+          <div class="asc-what-big-label">Days to a complete brand</div>
+          <ul class="asc-what-bullets">
+            <li>Strategy to launch in one focused sprint</li>
+            <li>One dedicated team — no handoffs, no gaps</li>
+            <li>Built to scale as your business grows</li>
+            <li>You own everything — full asset transfer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INCLUDED ──────────────────────────────────────── -->
+<section class="asc-included">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>What you get</p>
+    <h2 class="asc-included-hed" data-reveal data-delay="0.08">Everything in one package.</h2>
+    <div class="asc-included-grid">
+      <div class="asc-inc-card" data-reveal>
+        <span class="asc-inc-num">01</span>
+        <h3 class="asc-inc-name">Brand Strategy</h3>
+        <p class="asc-inc-desc">Positioning, messaging framework, target audience mapping, and competitive landscape analysis. The foundation everything is built on.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.05">
+        <span class="asc-inc-num">02</span>
+        <h3 class="asc-inc-name">Visual Identity</h3>
+        <p class="asc-inc-desc">Logo design, colour system, typography, iconography, and a full brand guidelines document your whole team can use.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.1">
+        <span class="asc-inc-num">03</span>
+        <h3 class="asc-inc-name">Website / Landing Page</h3>
+        <p class="asc-inc-desc">A high-converting website or landing page built to match your brand and turn visitors into customers from day one.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.05">
+        <span class="asc-inc-num">04</span>
+        <h3 class="asc-inc-name">Content Production</h3>
+        <p class="asc-inc-desc">Photography and video content for your launch — hero images, product shots, and a brand film ready to use across all channels.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.1">
+        <span class="asc-inc-num">05</span>
+        <h3 class="asc-inc-name">Social Media Setup</h3>
+        <p class="asc-inc-desc">Profile optimisation, content templates, launch content calendar, and first 30 days of content — so you hit the ground running.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.15">
+        <span class="asc-inc-num">06</span>
+        <h3 class="asc-inc-name">Email & CRM Setup</h3>
+        <p class="asc-inc-desc">Email list setup, welcome sequence, and CRM configuration. Your owned channel working from launch day.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.1">
+        <span class="asc-inc-num">07</span>
+        <h3 class="asc-inc-name">Full Copywriting</h3>
+        <p class="asc-inc-desc">Website copy, social bios, email sequences, and ad copy — all written in your brand voice, optimised for conversion.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.15">
+        <span class="asc-inc-num">08</span>
+        <h3 class="asc-inc-name">Launch Plan</h3>
+        <p class="asc-inc-desc">A structured go-to-market plan covering channels, timing, messaging, and key milestones for your first 90 days post-launch.</p>
+      </div>
+      <div class="asc-inc-card" data-reveal data-delay="0.2">
+        <span class="asc-inc-num">09</span>
+        <h3 class="asc-inc-name">Brand Guidelines</h3>
+        <p class="asc-inc-desc">A comprehensive document covering every brand rule — from tone of voice to logo usage — so your brand stays consistent as you grow.</p>
+      </div>
+    </div>
+    <div class="asc-upgrade-strip" data-reveal>
+      <span class="asc-upgrade-label">UPGRADE</span>
+      <span class="asc-upgrade-text">Add our monthly retainer to include ongoing Paid Ads management and Social Media content creation — keeping your brand active and growing after launch.</span>
+      <a href="#pricing" class="asc-upgrade-link">See pricing ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ───────────────────────────────────────── -->
+<section class="asc-process">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>How it works</p>
+    <h2 class="asc-process-hed" data-reveal data-delay="0.08">From application to launch.</h2>
+    <div class="asc-process-steps">
+      <div class="asc-step" data-reveal>
+        <span class="asc-step-num">01</span>
+        <h3 class="asc-step-name">Apply &<br>Discovery</h3>
+        <p class="asc-step-desc">Tell us about your business, your goals, and your vision. We'll schedule a discovery call to understand exactly what you need and confirm the fit.</p>
+      </div>
+      <div class="asc-step" data-reveal data-delay="0.1">
+        <span class="asc-step-num">02</span>
+        <h3 class="asc-step-name">Strategy<br>Sprint</h3>
+        <p class="asc-step-desc">Weeks 1–2. We lock in your positioning, messaging, and full creative roadmap. Every decision is grounded in strategy before a single pixel is designed.</p>
+      </div>
+      <div class="asc-step" data-reveal data-delay="0.2">
+        <span class="asc-step-num">03</span>
+        <h3 class="asc-step-name">Build<br>Phase</h3>
+        <p class="asc-step-desc">Weeks 3–8. Design, content, and build run in parallel. You get regular updates, feedback rounds, and a transparent view of progress throughout.</p>
+      </div>
+      <div class="asc-step" data-reveal data-delay="0.3">
+        <span class="asc-step-num">04</span>
+        <h3 class="asc-step-name">Launch &<br>Handover</h3>
+        <p class="asc-step-desc">Your brand goes live. You receive a complete asset handover — every file, login, and document. You own everything. We're here if you need us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAND ────────────────────────────────────── -->
+<div class="asc-stats-band">
+  <div class="asc-stats-inner">
+    <div class="asc-stat-item" data-reveal>
+      <div class="asc-stat-val">50<span>+</span></div>
+      <div class="asc-stat-lbl">Brands launched</div>
+    </div>
+    <div class="asc-stat-divider"></div>
+    <div class="asc-stat-item" data-reveal data-delay="0.1">
+      <div class="asc-stat-val">£2.4<span>M</span></div>
+      <div class="asc-stat-lbl">Generated for clients</div>
+    </div>
+    <div class="asc-stat-divider"></div>
+    <div class="asc-stat-item" data-reveal data-delay="0.2">
+      <div class="asc-stat-val">90<span>d</span></div>
+      <div class="asc-stat-lbl">Average delivery time</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TESTIMONIALS ─────────────────────────────────── -->
+<section class="asc-testimonials">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>What clients say</p>
+    <h2 class="asc-testi-hed" data-reveal data-delay="0.08">Results that speak.</h2>
+    <div class="asc-testi-grid">
+      <div class="asc-testi-card" data-reveal>
+        <div class="asc-testi-quote">"</div>
+        <p class="asc-testi-text">7EMPLE didn't just build us a brand — they built us a system. From strategy to content to ads, everything runs through the identity they created. Our revenue doubled in six months.</p>
+        <div>
+          <div class="asc-testi-name">Alex M.</div>
+          <div class="asc-testi-role">Founder — Nova Brand</div>
+        </div>
+      </div>
+      <div class="asc-testi-card" data-reveal data-delay="0.1">
+        <div class="asc-testi-quote">"</div>
+        <p class="asc-testi-text">I came in with an idea and a deck. I left with a complete brand, a website that converts, and a content engine that runs itself. The Ascend package was the best investment I made in year one.</p>
+        <div>
+          <div class="asc-testi-name">Priya K.</div>
+          <div class="asc-testi-role">CEO — Volta</div>
+        </div>
+      </div>
+      <div class="asc-testi-card" data-reveal data-delay="0.2">
+        <div class="asc-testi-quote">"</div>
+        <p class="asc-testi-text">The team understood our vision immediately. Within 90 days we had a brand that looked like we'd been operating for five years. Investors noticed. Press noticed. Customers noticed.</p>
+        <div>
+          <div class="asc-testi-name">James T.</div>
+          <div class="asc-testi-role">Co-Founder — Arcform</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ───────────────────────────────────────── -->
+<section class="asc-pricing" id="pricing">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>Pricing</p>
+    <h2 class="asc-pricing-hed" data-reveal data-delay="0.08">One package. No surprises.</h2>
+    <div class="asc-pricing-grid">
+      <div class="asc-price-card asc-price-main" data-reveal>
+        <div class="asc-price-header">
+          <span class="asc-price-tier">Ascend</span>
+          <span class="asc-price-badge">One-time</span>
+        </div>
+        <div class="asc-price-val">£[Price]</div>
+        <div class="asc-price-sub">One-time investment — everything included</div>
+        <ul class="asc-price-list">
+          <li>Brand Strategy & Positioning</li>
+          <li>Logo & Full Visual Identity</li>
+          <li>Brand Guidelines Document</li>
+          <li>Website / Landing Page</li>
+          <li>Content Production (Photo & Video)</li>
+          <li>Social Media Setup & Launch Content</li>
+          <li>Email / CRM Setup & Welcome Sequence</li>
+          <li>Full Copywriting (All Touchpoints)</li>
+          <li>90-Day Launch Plan</li>
+        </ul>
+        <a href="contact.html" class="asc-cta-primary">Apply for Ascend ↗</a>
+      </div>
+      <div class="asc-price-card" data-reveal data-delay="0.12">
+        <div class="asc-price-header">
+          <span class="asc-price-tier">Ascend + Retainer</span>
+          <span class="asc-price-badge">Monthly</span>
+        </div>
+        <div class="asc-price-val">£[Price]<span>/mo</span></div>
+        <div class="asc-price-sub">Added after your Ascend package completes</div>
+        <ul class="asc-price-list">
+          <li>Everything in Ascend</li>
+          <hr class="asc-price-divider">
+          <li>Paid Ads Management (Meta & Google)</li>
+          <li>Monthly Social Media Content</li>
+          <li>Performance Analytics & Reporting</li>
+          <li>Monthly Strategy & Review Call</li>
+          <li>Priority Support</li>
+        </ul>
+        <a href="contact.html" class="asc-cta-ghost">Enquire about retainer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ───────────────────────────────────────────── -->
+<section class="asc-faq">
+  <div class="wrap">
+    <p class="sec-label" data-reveal>Questions</p>
+    <h2 class="asc-faq-hed" data-reveal data-delay="0.08">Common questions.</h2>
+    <div class="asc-faq-list" data-reveal data-delay="0.16">
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>How long does Ascend take?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>Most Ascend builds are completed in 8–10 weeks. The first two weeks are dedicated to strategy and planning, weeks 3–8 to production across all deliverables, and the final phase to launch prep and handover. Timelines can vary based on scope and feedback turnaround times.</p>
+          </div>
+        </div>
+      </div>
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>What happens if I'm not happy with the work?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>We build in structured review and feedback rounds at every major milestone. You're never presented with a final output and told to take it or leave it — changes and refinements are part of the process. Our goal is work you're proud of.</p>
+          </div>
+        </div>
+      </div>
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>Do you work with pre-revenue or idea-stage startups?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>Yes. Some of our best work has been with pre-launch founders who had a clear vision and needed a team to bring it to life. The earlier you build a strong brand foundation, the better positioned you are from day one.</p>
+          </div>
+        </div>
+      </div>
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>Can I start the retainer before Ascend is complete?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>The retainer is designed to begin after your Ascend build is complete — that way we have a fully developed brand system to execute against. Starting ads or content management before the foundation is in place rarely produces good results.</p>
+          </div>
+        </div>
+      </div>
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>Who owns the work after the project ends?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>You do. Once the project is complete and final payment is made, you receive full ownership of every file, asset, login, and deliverable. There are no ongoing licensing fees or lock-ins. It's your brand.</p>
+          </div>
+        </div>
+      </div>
+      <div class="asc-faq-item">
+        <button class="asc-faq-header">
+          <span>How is Ascend different from a standard agency?</span>
+          <span class="asc-faq-icon">+</span>
+        </button>
+        <div class="asc-faq-body">
+          <div class="asc-faq-body-inner">
+            <p>Most agencies specialise in one thing — branding, web, or content. Ascend covers all of it under one roof, with one team that understands the full picture. No briefing multiple vendors. No inconsistent outputs. One strategy, executed end-to-end.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─────────────────────────────────────── -->
+<section class="asc-cta-final">
+  <div class="wrap">
+    <div class="asc-final-inner" data-reveal>
+      <p class="sec-label">Ready when you are</p>
+      <h2 class="asc-final-hed">Ready to build<br>something that <em>lasts?</em></h2>
+      <p class="asc-final-sub">Limited spots available each month — apply now to secure your place.</p>
+      <a href="contact.html" class="asc-cta-primary asc-final-cta">Apply for Ascend ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="footer-logos" data-reveal>
+      <span class="f-logo">VOGUE</span><span class="f-logo">HYPEBEAST</span>
+      <span class="f-logo">COMPLEX</span><span class="f-logo">ADWEEK</span>
+      <span class="f-logo">DEZEEN</span><span class="f-logo">WALLPAPER*</span>
+      <span class="f-logo">DAZED</span>
+    </div>
+    <div class="footer-body" data-reveal data-delay="0.1">
+      <div class="f-brand">
+        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
+        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+      </div>
+      <div class="f-nav">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="ascend.html">Ascend</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="f-nav">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@7emple.com">hello@7emple.com</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter / X</a></li>
+          <li><a href="#">TikTok</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>©2026 7EMPLE. All rights reserved.</p>
+      <p>Designed & built by 7EMPLE.</p>
+    </div>
+  </div>
+  <div class="copyright-bar"><div class="copyright-inner">©2026</div></div>
+</footer>
+
+<!-- ─── SCRIPTS ───────────────────────────────────────── -->
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+/* ── GRAIN ── */
+(function() {
+  const c = document.createElement('canvas');
+  c.id = 'grain';
+  c.width = Math.round(Math.min(window.innerWidth, 1400));
+  c.height = Math.round(Math.min(window.innerHeight, 900));
+  document.body.appendChild(c);
+  const ctx = c.getContext('2d');
+  let last = 0;
+  (function draw(t) {
+    if (t - last > 45) {
+      last = t;
+      const img = ctx.createImageData(c.width, c.height);
+      const d = img.data;
+      for (let i = 0; i < d.length; i += 4) {
+        const v = (Math.random() * 255) | 0;
+        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    requestAnimationFrame(draw);
+  })(0);
+})();
+
+/* ── LENIS ── */
+const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+
+/* ── CURSOR ── */
+const cursorEl = document.getElementById('cursor');
+let _mx = 0, _my = 0;
+document.addEventListener('mousemove', e => {
+  _mx = e.clientX; _my = e.clientY;
+  cursorEl.style.opacity = '1';
+  const under = document.elementFromPoint(_mx, _my);
+  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+});
+document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
+document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
+
+/* ── RAF: lenis + cursor ── */
+(function raf(t) {
+  lenis.raf(t);
+  cursorEl.style.left = _mx + 'px';
+  cursorEl.style.top  = _my + 'px';
+  requestAnimationFrame(raf);
+})(0);
+
+/* ── REVEAL OBSERVER ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(({ target, isIntersecting }) => {
+    if (isIntersecting) {
+      const delay = parseFloat(target.dataset.delay || 0) * 1000;
+      setTimeout(() => target.classList.add('in-view'), delay);
+      revealObs.unobserve(target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+/* ── PAGE ENTRY ── */
+(async function pageEnter() {
+  const navEl    = document.querySelector('nav');
+  const chip     = document.querySelector('.asc-hero-chip');
+  const hedLines = document.querySelectorAll('.asc-hli');
+  const sub      = document.querySelector('.asc-hero-sub');
+  const ctas     = document.querySelector('.asc-hero-ctas');
+  const wait     = ms => new Promise(r => setTimeout(r, ms));
+
+  const fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
+  sessionStorage.removeItem('7emple_txOrigin');
+
+  if (fromTransition) {
+    document.body.style.opacity = '0';
+    document.body.style.transform = 'scale(0.95)';
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transition = 'none';
+    await wait(20);
+    document.body.style.transition = 'opacity 0.5s cubic-bezier(.16,1,.3,1), transform 0.65s cubic-bezier(.16,1,.3,1)';
+    document.body.style.opacity = '1';
+    document.body.style.transform = 'scale(1)';
+    setTimeout(() => {
+      document.body.style.transition = '';
+      document.body.style.transform  = '';
+      document.body.style.opacity    = '';
+    }, 700);
+    await wait(180);
+    navEl.style.opacity = '1';
+    await wait(100);
+    chip.classList.add('ir');
+    await wait(100);
+    hedLines.forEach((line, i) => setTimeout(() => line.classList.add('visible'), i * 130));
+    await wait(hedLines.length * 130 + 120);
+    sub.classList.add('ir');
+    await wait(120);
+    ctas.classList.add('ir');
+  } else {
+    navEl.style.opacity = '1';
+    await wait(60);
+    chip.classList.add('ir');
+    await wait(80);
+    hedLines.forEach((line, i) => setTimeout(() => line.classList.add('visible'), i * 100));
+    await wait(hedLines.length * 100 + 80);
+    sub.classList.add('ir');
+    await wait(80);
+    ctas.classList.add('ir');
+  }
+})();
+
+/* ── EXIT TRANSITION ── */
+(function() {
+  document.addEventListener('click', e => {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    if (href === page) return;
+    e.preventDefault();
+    document.body.style.transformOrigin = 'center center';
+    document.body.style.transition = 'opacity 0.32s cubic-bezier(.4,0,1,1), transform 0.38s cubic-bezier(.4,0,1,1)';
+    document.body.style.opacity   = '0';
+    document.body.style.transform = 'scale(1.07)';
+    sessionStorage.setItem('7emple_txOrigin', '1');
+    setTimeout(() => { window.location.href = href; }, 340);
+  });
+})();
+
+/* ── FAQ ACCORDION ── */
+document.querySelectorAll('.asc-faq-item').forEach(item => {
+  item.querySelector('.asc-faq-header').addEventListener('click', () => {
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.asc-faq-item.open').forEach(o => o.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+
+/* ── BFCACHE (back button) ── */
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    document.body.style.opacity = '';
+    document.body.style.transform = '';
+    document.body.style.transition = '';
+    document.body.style.transformOrigin = '';
+    sessionStorage.removeItem('7emple_txOrigin');
+  }
+});
+</script>
+</body>
+</html>

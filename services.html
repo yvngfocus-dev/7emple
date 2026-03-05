@@ -65,6 +65,14 @@
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-ascend {
+      color: var(--orange) !important;
+      padding: 5px 14px;
+      border: 1px solid rgba(254,76,4,.35);
+      border-radius: 100px;
+      transition: background .2s, color .2s !important;
+    }
+    .nav-ascend:hover { background: rgba(254,76,4,.1); color: var(--orange) !important; }
 
     /* ─── BACK LINK ──────────────────────── */
     .back-link {
@@ -296,6 +304,7 @@
       <li><a href="services.html" class="active">Services</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="ascend.html" class="nav-ascend">Ascend ↗</a></li>
     </ul>
   </div>
 </nav>

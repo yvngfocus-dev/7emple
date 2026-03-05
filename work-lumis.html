@@ -27,6 +27,14 @@
     .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-ascend {
+      color: var(--orange) !important;
+      padding: 5px 14px;
+      border: 1px solid rgba(254,76,4,.35);
+      border-radius: 100px;
+      transition: background .2s, color .2s !important;
+    }
+    .nav-ascend:hover { background: rgba(254,76,4,.1); color: var(--orange) !important; }
     .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--dim); letter-spacing: .1em; text-transform: uppercase; font-weight: 500; transition: color .2s; }
     .back-link:hover { color: var(--text); }
     .cs-hero { min-height: 90vh; display: flex; flex-direction: column; justify-content: flex-end; position: relative; overflow: hidden; padding: 0; margin-top: 0; }
@@ -115,6 +123,7 @@
       <li><a href="services.html">Services</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="ascend.html" class="nav-ascend">Ascend ↗</a></li>
     </ul>
   </div>
 </nav>
