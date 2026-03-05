@@ -31,7 +31,11 @@
       transition: width 0.22s cubic-bezier(0.16,1,0.3,1), height 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
       opacity: 0;
     }
-    #cursor.is-pointer { width: 20px; height: 20px; }
+    #cursor.is-pointer {
+      width: 12px; height: 12px;
+      background: var(--orange);
+      mix-blend-mode: normal;
+    }
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
     .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
@@ -115,7 +119,7 @@
     .hero-desc-row { border-top: 1px solid var(--border); padding: 28px 40px; display: flex; gap: 32px; align-items: center; justify-content: space-between; }
     .hero-desc { font-size: 14px; color: var(--muted); line-height: 1.8; max-width: 420px; }
     .hero-desc strong { color: var(--text); }
-    .hero-cta { flex-shrink: 0; border: 1px solid var(--border); padding: 12px 22px; font-size: 13px; color: var(--text); cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+    .hero-cta { flex-shrink: 0; border: 1px solid var(--border); padding: 12px 22px; font-size: 13px; color: var(--text); cursor: none; white-space: nowrap; transition: background 0.2s; }
     .hero-cta:hover { background: rgba(255,255,255,0.06); }
 
     /* ─── INTRO OVERLAY ─────────────────── */
@@ -195,7 +199,7 @@
       display: inline-flex; align-items: center; gap: 14px;
       background: var(--orange); color: #F9F9F9;
       padding: 16px 32px; font-size: 13px; font-weight: 600;
-      letter-spacing: 0.04em; cursor: pointer;
+      letter-spacing: 0.04em; cursor: none;
       border: none; width: fit-content;
       transition: background 0.2s, gap 0.3s cubic-bezier(0.16,1,0.3,1);
       text-decoration: none;
@@ -244,7 +248,7 @@
     .view-all { font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--border); padding-bottom: 3px; }
     .view-all:hover { color: var(--text); border-color: var(--text); }
     .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
-    .work-card { position: relative; overflow: hidden; cursor: pointer; }
+    .work-card { position: relative; overflow: hidden; cursor: none; }
     .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(25%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; will-change: transform; }
     .work-card:hover img { transform: scale(1.13); filter: grayscale(0%); }
     .work-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 56px 28px 28px; background: linear-gradient(to top, rgba(22,22,22,0.9), transparent); }
@@ -320,7 +324,7 @@
     .svc-item:first-child { border-top: 1px solid var(--border); }
     .svc-header {
       display: grid; grid-template-columns: 56px 1fr auto;
-      gap: 32px; align-items: center; padding: 28px 0; cursor: pointer;
+      gap: 32px; align-items: center; padding: 28px 0; cursor: none;
     }
     .svc-num { font-size: 11px; color: var(--dim); font-weight: 500; letter-spacing: .06em; }
     .svc-name { font-size: clamp(20px, 2.2vw, 30px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; transition: color 0.2s; }
@@ -507,7 +511,7 @@
       overflow: hidden;
       border-radius: 10px;
       box-shadow: 0 24px 60px rgba(0,0,0,0.55);
-      cursor: pointer;
+      cursor: none;
       position: relative;
       will-change: transform, filter;
     }
