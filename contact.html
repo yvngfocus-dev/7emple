@@ -27,9 +27,9 @@
       border-radius: 50%; background: #fff; mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
       transform: translate(-50%,-50%);
-      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), background .22s;
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
     }
-    #cursor.is-pointer { width: 20px; height: 20px; background: var(--orange); mix-blend-mode: normal; }
+    #cursor.is-pointer { width: 20px; height: 20px; }
 
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
@@ -460,14 +460,14 @@
           <div class="form-field">
             <label>Service(s) Needed</label>
             <div class="form-pills">
-              <span class="form-pill" data-val="Brand Content Strategy">Brand Content Strategy</span>
-              <span class="form-pill" data-val="Videography">Videography</span>
-              <span class="form-pill" data-val="Photography">Photography</span>
-              <span class="form-pill" data-val="Social Media Management">Social Media Management</span>
-              <span class="form-pill" data-val="Advertising">Advertising</span>
-              <span class="form-pill" data-val="Social Media Branding">Social Media Branding</span>
-              <span class="form-pill" data-val="Aftermovies">Aftermovies</span>
-              <span class="form-pill" data-val="Ascend">Ascend</span>
+              <span class="form-pill" tabindex="0" data-val="Brand Content Strategy">Brand Content Strategy</span>
+              <span class="form-pill" tabindex="0" data-val="Videography">Videography</span>
+              <span class="form-pill" tabindex="0" data-val="Photography">Photography</span>
+              <span class="form-pill" tabindex="0" data-val="Social Media Management">Social Media Management</span>
+              <span class="form-pill" tabindex="0" data-val="Advertising">Advertising</span>
+              <span class="form-pill" tabindex="0" data-val="Social Media Branding">Social Media Branding</span>
+              <span class="form-pill" tabindex="0" data-val="Aftermovies">Aftermovies</span>
+              <span class="form-pill" tabindex="0" data-val="Ascend">Ascend</span>
             </div>
             <input type="hidden" id="services" name="services">
           </div>

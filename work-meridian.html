@@ -13,8 +13,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
     html { -webkit-font-smoothing: antialiased; cursor: none; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
-    #cursor { position: fixed; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #fff; mix-blend-mode: difference; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), background .22s; opacity: 0; }
-    #cursor.is-pointer { width: 20px; height: 20px; background: var(--orange); mix-blend-mode: normal; }
+    #cursor { position: fixed; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: #fff; mix-blend-mode: difference; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1); opacity: 0; }
+    #cursor.is-pointer { width: 20px; height: 20px; }
     img { display: block; max-width: 100%; }
     a { text-decoration: none; color: inherit; }
     .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
