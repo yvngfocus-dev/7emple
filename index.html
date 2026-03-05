@@ -186,8 +186,10 @@
       font-family: 'Inter Display', sans-serif;
       font-size: clamp(52px, 5.5vw, 92px);
       font-weight: 900; letter-spacing: -0.05em; line-height: 0.88;
+      margin-top: 28px;
     }
     .ascend-hed em { font-style: italic; color: var(--muted); }
+    .ascend-hed .orange-dot { color: var(--orange); }
     .ascend-desc {
       font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 400px;
     }
@@ -390,6 +392,7 @@
     .marquee-track { display: flex; align-items: center; animation: mq 30s linear infinite; white-space: nowrap; }
     .mq-item { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 72px); font-weight: 800; letter-spacing: -0.045em; padding: 20px 48px; flex-shrink: 0; border-right: 1px solid var(--border); }
     .mq-item.it { font-style: italic; color: var(--muted); }
+    .mq-item em { color: var(--muted); font-style: normal; }
     .mq-dot { padding: 0 32px; flex-shrink: 0; font-size: 10px; color: var(--orange); }
     @keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -475,8 +478,10 @@
 
     /* ─── GALLERY (3D Y-AXIS CYLINDER) ───── */
     .gallery { padding: 24px 0 0; }
-    .gallery-head { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border); padding-top: 24px; margin-bottom: 0; }
-    .gallery-hed { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 80px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; }
+    .gallery-head { display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid var(--border); padding-top: 24px; padding-bottom: 12px; margin-bottom: 0; }
+    .gallery-hed { font-family: 'Inter Display', sans-serif; font-size: clamp(40px, 5vw, 80px); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; margin-top: 12px; }
+    .ftr-logo-wrap { margin-bottom: 20px; }
+    .ftr-logo-img { height: 48px; }
     .gallery-hed sup { font-size: 0.35em; color: var(--dim); font-weight: 400; vertical-align: super; }
     /* Gallery — vertical S-shaped flowing rail */
     .cylinder-section { height: 480vh; }
@@ -793,7 +798,7 @@
   <div class="ascend-left">
     <div>
       <span class="ascend-tag">Best Selling Service</span>
-      <h2 class="ascend-hed" style="margin-top:28px;">Ascend<br><em>Framework</em><span style="color:var(--orange);">.</span></h2>
+      <h2 class="ascend-hed">Ascend<br><em>Framework</em><span class="orange-dot">.</span></h2>
     </div>
     <p class="ascend-desc">
       The complete system for ambitious brands ready to grow. <strong>Strategy, content, and execution</strong> — all unified under one proven framework that has scaled 200+ brands worldwide.
@@ -847,22 +852,22 @@
   </div>
   <div class="marquee-wrap">
     <div class="marquee-track">
-      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-item">Featured Works<em>®</em></span>
       <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
       <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
       <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
       <span class="mq-dot">●</span>
-      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-item">Featured Works<em>®</em></span>
       <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
       <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
       <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
       <span class="mq-dot">●</span>
-      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-item">Featured Works<em>®</em></span>
       <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
       <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
       <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
       <span class="mq-dot">●</span>
-      <span class="mq-item">Featured Works<em style="color:var(--muted);">®</em></span>
+      <span class="mq-item">Featured Works<em>®</em></span>
       <span class="mq-dot">●</span><span class="mq-item it">Selected Work</span>
       <span class="mq-dot">●</span><span class="mq-item">Portfolio</span>
       <span class="mq-dot">●</span><span class="mq-item it">Case Studies</span>
@@ -1153,10 +1158,10 @@
 <!-- ─── GALLERY (3D Y-AXIS CYLINDER) ─────────────────── -->
 <section class="gallery">
   <div class="wrap">
-    <div class="gallery-head" data-reveal style="padding-bottom:12px;">
+    <div class="gallery-head" data-reveal>
       <div>
         <p class="sec-label">Latest Work</p>
-        <h2 class="gallery-hed" style="margin-top:12px;">Featured<br>Articles<sup>®</sup></h2>
+        <h2 class="gallery-hed">Featured<br>Articles<sup>®</sup></h2>
       </div>
       <a href="work.html" class="view-all">See all →</a>
     </div>
@@ -1225,7 +1230,7 @@
     </div>
     <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
-        <div style="margin-bottom:20px;"><img src="brand_assets/logo.png" alt="7EMPLE" style="height:48px;"></div>
+        <div class="ftr-logo-wrap"><img src="brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
         <p>Built on the belief that great brands aren't found. They're built, deliberately, with the right system behind them.</p>
       </div>
       <div class="f-nav">
