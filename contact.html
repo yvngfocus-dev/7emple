@@ -333,15 +333,15 @@
 
 <!-- ─── NAV ──────────────────────────────────────────── -->
 <nav>
-  <a href="/" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
   <div class="nav-right">
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
-      <li><a href="/work">Work</a></li>
-      <li><a href="/services">Services</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact" class="active">Contact</a></li>
-      <li><a href="/ascend" class="nav-ascend">Ascend ↗</a></li>
+      <li><a href="work.html">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="ascend.html" class="nav-ascend">Ascend ↗</a></li>
     </ul>
   </div>
 </nav>
@@ -349,7 +349,7 @@
 <!-- ─── CONTACT HERO ─────────────────────────────────── -->
 <section class="contact-hero">
   <div class="ch-left">
-    <a href="/" class="back-link">← Home</a>
+    <a href="index.html" class="back-link">← Home</a>
     <button class="ch-label" id="getInTouchBtn">Get In Touch <span style="font-weight:300;font-size:14px;">↓</span></button>
     <div class="ch-hed-wrap">
       <span class="ch-hl"><span class="ch-hli">Let's</span></span>
@@ -504,10 +504,10 @@
       <div class="f-nav">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="/work">Work</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="f-nav">
@@ -709,7 +709,7 @@ requestAnimationFrame(raf);
 // PAGE EXIT — zoom out on navigation away
 // ═══════════════════════════════════════════════════════
 (function() {
-  document.querySelectorAll('a[href="/"], a[href="/services"], a[href="/about"], a[href="/work"]').forEach(link => {
+  document.querySelectorAll('a[href="index.html"], a[href="services.html"], a[href="about.html"], a[href="work.html"]').forEach(link => {
     link.addEventListener('click', e => {
       e.preventDefault();
       const dest = link.getAttribute('href');

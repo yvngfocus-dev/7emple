@@ -238,15 +238,15 @@
 
 <!-- ─── NAV ──────────────────────────────────────────── -->
 <nav>
-  <a href="/" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
   <div class="nav-right">
     <span class="nav-tag">©2026 — Digital Agency</span>
     <ul class="nav-links">
-      <li><a href="/work" class="active">Work</a></li>
-      <li><a href="/services">Services</a></li>
-      <li><a href="/about">About</a></li>
-      <li><a href="/contact">Contact</a></li>
-      <li><a href="/ascend" class="nav-ascend">Ascend ↗</a></li>
+      <li><a href="work.html" class="active">Work</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="ascend.html" class="nav-ascend">Ascend ↗</a></li>
     </ul>
   </div>
 </nav>
@@ -308,10 +308,10 @@
       <div class="f-nav">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="/work">Work</a></li>
-          <li><a href="/services">Services</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="f-nav">
@@ -448,7 +448,7 @@ CLIENTS.forEach((client, i) => {
   outer.className = 'wk-card-outer';
   outer.dataset.services = client.services.join('|');
   outer.innerHTML = `
-    <a href="/work/${client.slug}" class="wk-card">
+    <a href="work-${client.slug}.html" class="wk-card">
       <div class="wk-card-num">${String(i + 1).padStart(2, '0')}</div>
       <div class="wk-card-client">${client.name}</div>
       <div class="wk-card-tags">${client.services.map(s => `<span class="wk-card-tag">${s}</span>`).join('')}</div>
@@ -546,8 +546,8 @@ select.addEventListener('change', () => {
     const href = link.getAttribute('href');
     if (!href || href === '#' || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
     // Don't intercept the current page or anchor links
-    const page = window.location.pathname;
-    if (href === page || href === page + '/' || href === window.location.href) return;
+    const page = window.location.pathname.split('/').pop() || 'index.html';
+    if (href === page || href === window.location.href) return;
     e.preventDefault();
     document.body.style.transformOrigin = 'center center';
     document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
