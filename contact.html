@@ -101,7 +101,13 @@
       font-size: 11px; font-weight: 700; letter-spacing: .18em;
       text-transform: uppercase; color: var(--orange);
       opacity: 0; transform: translateY(20px);
+      display: inline-flex; align-items: center; gap: 10px;
+      background: none; border: 1px solid rgba(254,76,4,0.32);
+      padding: 8px 16px; width: fit-content;
+      cursor: none; font-family: 'Inter', sans-serif;
+      transition: background .2s, border-color .2s, opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1);
     }
+    .ch-label:hover { background: rgba(254,76,4,0.08); border-color: rgba(254,76,4,0.6); }
     .ch-hed-wrap { opacity: 1; transform: none; }
     .ch-hed {
       font-family: 'Inter Display', sans-serif;
@@ -343,7 +349,7 @@
 <section class="contact-hero">
   <div class="ch-left">
     <a href="index.html" class="back-link">← Home</a>
-    <div class="ch-label">Get In Touch</div>
+    <button class="ch-label" id="getInTouchBtn">Get In Touch <span style="font-weight:300;font-size:14px;">↓</span></button>
     <div class="ch-hed-wrap">
       <span class="ch-hl"><span class="ch-hli">Let's</span></span>
       <span class="ch-hl"><span class="ch-hli em">Build</span></span>
@@ -409,7 +415,7 @@
 </section>
 
 <!-- ─── CONTACT FORM ──────────────────────────────────── -->
-<section class="contact-form-section">
+<section class="contact-form-section" id="contact-form">
   <div class="wrap">
     <div class="cfs-inner" data-reveal>
       <div class="cfs-sidebar">
@@ -556,6 +562,10 @@
 // LENIS
 // ═══════════════════════════════════════════════════════
 const lenis = new Lenis({ lerp: 0.08, smoothWheel: true, wheelMultiplier: 1.0 });
+
+document.getElementById('getInTouchBtn').addEventListener('click', () => {
+  lenis.scrollTo(document.getElementById('contact-form'), { offset: -80, duration: 1.4 });
+});
 
 // ═══════════════════════════════════════════════════════
 // REVEAL
