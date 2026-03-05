@@ -374,7 +374,7 @@ document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
   cursorEl.style.opacity = '1';
   const under = document.elementFromPoint(_mx, _my);
-  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+  if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
   const pv = document.getElementById('wk-preview');
   if (pv) {
     pv.style.left = (_mx + 28) + 'px';

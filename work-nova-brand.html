@@ -27,7 +27,7 @@
       border-radius: 50%; background: #fff; mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
       transform: translate(-50%,-50%);
-      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), background .22s;
       opacity: 0;
     }
     #cursor.is-pointer { width: 20px; height: 20px; background: var(--orange); mix-blend-mode: normal; }
@@ -557,7 +557,7 @@ document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
   cursorEl.style.opacity = '1';
   const under = document.elementFromPoint(_mx, _my);
-  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+  if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
 });
 document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
 document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });

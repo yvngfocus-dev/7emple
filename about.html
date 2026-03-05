@@ -809,7 +809,7 @@ let _mx = 0, _my = 0, _cx = 0, _cy = 0;
 document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
   const under = document.elementFromPoint(_mx, _my);
-  if (under) cursorEl.classList.toggle('is-pointer', window.getComputedStyle(under).cursor === 'pointer');
+  if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
 });
 document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
 document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });

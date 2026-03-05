@@ -1464,8 +1464,7 @@ document.addEventListener('mousemove', e => {
   _my = e.clientY;
   const under = document.elementFromPoint(_mx, _my);
   if (under) {
-    const cur = window.getComputedStyle(under).cursor;
-    cursorEl.classList.toggle('is-pointer', cur === 'pointer');
+    cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
   }
 });
 document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
