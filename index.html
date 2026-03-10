@@ -103,6 +103,10 @@
       opacity: 0; transform: translateY(20px);
     }
     .pill { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; border: 1px solid var(--border); padding: 7px 14px; border-radius: 999px; text-transform: uppercase; }
+    .hero-testi { margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .hero-testi-quote { display: block; font-size: 13px; color: var(--muted); line-height: 1.6; font-style: italic; margin-bottom: 10px; }
+    .hero-testi-attr { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px; }
+    .hero-testi-attr::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--dim); }
     .hero-right {
       border-left: 1px solid var(--border); display: flex; flex-direction: column;
       opacity: 0; transform: translateY(30px);
@@ -741,6 +745,10 @@
     <div class="hero-bottom">
       <span class="pill">Marketing Agency</span>
       <span class="pill">EST 2024</span>
+    </div>
+    <div class="hero-testi">
+      <span class="hero-testi-quote">"Our revenue doubled in six months. Best investment we made."</span>
+      <span class="hero-testi-attr">Alex M. · Founder, Nova Brand</span>
     </div>
   </div>
   <div class="hero-right">
