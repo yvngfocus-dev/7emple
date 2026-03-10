@@ -124,6 +124,10 @@
       padding: 16px 32px; border-radius: 100px; transition: border-color .2s, color .2s; white-space: nowrap;
     }
     .asc-cta-ghost:hover { border-color: rgba(249,249,249,.4); color: var(--text); }
+    .asc-hero-testi { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 8px; }
+    .asc-hero-testi-quote { font-size: 14px; color: var(--muted); font-style: italic; line-height: 1.6; }
+    .asc-hero-testi-attr { font-size: 11px; color: var(--dim); letter-spacing: 0.06em; display: flex; align-items: center; gap: 8px; }
+    .asc-hero-testi-attr::before { content: ''; display: inline-block; width: 20px; height: 1px; background: var(--dim); }
     .asc-hero-scroll {
       position: absolute; bottom: 32px; left: 48px;
       font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase;
@@ -500,6 +504,10 @@
       <div class="asc-hero-ctas">
         <a href="contact.html" class="asc-cta-primary">Apply for Ascend ↗</a>
         <a href="#vsl" class="asc-cta-ghost">Watch the overview</a>
+      </div>
+      <div class="asc-hero-testi">
+        <span class="asc-hero-testi-quote">"Our revenue doubled in six months. Best investment we made."</span>
+        <span class="asc-hero-testi-attr">Alex M. · Founder, Nova Brand</span>
       </div>
     </div>
   </div>
