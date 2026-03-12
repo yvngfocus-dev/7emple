@@ -367,20 +367,19 @@ const _cards = [];   // populated after grid render
 function updateHover() {
   const under = document.elementFromPoint(_mx, _my);
   if (!under) return;
+  cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
+  const pv = document.getElementById('wk-preview');
+  if (pv) { pv.style.left = (_mx + 28) + 'px'; pv.style.top = (_my - 10) + 'px'; }
   const card = under.closest('.wk-card');
   if (card === _activeCard) return;
   if (_activeCard) {
     _activeCard.classList.remove('hovered');
-    document.getElementById('wk-preview').classList.remove('active');
+    pv.classList.remove('active');
   }
   _activeCard = card;
   if (card) {
     const i = _cards.indexOf(card);
-    if (i >= 0) {
-      const pv = document.getElementById('wk-preview');
-      pv.textContent = CLIENTS[i].headline;
-      pv.classList.add('active');
-    }
+    if (i >= 0) { pv.textContent = CLIENTS[i].headline; pv.classList.add('active'); }
     card.classList.add('hovered');
   }
 }
@@ -388,10 +387,6 @@ function updateHover() {
 document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
   cursorEl.style.opacity = '1';
-  const under = document.elementFromPoint(_mx, _my);
-  if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
-  const pv = document.getElementById('wk-preview');
-  if (pv) { pv.style.left = (_mx + 28) + 'px'; pv.style.top = (_my - 10) + 'px'; }
   updateHover();
 });
 document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
@@ -425,7 +420,7 @@ const CLIENTS = [
   { slug: 'klave',       name: 'KLAVE',        services: ['Videography', 'Social Media Branding'],              result: '3× save rate on launch posts',             headline: 'Quarterly video series + profile redesign' },
   { slug: 'lumis',       name: 'LUMIS',        services: ['Photography', 'Aftermovies'],                        result: '180 campaign images in a single day',     headline: 'Full brand shoot + launch event film' },
   { slug: 'obsidian',    name: 'OBSIDIAN',     services: ['Photography'],                                       result: 'Used in press, OOH and e-commerce',       headline: 'Editorial stills across 4 markets' },
-  { slug: 'strength2strength', name: 'STRENGTH 2 STRENGTH', services: ['Brand Content Strategy', 'Social Media Management'], result: 'Full funnel: zero presence to booked pipeline', headline: 'Local personal trainer turned premium fitness brand' },
+  { slug: 'strength2strength', url: '/work/strength2strength/', name: 'STRENGTH 2 STRENGTH', services: ['Brand Content Strategy', 'Social Media Management'], result: 'Full funnel: zero presence to booked pipeline', headline: 'Local personal trainer turned premium fitness brand' },
   { slug: 'vekta',       name: 'VEKTA',        services: ['Social Media Management'],                           result: '0 → 28K followers in 5 months',            headline: 'Instagram & TikTok management' },
   { slug: 'cipher',      name: 'CIPHER',       services: ['Social Media Management', 'Aftermovies'],            result: 'Zero missed posts in 12 months',           headline: 'Multi-platform retainer + event film' },
   { slug: 'onyx-labs',   name: 'ONYX LABS',    services: ['Advertising'],                                       result: '1.8M impressions in 3 weeks',              headline: 'Brand awareness ahead of UK market entry' }
@@ -440,7 +435,7 @@ CLIENTS.forEach((client, i) => {
   outer.className = 'wk-card-outer';
   outer.dataset.services = client.services.join('|');
   outer.innerHTML = `
-    <a href="work-${client.slug}.html" class="wk-card">
+    <a href="${client.url || 'work-' + client.slug + '.html'}" class="wk-card">
       <div class="wk-card-num">${String(i + 1).padStart(2, '0')}</div>
       <div class="wk-card-client">${client.name}</div>
       <div class="wk-card-tags">${client.services.map(s => `<span class="wk-card-tag">${s}</span>`).join('')}</div>
