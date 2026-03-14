@@ -764,6 +764,10 @@
         <p>2+ years of proven methods. Real results through relentless creative discipline and effort.</p>
       </div>
     </div>
+    <div class="hero-desc-row" id="heroDescRow">
+      <p class="hero-desc" id="heroDesc">Creative marketing for founders ready to scale. Strategy, content, and growth — built into one system.</p>
+      <a href="work.html" class="hero-cta" id="heroCtaBtn">See Our Work →</a>
+    </div>
   </div>
 </section>
 
@@ -1644,6 +1648,54 @@ window.addEventListener('pageshow', e => {
     sessionStorage.removeItem('7emple_txOrigin');
   }
 });
+
+// ═══════════════════════════════════════════════════════
+// HERO A/B TEST — PostHog feature flag: hero-cta-test
+// Control: branded outcome copy + "See Our Work →"
+// Test:    direct value-prop copy + "Work With Us →"
+// ═══════════════════════════════════════════════════════
+(function () {
+  var VARIANTS = {
+    control: {
+      desc: 'Creative marketing for founders ready to scale. Strategy, content, and growth — built into one system.',
+      cta:  'See Our Work →',
+      href: 'work.html'
+    },
+    test: {
+      desc: 'Founders who want revenue, not just a nice logo. We build full brand systems that convert.',
+      cta:  'Work With Us →',
+      href: 'contact.html'
+    }
+  };
+
+  posthog.onFeatureFlags(function () {
+    var flag    = posthog.getFeatureFlag('hero-cta-test') || 'control';
+    var variant = VARIANTS[flag] || VARIANTS.control;
+    var desc    = document.getElementById('heroDesc');
+    var btn     = document.getElementById('heroCtaBtn');
+
+    desc.textContent = variant.desc;
+    btn.textContent  = variant.cta;
+    btn.href         = variant.href;
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      posthog.capture('hero_cta_clicked', {
+        variant:     flag,
+        button_text: btn.textContent.trim(),
+        href:        variant.href,
+        page:        window.location.pathname
+      });
+      // Page transition (same animation as other nav links)
+      document.body.style.transformOrigin = 'center center';
+      document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
+      document.body.style.opacity   = '0';
+      document.body.style.transform = 'scale(1.07)';
+      sessionStorage.setItem('7emple_txOrigin', '1');
+      setTimeout(function () { window.location.href = variant.href; }, 340);
+    });
+  });
+})();
 </script>
 
 </body>
