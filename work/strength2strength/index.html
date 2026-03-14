@@ -147,6 +147,18 @@
     }
     .cs-approach-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
+    /* ─── VSL ────────────────────────────── */
+    .cs-vsl { padding: 0 0 100px; }
+    .cs-vsl-embed {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      background: #000; border-radius: 4px; overflow: hidden;
+    }
+    .cs-vsl-embed iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      border: none;
+    }
+    .cs-vsl-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 20px; }
+
     /* ─── GALLERY ────────────────────────── */
     .cs-gallery { padding: 0 0 100px; }
     .cs-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -361,6 +373,21 @@
           </li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VSL ──────────────────────────────────────────────── -->
+<section class="cs-vsl">
+  <div class="wrap">
+    <p class="cs-vsl-label" data-reveal>Brand Film</p>
+    <div class="cs-vsl-embed" data-reveal>
+      <iframe
+        src="https://www.youtube.com/embed/gh0dYT7ox-s"
+        title="Strength 2 Strength — Brand Film by 7EMPLE"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </section>
