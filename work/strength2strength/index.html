@@ -166,7 +166,11 @@
     /* ─── GALLERY ────────────────────────── */
     .cs-gallery { padding: 0 0 100px; }
     .cs-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .cs-gallery-item { position: relative; overflow: hidden; aspect-ratio: 3/2; }
+    .cs-gallery-item { position: relative; overflow: hidden; }
+    .cs-gallery-item:nth-child(1),
+    .cs-gallery-item:nth-child(2) { aspect-ratio: 3/4; }
+    .cs-gallery-item:nth-child(3),
+    .cs-gallery-item:nth-child(4) { aspect-ratio: 16/9; }
     .cs-gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center center; transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
     .cs-gallery-item:hover img { transform: scale(1.08); }
     .cs-gallery-item:nth-child(1) img { object-position: center 18%; }
