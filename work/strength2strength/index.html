@@ -166,11 +166,9 @@
     /* ─── GALLERY ────────────────────────── */
     .cs-gallery { padding: 0 0 100px; }
     .cs-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .cs-gallery-item { position: relative; overflow: hidden; }
-    .cs-gallery-item:nth-child(1), .cs-gallery-item:nth-child(2) { aspect-ratio: 16/10; }
-    .cs-gallery-item:nth-child(3), .cs-gallery-item:nth-child(4) { aspect-ratio: 4/3; }
-    .cs-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.16,1,.3,1); }
-    .cs-gallery-item:hover img { transform: scale(1.03); }
+    .cs-gallery-item { position: relative; overflow: hidden; aspect-ratio: 3/2; }
+    .cs-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.1s cubic-bezier(.16,1,.3,1); }
+    .cs-gallery-item:hover img { transform: scale(1.08); }
     .cs-gallery-placeholder {
       width: 100%; height: 100%; min-height: 320px;
       background: #111; display: flex; align-items: center; justify-content: center;
@@ -401,10 +399,10 @@
 <section class="cs-gallery">
   <div class="wrap">
     <div class="cs-gallery-grid" data-reveal>
-      <div class="cs-gallery-item"><div class="cs-gallery-placeholder">Image 01</div></div>
-      <div class="cs-gallery-item"><div class="cs-gallery-placeholder">Image 02</div></div>
-      <div class="cs-gallery-item"><div class="cs-gallery-placeholder">Image 03</div></div>
-      <div class="cs-gallery-item"><div class="cs-gallery-placeholder">Image 04</div></div>
+      <div class="cs-gallery-item"><img src="/images/mees%20of%20strength2strength%20banner.jpg" alt="Mees — Strength 2 Strength founder and personal trainer"></div>
+      <div class="cs-gallery-item"><img src="/images/strength2strength%20boxingbag.jpg" alt="Strength 2 Strength boxing bag — training environment"></div>
+      <div class="cs-gallery-item"><img src="/images/strength2strength%20studio%20from%20the%20outside.jpg" alt="Strength 2 Strength studio exterior"></div>
+      <div class="cs-gallery-item"><img src="/images/detail%20shot%20of%20workout%20materials.jpg" alt="Detail shot of workout materials — Strength 2 Strength"></div>
     </div>
   </div>
 </section>
