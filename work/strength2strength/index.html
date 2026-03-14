@@ -157,6 +157,10 @@
       position: absolute; inset: 0; width: 100%; height: 100%;
       border: none;
     }
+    .cs-vsl-overlay {
+      position: absolute; inset: 0; z-index: 2; cursor: pointer;
+    }
+    .cs-vsl-overlay.active { display: none; }
     .cs-vsl-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 20px; }
 
     /* ─── GALLERY ────────────────────────── */
@@ -388,6 +392,7 @@
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowfullscreen>
       </iframe>
+      <div class="cs-vsl-overlay" id="vslOverlay"></div>
     </div>
   </div>
 </section>
@@ -547,6 +552,8 @@ const revealObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
+
+document.getElementById('vslOverlay').addEventListener('click', function() { this.classList.add('active'); });
 
 const heroBgImg = document.querySelector('.cs-hero-bg img');
 if (heroBgImg && heroBgImg.src) {
