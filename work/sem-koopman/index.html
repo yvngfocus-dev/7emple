@@ -617,6 +617,9 @@ if (heroBgImg && heroBgImg.src) {
       requestAnimationFrame(() => {
         document.body.style.opacity   = '1';
         document.body.style.transform = 'scale(1)';
+        document.body.addEventListener('transitionend', function cleanup(e) {
+          if (e.propertyName === 'transform') { document.body.style.transform = ''; document.body.style.transition = ''; document.body.removeEventListener('transitionend', cleanup); }
+        });
       });
     });
   }

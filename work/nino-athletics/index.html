@@ -564,7 +564,12 @@ if (heroBgImg && heroBgImg.src) {
     document.body.style.opacity = '0'; document.body.style.transform = 'scale(0.95)'; document.body.style.transition = 'none';
     requestAnimationFrame(() => {
       document.body.style.transition = 'opacity 0.62s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
-      requestAnimationFrame(() => { document.body.style.opacity = '1'; document.body.style.transform = 'scale(1)'; });
+      requestAnimationFrame(() => {
+      document.body.style.opacity = '1'; document.body.style.transform = 'scale(1)';
+      document.body.addEventListener('transitionend', function cleanup(e) {
+        if (e.propertyName === 'transform') { document.body.style.transform = ''; document.body.style.transition = ''; document.body.removeEventListener('transitionend', cleanup); }
+      });
+    });
     });
   }
   setTimeout(() => { document.querySelector('nav').style.opacity = '1'; }, fromTransition ? 300 : 80);
