@@ -9,13 +9,13 @@
   <meta property="og:type" content="article">
   <meta property="og:title" content="NinoAthletics × 7EMPLE — Personal Trainer Branding Netherlands">
   <meta property="og:description" content="How 7EMPLE tripled NinoAthletics' rates and doubled client retention through sharp positioning, conversion copy, and a complete personal trainer brand strategy.">
-  <meta property="og:url" content="https://7emple.com/work-nino-athletics.html">
+  <meta property="og:url" content="https://7emple.com/work/nino-athletics/">
   <meta property="og:image" content="https://7emple.com/brand_assets/logo.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="NinoAthletics × 7EMPLE — Personal Trainer Branding Netherlands">
   <meta name="twitter:description" content="How 7EMPLE tripled NinoAthletics' rates and doubled client retention through sharp positioning, conversion copy, and a complete personal trainer brand strategy.">
-  <link rel="canonical" href="https://7emple.com/work-nino-athletics.html">
-  <link rel="icon" type="image/png" href="brand_assets/logo.png">
+  <link rel="canonical" href="https://7emple.com/work/nino-athletics/">
+  <link rel="icon" type="image/png" href="/brand_assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
@@ -36,7 +36,6 @@
       position: fixed; left: 0; top: 0; width: 10px; height: 10px;
       border-radius: 50%; background: #fff; mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
-      transform: translate(-50%,-50%);
       transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
@@ -303,15 +302,15 @@
 
 <!-- ─── NAV ──────────────────────────────────────────── -->
 <nav>
-  <a href="index.html" class="nav-logo"><img src="brand_assets/logo.png" alt="7EMPLE"></a>
+  <a href="/index.html" class="nav-logo"><img src="/brand_assets/logo.png" alt="7EMPLE"></a>
   <div class="nav-right">
     <span class="nav-tag">©2026 — Creative Marketing Agency</span>
     <ul class="nav-links">
-      <li><a href="work.html" class="active">Work</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="ascend.html" class="nav-ascend">Ascend ↗</a></li>
+      <li><a href="/work.html" class="active">Work</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="/ascend.html" class="nav-ascend">Ascend ↗</a></li>
     </ul>
   </div>
 </nav>
@@ -323,7 +322,7 @@
   </div>
   <div class="cs-hero-content">
     <div class="cs-hero-meta">
-      <a href="work.html" class="back-link">← All work</a>
+      <a href="/work.html" class="back-link">← All work</a>
       <span class="cs-meta-sep">·</span>
       <span class="cs-service-pill">Brand Content Strategy</span>
       <span class="cs-meta-sep">·</span>
@@ -450,7 +449,7 @@
   <div class="wrap">
     <div class="cs-cta-inner" data-reveal>
       <div class="cs-cta-hed">Start a project<br>like <em>this.</em></div>
-      <a href="contact.html" class="cs-cta-btn">Get in touch ↗</a>
+      <a href="/contact.html" class="cs-cta-btn">Get in touch ↗</a>
     </div>
   </div>
 </section>
@@ -458,11 +457,11 @@
 <!-- ─── NEXT CASE ──────────────────────────────────────── -->
 <section class="cs-next">
   <div class="wrap">
-    <a href="work-grizzlies.html" class="cs-next-inner">
+    <a href="/work/sem-koopman/" class="cs-next-inner">
       <div>
         <p class="cs-next-label">Next project</p>
-        <div class="cs-next-name">GRIZZLIES ZOETERMEER</div>
-        <div class="cs-next-service">Videography · Photography · Aftermovies</div>
+        <div class="cs-next-name">SEM KOOPMAN</div>
+        <div class="cs-next-service">Videography · Brand Content Strategy</div>
       </div>
       <div class="cs-next-arrow">↗</div>
     </a>
@@ -474,16 +473,16 @@
   <div class="wrap">
     <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
-        <div class="ftr-logo-wrap"><img src="brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
+        <div class="ftr-logo-wrap"><img src="/brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
         <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
         <ul>
-          <li><a href="work.html">Work</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/work.html">Work</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
         </ul>
       </div>
       <div class="f-nav">
@@ -524,13 +523,23 @@
   requestAnimationFrame(draw);
 })();
 
-(function() {
-  const cur = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; });
-  document.addEventListener('mouseover', e => { cur.classList.toggle('is-pointer', !!e.target.closest('a, button')); });
-})();
-
 const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
+
+const cur = document.getElementById('cursor');
+let _mx = window.innerWidth / 2, _my = window.innerHeight / 2;
+function updateCursor() {
+  const under = document.elementFromPoint(_mx, _my);
+  if (under) cur.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
+}
+document.addEventListener('mousemove', e => {
+  _mx = e.clientX; _my = e.clientY;
+  cur.style.transform = `translate3d(${_mx}px,${_my}px,0) translate(-50%,-50%)`;
+  updateCursor();
+});
+lenis.on('scroll', () => {
+  cur.style.transform = `translate3d(${_mx}px,${_my}px,0) translate(-50%,-50%)`;
+  updateCursor();
+});
 (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
 
 const revealObs = new IntersectionObserver(entries => {

@@ -26,7 +26,6 @@
       position: fixed; left: 0; top: 0; width: 10px; height: 10px;
       border-radius: 50%; background: #fff; mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
-      transform: translate(-50%,-50%);
       transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
@@ -477,11 +476,11 @@
 <!-- ─── NEXT CASE ──────────────────────────────────────── -->
 <section class="cs-next">
   <div class="wrap">
-    <a href="/work-nova-brand.html" class="cs-next-inner">
+    <a href="/work/grizzlies/" class="cs-next-inner">
       <div>
         <p class="cs-next-label">Up next →</p>
-        <div class="cs-next-name">NOVA BRAND</div>
-        <div class="cs-next-service">Brand Content Strategy · Social Media Management</div>
+        <div class="cs-next-name">GRIZZLIES</div>
+        <div class="cs-next-service">Videography · Photography · Aftermovies</div>
       </div>
       <div class="cs-next-arrow">↗</div>
     </a>
@@ -560,12 +559,13 @@ function updateCursor() {
 
 document.addEventListener('mousemove', e => {
   _mx = e.clientX; _my = e.clientY;
-  cur.style.left = _mx + 'px'; cur.style.top = _my + 'px';
+  cur.style.transform = `translate3d(${_mx}px,${_my}px,0) translate(-50%,-50%)`;
   updateCursor();
 });
-
-lenis.on('scroll', updateCursor);
-
+lenis.on('scroll', () => {
+  cur.style.transform = `translate3d(${_mx}px,${_my}px,0) translate(-50%,-50%)`;
+  updateCursor();
+});
 (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
 
 const revealObs = new IntersectionObserver(entries => {
