@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NOVA BRAND — 7EMPLE</title>
+  <title>Grizzlies Zoetermeer × 7EMPLE — Sports Event Aftermovie Netherlands</title>
+  <meta name="description" content="How 7EMPLE's aftermovie and photo series turned the Grizzlies International Tournament into a growth engine: 1K+ views, 3 new countries, zero paid ads.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Grizzlies Zoetermeer × 7EMPLE — Sports Event Aftermovie Netherlands">
+  <meta property="og:description" content="How 7EMPLE's aftermovie and photo series turned the Grizzlies International Tournament into a growth engine: 1K+ views, 3 new countries, zero paid ads.">
+  <meta property="og:url" content="https://7emple.com/work-grizzlies.html">
+  <meta property="og:image" content="https://7emple.com/brand_assets/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Grizzlies Zoetermeer × 7EMPLE — Sports Event Aftermovie Netherlands">
+  <meta name="twitter:description" content="How 7EMPLE's aftermovie and photo series turned the Grizzlies International Tournament into a growth engine: 1K+ views, 3 new countries, zero paid ads.">
+  <link rel="canonical" href="https://7emple.com/work-grizzlies.html">
   <link rel="icon" type="image/png" href="brand_assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,18 +28,16 @@
       --border: rgba(249,249,249,0.1);
       --orange: #FE4C04;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;  }
-    html { -webkit-font-smoothing: antialiased;  }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden;  }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
 
-    /* ─── CURSOR ──────────────────────────── */
     #cursor {
       position: fixed; left: 0; top: 0; width: 10px; height: 10px;
       border-radius: 50%; background: #fff; mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
       transform: translate(-50%,-50%);
       transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
-      opacity: 0;
     }
     #cursor.is-pointer { width: 20px; height: 20px; }
 
@@ -36,18 +45,15 @@
     a { text-decoration: none; color: inherit; }
     .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
 
-    /* ─── GRAIN ──────────────────────────── */
     #grain {
       position: fixed; inset: 0; width: 100%; height: 100%;
       pointer-events: none; z-index: 10001; opacity: .013;
       mix-blend-mode: screen; image-rendering: pixelated;
     }
 
-    /* ─── REVEAL ─────────────────────────── */
     [data-reveal] { opacity: 0; transform: translateY(36px); transition: opacity .95s cubic-bezier(.16,1,.3,1), transform .95s cubic-bezier(.16,1,.3,1); }
     [data-reveal].in-view { opacity: 1; transform: translateY(0); }
 
-    /* ─── NAV ─────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: center; justify-content: space-between;
@@ -64,15 +70,12 @@
     .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .02em; transition: color .2s; }
     .nav-links a:hover, .nav-links a.active { color: var(--text); }
     .nav-ascend {
-      color: var(--orange) !important;
-      padding: 5px 14px;
-      border: 1px solid rgba(254,76,4,.35);
-      border-radius: 100px;
+      color: var(--orange) !important; padding: 5px 14px;
+      border: 1px solid rgba(254,76,4,.35); border-radius: 100px;
       transition: background .2s, color .2s !important;
     }
     .nav-ascend:hover { background: rgba(254,76,4,.1); color: var(--orange) !important; }
 
-    .sec-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; }
     .back-link {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 11px; color: var(--dim); letter-spacing: .1em;
@@ -80,16 +83,11 @@
     }
     .back-link:hover { color: var(--text); }
 
-    /* ─── HERO ────────────────────────────── */
     .cs-hero {
       min-height: 90vh; display: flex; flex-direction: column; justify-content: flex-end;
-      position: relative; overflow: hidden;
-      padding: 0; margin-top: 0;
+      position: relative; overflow: hidden; padding: 0; margin-top: 0;
     }
-    .cs-hero-bg {
-      position: absolute; inset: 0;
-      background: #0a0a0a;
-    }
+    .cs-hero-bg { position: absolute; inset: 0; background: #0a0a0a; }
     .cs-hero-bg img {
       width: 100%; height: 100%; object-fit: cover;
       opacity: .45; transition: transform 8s cubic-bezier(.16,1,.3,1);
@@ -104,7 +102,6 @@
     }
     .cs-hero-meta {
       display: flex; align-items: center; gap: 16px; margin-bottom: 40px; flex-wrap: wrap;
-      position: relative; z-index: 1;
     }
     .cs-service-pill {
       font-size: 10px; color: var(--orange); letter-spacing: .14em;
@@ -118,25 +115,17 @@
     .cs-location { font-size: 12px; color: var(--dim); letter-spacing: .06em; }
     .cs-hero-name {
       font-family: 'Inter Display', sans-serif;
-      font-size: clamp(72px, 10vw, 168px);
-      font-weight: 900; line-height: .88; letter-spacing: -.05em;
-      margin-bottom: 24px;
+      font-size: clamp(56px, 8vw, 140px);
+      font-weight: 900; line-height: .88; letter-spacing: -.05em; margin-bottom: 24px;
     }
     .cs-hero-tagline {
       font-size: clamp(16px, 1.8vw, 22px); color: var(--muted);
       font-weight: 400; max-width: 640px; line-height: 1.5;
     }
 
-    /* ─── STATS BAR ──────────────────────── */
-    .cs-stats {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-    .cs-stats-inner {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-    }
-    .cs-stat {
-      padding: 48px 48px; border-right: 1px solid var(--border);
-    }
+    .cs-stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .cs-stats-inner { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .cs-stat { padding: 48px 48px; border-right: 1px solid var(--border); }
     .cs-stat:last-child { border-right: none; }
     .cs-stat-value {
       font-family: 'Inter Display', sans-serif;
@@ -147,11 +136,8 @@
     .cs-stat-value span { color: var(--orange); }
     .cs-stat-label { font-size: 12px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
 
-    /* ─── BRIEF ──────────────────────────── */
     .cs-brief { padding: 100px 0; }
-    .cs-brief-inner {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
-    }
+    .cs-brief-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
     .cs-brief-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 24px; }
     .cs-brief-heading {
       font-family: 'Inter Display', sans-serif;
@@ -172,18 +158,12 @@
     }
     .cs-approach-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
 
-    /* ─── GALLERY ────────────────────────── */
     .cs-gallery { padding: 0 0 100px; }
-    .cs-gallery-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-    }
+    .cs-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
     .cs-gallery-item { position: relative; overflow: hidden; }
     .cs-gallery-item:nth-child(1), .cs-gallery-item:nth-child(2) { aspect-ratio: 16/10; }
     .cs-gallery-item:nth-child(3), .cs-gallery-item:nth-child(4) { aspect-ratio: 4/3; }
-    .cs-gallery-item img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform .9s cubic-bezier(.16,1,.3,1);
-    }
+    .cs-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s cubic-bezier(.16,1,.3,1); }
     .cs-gallery-item:hover img { transform: scale(1.03); }
     .cs-gallery-placeholder {
       width: 100%; height: 100%; min-height: 320px;
@@ -192,10 +172,8 @@
       text-transform: uppercase; font-weight: 500;
     }
 
-    /* ─── RESULTS ────────────────────────── */
     .cs-results { padding: 100px 0; background: #111; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .cs-results-inner { display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start; }
-    .cs-results-left {}
     .cs-results-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 24px; }
     .cs-results-heading {
       font-family: 'Inter Display', sans-serif;
@@ -204,27 +182,23 @@
     }
     .cs-results-heading em { font-style: italic; color: var(--orange); }
     .cs-results-copy { font-size: 14px; color: var(--muted); line-height: 1.8; }
-    .cs-results-numbers {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
-    }
-    .cs-result-tile {
-      padding: 40px 36px; border: 1px solid var(--border); background: var(--bg);
-    }
+    .cs-results-numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .cs-result-tile { padding: 40px 36px; border: 1px solid var(--border); background: var(--bg); }
     .cs-result-value {
       font-family: 'Inter Display', sans-serif;
       font-size: clamp(44px, 5vw, 72px);
       font-weight: 800; letter-spacing: -.04em; line-height: 1;
       margin-bottom: 12px; color: var(--text);
+      display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
     }
     .cs-result-value em { font-style: normal; color: var(--orange); }
+    .cs-result-tag { display: block; font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--text); margin-top: 6px; line-height: 1; }
     .cs-result-label { font-size: 12px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; font-weight: 500; }
 
-    /* ─── CTA ────────────────────────────── */
     .cs-cta { padding: 100px 0; }
     .cs-cta-inner {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 64px; border: 1px solid var(--border); border-radius: 4px;
-      gap: 48px;
+      padding: 64px; border: 1px solid var(--border); border-radius: 4px; gap: 48px;
     }
     .cs-cta-hed {
       font-family: 'Inter Display', sans-serif;
@@ -237,12 +211,10 @@
       background: var(--orange); color: #fff;
       font-size: 13px; font-weight: 600; letter-spacing: .06em;
       text-transform: uppercase; padding: 18px 36px; border-radius: 100px;
-      white-space: nowrap; transition: background .2s, transform .2s;
-      flex-shrink: 0;
+      white-space: nowrap; transition: background .2s, transform .2s; flex-shrink: 0;
     }
     .cs-cta-btn:hover { background: #e04400; transform: scale(1.02); }
 
-    /* ─── NEXT CASE ──────────────────────── */
     .cs-next { border-top: 1px solid var(--border); }
     .cs-next-inner {
       display: flex; align-items: center; justify-content: space-between;
@@ -251,8 +223,7 @@
     .cs-next-label { font-size: 10px; color: var(--dim); letter-spacing: .14em; text-transform: uppercase; font-weight: 500; margin-bottom: 8px; }
     .cs-next-name {
       font-family: 'Inter Display', sans-serif;
-      font-size: clamp(24px, 3vw, 40px);
-      font-weight: 800; letter-spacing: -.03em;
+      font-size: clamp(24px, 3vw, 40px); font-weight: 800; letter-spacing: -.03em;
     }
     .cs-next-service { font-size: 13px; color: var(--muted); margin-top: 4px; }
     .cs-next-arrow {
@@ -267,8 +238,8 @@
     }
     a.cs-next-inner { display: flex; }
 
-    /* ─── FOOTER ──────────────────────────── */
-    footer { border-top: 1px solid var(--border); }    .footer-body {
+    footer { border-top: 1px solid var(--border); }
+    .footer-body {
       display: grid; grid-template-columns: 1.5fr 1fr 1fr;
       gap: 80px; padding: 60px 0; border-bottom: 1px solid var(--border);
     }
@@ -288,8 +259,9 @@
       color: transparent; -webkit-text-stroke: 1px var(--border);
       letter-spacing: -.04em; line-height: .85; white-space: nowrap;
     }
+    .ftr-logo-wrap { margin-bottom: 20px; }
+    .ftr-logo-img { height: 48px; }
 
-    /* ─── RESPONSIVE ──────────────────────── */
     @media (max-width: 960px) {
       .cs-brief-inner { grid-template-columns: 1fr; gap: 48px; }
       .cs-results-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -308,14 +280,11 @@
       .cs-hero-content { padding: 120px 24px 48px; }
       .cs-stat { padding: 36px 24px; }
     }
-      .ftr-logo-wrap { margin-bottom: 20px; }
-    .ftr-logo-img { height: 48px; }
-  
-    /* ─── ACCESSIBILITY ──────────────────── */
+
     .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 99999; background: var(--orange); color: #fff; padding: 8px 16px; font-size: 13px; border-radius: 4px; text-decoration: none; }
     .skip-link:focus { left: 8px; }
     *:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
-    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
   </style>
   <!-- PostHog Analytics -->
   <script>
@@ -329,7 +298,6 @@
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to content</a>
-
 <div id="cursor"></div>
 
 <!-- ─── NAV ──────────────────────────────────────────── -->
@@ -350,22 +318,26 @@
 <!-- ─── HERO ──────────────────────────────────────────── -->
 <section id="main-content" class="cs-hero">
   <div class="cs-hero-bg">
-    <img src="" alt="NOVA BRAND">
+    <img src="" alt="Grizzlies Zoetermeer International Tournament aftermovie — sports event videography by 7EMPLE Netherlands">
   </div>
   <div class="cs-hero-content">
     <div class="cs-hero-meta">
       <a href="work.html" class="back-link">← All work</a>
       <span class="cs-meta-sep">·</span>
-      <span class="cs-service-pill">Brand Content Strategy & Social Media Management</span>
+      <span class="cs-service-pill">Videography</span>
       <span class="cs-meta-sep">·</span>
-      <span class="cs-industry">Wellness / Fitness</span>
+      <span class="cs-service-pill">Photography</span>
+      <span class="cs-meta-sep">·</span>
+      <span class="cs-service-pill">Aftermovies</span>
+      <span class="cs-meta-sep">·</span>
+      <span class="cs-industry">Sports / Events</span>
       <span class="cs-meta-sep">·</span>
       <span class="cs-year">2024</span>
       <span class="cs-meta-sep">·</span>
-      <span class="cs-location">[Language / Location]</span>
+      <span class="cs-location">Zoetermeer, Netherlands</span>
     </div>
-    <h1 class="cs-hero-name">NOVA BRAND</h1>
-    <p class="cs-hero-tagline">Local gym turned premium wellness brand — 0 to 40K followers in 6 months</p>
+    <h1 class="cs-hero-name">GRIZZLIES<br>ZOETERMEER</h1>
+    <p class="cs-hero-tagline">How one aftermovie became the digital calling card of an international softball tournament. And a growth engine for the whole club.</p>
   </div>
 </section>
 
@@ -373,16 +345,16 @@
 <div class="cs-stats">
   <div class="cs-stats-inner">
     <div class="cs-stat" data-reveal>
-      <div class="cs-stat-value">40K</div>
-      <div class="cs-stat-label">Followers gained</div>
+      <div class="cs-stat-value">1K<span>+</span></div>
+      <div class="cs-stat-label">Views in under 2 weeks. Zero paid ads.</div>
     </div>
     <div class="cs-stat" data-reveal>
-      <div class="cs-stat-value">6</div>
-      <div class="cs-stat-label">Months</div>
+      <div class="cs-stat-value">3</div>
+      <div class="cs-stat-label">New countries: France, Germany, England</div>
     </div>
     <div class="cs-stat" data-reveal>
-      <div class="cs-stat-value">4×</div>
-      <div class="cs-stat-label">Engagement lift</div>
+      <div class="cs-stat-value">1</div>
+      <div class="cs-stat-label">Video. One tournament. Lasting impact.</div>
     </div>
   </div>
 </div>
@@ -393,9 +365,11 @@
     <div class="cs-brief-inner">
       <div data-reveal>
         <p class="cs-brief-label">The Challenge</p>
-        <h2 class="cs-brief-heading">What<br>they <em>needed.</em></h2>
+        <h2 class="cs-brief-heading">What they<br><em>needed.</em></h2>
         <div class="cs-brief-body">
-          <p>Nova Brand came to us as a local gym with no real digital presence. Their content was inconsistent, their brand voice was generic, and their social following had plateaued at under 2,000. They needed a full strategy overhaul to position them as a premium wellness destination — not just another gym.</p>
+          <p>Grizzlies Zoetermeer is more than a softball and baseball club. It's a community built on sport, atmosphere, and connection. Every year they host the Grizzlies International Tournament. A weekend where teams from across the Netherlands and beyond converge on the field.</p>
+          <p>The goal wasn't just to look back. It was to grow. The club needed sports event content that would attract new international teams, convince sponsors with a professional image, and give the community something they'd share without being asked. Most event videos are forgotten within a week. Grizzlies needed one that would keep working long after the final out.</p>
+          <p>The brief: capture the energy, community, and emotion of the tournament in an aftermovie and photo series that could serve as a strategic asset across social media, the website, and sponsor pitches.</p>
         </div>
       </div>
       <div data-reveal>
@@ -403,15 +377,15 @@
         <ul class="cs-approach-list">
           <li class="cs-approach-item">
             <span class="cs-approach-num">01</span>
-            <span class="cs-approach-text">Built a complete brand content strategy — voice guide, content pillars, and a 6-month calendar mapped to growth milestones</span>
+            <span class="cs-approach-text"><strong>On the field and off it.</strong> We didn't just film the sport. We filmed everything around it. The tension before a pitch, the laughter on the sideline, the moment a team celebrates together. Real moments, unscripted. That's what makes people share.</span>
           </li>
           <li class="cs-approach-item">
             <span class="cs-approach-num">02</span>
-            <span class="cs-approach-text">Designed a premium social aesthetic with consistent templates and a content cadence across Instagram and TikTok</span>
+            <span class="cs-approach-text"><strong>A photo series with purpose.</strong> Alongside the aftermovie, we delivered a full tournament photo series focused on emotion, interaction, and the small details that make a club feel alive. Content built to work across socials, the website, and sponsor decks.</span>
           </li>
           <li class="cs-approach-item">
             <span class="cs-approach-num">03</span>
-            <span class="cs-approach-text">Took over full social media management — content creation, scheduling, community engagement, and monthly reporting</span>
+            <span class="cs-approach-text"><strong>Strategic asset. Built to keep working.</strong> The aftermovie was designed as the club's digital calling card. A two-minute answer to "what is the Grizzlies International Tournament?" that sponsors, new teams, and prospective members could find and feel immediately.</span>
           </li>
         </ul>
       </div>
@@ -447,25 +421,25 @@
         <p class="cs-results-label">The Outcome</p>
         <h2 class="cs-results-heading">What we<br><em>delivered.</em></h2>
         <p class="cs-results-copy">
-          Six months in, Nova Brand had become the go-to premium wellness brand in their city. Their following grew from under 2K to over 40K, and engagement lifted 4× within the first 60 days of our management.
+          What started as a sports event aftermovie became a strategic asset the club builds on every year. The content didn't just recap the tournament. It put Grizzlies Zoetermeer on the map internationally. New teams from France, Germany, and England registered. Sponsors were quicker to commit. Members shared the video themselves without being prompted. The film created pride in the existing community and excitement in those who hadn't been there yet. That's the difference between content that looks good and content that actually scores.
         </p>
       </div>
       <div class="cs-results-numbers" data-reveal>
         <div class="cs-result-tile">
-          <div class="cs-result-value"><em>40K</em></div>
-          <div class="cs-result-label">Instagram Followers</div>
+          <div class="cs-result-value"><em>1K+</em></div>
+          <div class="cs-result-label">Views in 2 weeks. Organic, no ads.</div>
         </div>
         <div class="cs-result-tile">
-          <div class="cs-result-value"><em>4×</em></div>
-          <div class="cs-result-label">Engagement Lift</div>
+          <div class="cs-result-value"><em>3</em></div>
+          <div class="cs-result-label">New international markets signing up</div>
         </div>
         <div class="cs-result-tile">
-          <div class="cs-result-value"><em>6</em></div>
-          <div class="cs-result-label">Months to Target</div>
+          <div class="cs-result-value"><em>↑</em><span class="cs-result-tag">Sponsors</span></div>
+          <div class="cs-result-label">Faster conversions with professional image</div>
         </div>
         <div class="cs-result-tile">
-          <div class="cs-result-value"><em>0</em></div>
-          <div class="cs-result-label">Missed Posts</div>
+          <div class="cs-result-value"><em>100%</em></div>
+          <div class="cs-result-label">Organic sharing. The community spread it themselves.</div>
         </div>
       </div>
     </div>
@@ -485,11 +459,11 @@
 <!-- ─── NEXT CASE ──────────────────────────────────────── -->
 <section class="cs-next">
   <div class="wrap">
-    <a href="work-volta.html" class="cs-next-inner">
+    <a href="work/strength2strength/" class="cs-next-inner">
       <div>
         <p class="cs-next-label">Next project</p>
-        <div class="cs-next-name">VOLTA</div>
-        <div class="cs-next-service">Brand Content Strategy & Advertising</div>
+        <div class="cs-next-name">STRENGTH 2 STRENGTH</div>
+        <div class="cs-next-service">Brand Content Strategy · Social Media Management</div>
       </div>
       <div class="cs-next-arrow">↗</div>
     </a>
@@ -498,7 +472,8 @@
 
 <!-- ─── FOOTER ────────────────────────────────────────── -->
 <footer>
-  <div class="wrap">    <div class="footer-body" data-reveal data-delay="0.1">
+  <div class="wrap">
+    <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
         <div class="ftr-logo-wrap"><img src="brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
         <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
@@ -535,21 +510,16 @@
 <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
 (function() {
-  const c = document.createElement('canvas');
-  c.id = 'grain';
-  c.width  = Math.round(Math.min(window.innerWidth, 1400));
+  const c = document.createElement('canvas'); c.id = 'grain';
+  c.width = Math.round(Math.min(window.innerWidth, 1400));
   c.height = Math.round(Math.min(window.innerHeight, 900));
   document.body.appendChild(c);
   const ctx = c.getContext('2d'); let last = 0;
   function draw(t) {
     if (t - last > 45) {
       last = t;
-      const img = ctx.createImageData(c.width, c.height);
-      const d = img.data;
-      for (let i = 0; i < d.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
-      }
+      const img = ctx.createImageData(c.width, c.height); const d = img.data;
+      for (let i = 0; i < d.length; i += 4) { const v = (Math.random() * 255) | 0; d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255; }
       ctx.putImageData(img, 0, 0);
     }
     requestAnimationFrame(draw);
@@ -557,25 +527,14 @@
   requestAnimationFrame(draw);
 })();
 
+(function() {
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; });
+  document.addEventListener('mouseover', e => { cur.classList.toggle('is-pointer', !!e.target.closest('a, button')); });
+})();
+
 const lenis = new Lenis({ duration: 1.3, smoothWheel: true });
-
-const cursorEl = document.getElementById('cursor');
-let _mx = 0, _my = 0;
-document.addEventListener('mousemove', e => {
-  _mx = e.clientX; _my = e.clientY;
-  cursorEl.style.opacity = '1';
-  const under = document.elementFromPoint(_mx, _my);
-  if (under) cursorEl.classList.toggle('is-pointer', !!under.closest('a, button, input, select, textarea, label, [role="button"], [tabindex]'));
-});
-document.addEventListener('mouseleave', () => { cursorEl.style.opacity = '0'; });
-document.addEventListener('mouseenter', () => { cursorEl.style.opacity = '1'; });
-
-(function raf(t) {
-  lenis.raf(t);
-  cursorEl.style.left = _mx + 'px';
-  cursorEl.style.top  = _my + 'px';
-  requestAnimationFrame(raf);
-})(0);
+(function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
 
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(({ target, isIntersecting }) => {
@@ -596,31 +555,18 @@ if (heroBgImg && heroBgImg.src) {
   const fromTransition = !!sessionStorage.getItem('7emple_txOrigin');
   sessionStorage.removeItem('7emple_txOrigin');
   if (fromTransition) {
-    document.body.style.opacity   = '0';
-    document.body.style.transform = 'scale(0.95)';
-    document.body.style.transition = 'none';
+    document.body.style.opacity = '0'; document.body.style.transform = 'scale(0.95)'; document.body.style.transition = 'none';
     requestAnimationFrame(() => {
       document.body.style.transition = 'opacity 0.62s cubic-bezier(0.16,1,0.3,1), transform 0.62s cubic-bezier(0.16,1,0.3,1)';
-      requestAnimationFrame(() => {
-        document.body.style.opacity   = '1';
-        document.body.style.transform = 'scale(1)';
-      });
+      requestAnimationFrame(() => { document.body.style.opacity = '1'; document.body.style.transform = 'scale(1)'; });
     });
-    // Clear transform after animation — leaving transform:scale(1) on body
-    // breaks position:fixed (cursor) by making it scroll with the page
-    setTimeout(() => {
-      document.body.style.transition = '';
-      document.body.style.transform  = '';
-      document.body.style.opacity    = '';
-    }, 700);
   }
   setTimeout(() => { document.querySelector('nav').style.opacity = '1'; }, fromTransition ? 300 : 80);
 })();
 
 (function() {
   document.addEventListener('click', e => {
-    const link = e.target.closest('a');
-    if (!link) return;
+    const link = e.target.closest('a'); if (!link) return;
     const href = link.getAttribute('href');
     if (!href || href === '#' || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
     const page = window.location.pathname.split('/').pop() || 'index.html';
@@ -628,24 +574,12 @@ if (heroBgImg && heroBgImg.src) {
     e.preventDefault();
     document.body.style.transformOrigin = 'center center';
     document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
-    document.body.style.opacity   = '0';
-    document.body.style.transform = 'scale(1.07)';
+    document.body.style.opacity = '0'; document.body.style.transform = 'scale(1.07)';
     sessionStorage.setItem('7emple_txOrigin', '1');
     setTimeout(() => { window.location.href = href; }, 340);
   });
 })();
-
-window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    document.body.style.opacity = '';
-    document.body.style.transform = '';
-    document.body.style.transition = '';
-    document.body.style.transformOrigin = '';
-    sessionStorage.removeItem('7emple_txOrigin');
-  }
-});
 </script>
-
 <script>
 (function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
 </script>

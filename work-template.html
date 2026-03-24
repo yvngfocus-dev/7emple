@@ -52,9 +52,9 @@
       --border: rgba(249,249,249,0.1);
       --orange: #FE4C04;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
-    html { -webkit-font-smoothing: antialiased; cursor: none; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;  }
+    html { -webkit-font-smoothing: antialiased;  }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden;  }
 
     /* ─── CURSOR ──────────────────────────── */
     #cursor {
@@ -336,6 +336,12 @@
     }
       .ftr-logo-wrap { margin-bottom: 20px; }
     .ftr-logo-img { height: 48px; }
+  
+    /* ─── ACCESSIBILITY ──────────────────── */
+    .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 99999; background: var(--orange); color: #fff; padding: 8px 16px; font-size: 13px; border-radius: 4px; text-decoration: none; }
+    .skip-link:focus { left: 8px; }
+    *:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
   </style>
   <!-- PostHog Analytics -->
   <script>
@@ -348,6 +354,7 @@
   <script src="/analytics.js" defer></script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <div id="cursor"></div>
 
@@ -366,7 +373,7 @@
 </nav>
 
 <!-- ─── HERO ──────────────────────────────────────────── -->
-<section class="cs-hero">
+<section id="main-content" class="cs-hero">
   <div class="cs-hero-bg">
     <!-- Replace src with your hero image -->
     <img src="[HERO IMAGE URL]" alt="[CLIENT NAME]">
@@ -546,10 +553,10 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:info@7emple.com">info@7emple.com</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Twitter / X</a></li>
-          <li><a href="#">TikTok</a></li>
+          <li><a href="https://instagram.com/7emple" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://linkedin.com/company/7emple" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/7emple" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="https://tiktok.com/@7emple" target="_blank" rel="noopener">TikTok</a></li>
         </ul>
       </div>
     </div>
@@ -670,5 +677,8 @@ if (heroBgImg && heroBgImg.src) {
 })();
 </script>
 
+<script>
+(function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
+</script>
 </body>
 </html>

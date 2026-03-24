@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the team behind 7EMPLE. We are a creative marketing agency based in Amersfoort, Netherlands, working with ambitious brands globally.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About 7EMPLE — Creative Marketing Agency">
+  <meta property="og:description" content="Meet the team behind 7EMPLE. We are a creative marketing agency based in Amersfoort, Netherlands, working with ambitious brands globally.">
+  <meta property="og:url" content="https://7emple.com/about.html">
+  <meta property="og:image" content="https://7emple.com/brand_assets/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About 7EMPLE — Creative Marketing Agency">
+  <meta name="twitter:description" content="Meet the team behind 7EMPLE. We are a creative marketing agency based in Amersfoort, Netherlands, working with ambitious brands globally.">
+  <link rel="canonical" href="https://7emple.com/about.html">
   <title>About — 7EMPLE</title>
   <link rel="icon" type="image/png" href="brand_assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,9 +28,9 @@
       --border: rgba(249,249,249,0.1);
       --orange: #FE4C04;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
-    html { -webkit-font-smoothing: antialiased; cursor: none; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;  }
+    html { -webkit-font-smoothing: antialiased;  }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden;  }
 
     /* ─── CURSOR ──────────────────────────── */
     #cursor {
@@ -442,6 +453,12 @@
       .ab-principle-desc { display: none; }
       .footer-body { grid-template-columns: 1fr; gap: 40px; }
     }
+  
+    /* ─── ACCESSIBILITY ──────────────────── */
+    .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 99999; background: var(--orange); color: #fff; padding: 8px 16px; font-size: 13px; border-radius: 4px; text-decoration: none; }
+    .skip-link:focus { left: 8px; }
+    *:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
   </style>
   <!-- PostHog Analytics -->
   <script>
@@ -454,6 +471,7 @@
   <script src="/analytics.js" defer></script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <div id="cursor"></div>
 
@@ -561,7 +579,7 @@
 <!-- ─── STORY ─────────────────────────────────────────── -->
 <section class="ab-story" id="abStorySection">
   <div class="ab-story-wm" id="abStoryWm" aria-hidden="true">7EMPLE</div>
-  <div class="wrap">
+  <div id="main-content" class="wrap">
     <div class="ab-story-inner">
 
       <div class="ab-story-left">
@@ -720,10 +738,10 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:info@7emple.com">info@7emple.com</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Twitter / X</a></li>
-          <li><a href="#">TikTok</a></li>
+          <li><a href="https://instagram.com/7emple" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://linkedin.com/company/7emple" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/7emple" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="https://tiktok.com/@7emple" target="_blank" rel="noopener">TikTok</a></li>
         </ul>
       </div>
     </div>
@@ -1018,5 +1036,8 @@ window.addEventListener('pageshow', e => {
 });
 </script>
 
+<script>
+(function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
+</script>
 </body>
 </html>

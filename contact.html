@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ready to build something bold? Get in touch with 7EMPLE to discuss your next brand, content, or social media project.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Contact — Start a Project with 7EMPLE">
+  <meta property="og:description" content="Ready to build something bold? Get in touch with 7EMPLE to discuss your next brand, content, or social media project.">
+  <meta property="og:url" content="https://7emple.com/contact.html">
+  <meta property="og:image" content="https://7emple.com/brand_assets/logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact — Start a Project with 7EMPLE">
+  <meta name="twitter:description" content="Ready to build something bold? Get in touch with 7EMPLE to discuss your next brand, content, or social media project.">
+  <link rel="canonical" href="https://7emple.com/contact.html">
   <title>Contact — 7EMPLE</title>
   <link rel="icon" type="image/png" href="brand_assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,9 +28,9 @@
       --border: rgba(249,249,249,0.1);
       --orange: #FE4C04;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; cursor: none !important; }
-    html { -webkit-font-smoothing: antialiased; cursor: none; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;  }
+    html { -webkit-font-smoothing: antialiased;  }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden;  }
 
     /* ─── CURSOR ──────────────────────────── */
     #cursor {
@@ -325,6 +336,12 @@
       .ch-hed { font-size: clamp(48px,17vw,80px); }
       .copyright-inner { font-size: clamp(40px,18vw,72px); }
     }
+  
+    /* ─── ACCESSIBILITY ──────────────────── */
+    .skip-link { position: absolute; left: -9999px; top: 8px; z-index: 99999; background: var(--orange); color: #fff; padding: 8px 16px; font-size: 13px; border-radius: 4px; text-decoration: none; }
+    .skip-link:focus { left: 8px; }
+    *:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
   </style>
   <!-- PostHog Analytics -->
   <script>
@@ -337,6 +354,7 @@
   <script src="/analytics.js" defer></script>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <div id="cursor"></div>
 
@@ -387,10 +405,10 @@
       <div class="ch-info-group">
         <div class="ch-info-label">Follow us</div>
         <div class="ch-socials">
-          <a href="#" class="ch-social">Instagram <span class="ch-social-arrow">↗</span></a>
-          <a href="#" class="ch-social">LinkedIn <span class="ch-social-arrow">↗</span></a>
-          <a href="#" class="ch-social">Twitter / X <span class="ch-social-arrow">↗</span></a>
-          <a href="#" class="ch-social">TikTok <span class="ch-social-arrow">↗</span></a>
+          <a href="https://instagram.com/7emple" target="_blank" rel="noopener" class="ch-social">Instagram <span class="ch-social-arrow">↗</span></a>
+          <a href="https://linkedin.com/company/7emple" target="_blank" rel="noopener" class="ch-social">LinkedIn <span class="ch-social-arrow">↗</span></a>
+          <a href="https://x.com/7emple" target="_blank" rel="noopener" class="ch-social">Twitter / X <span class="ch-social-arrow">↗</span></a>
+          <a href="https://tiktok.com/@7emple" target="_blank" rel="noopener" class="ch-social">TikTok <span class="ch-social-arrow">↗</span></a>
         </div>
       </div>
     </div>
@@ -400,12 +418,12 @@
   <div class="ch-ticker" id="chTicker">
     <div class="ch-ticker-track">
       <span>Currently accepting new projects</span><span class="ch-ticker-sep">·</span>
-      <span>London, UK</span><span class="ch-ticker-sep">·</span>
+      <span>Amersfoort, Netherlands</span><span class="ch-ticker-sep">·</span>
       <span>info@7emple.com</span><span class="ch-ticker-sep">·</span>
       <span>Response within 24 hours</span><span class="ch-ticker-sep">·</span>
       <span>Available worldwide</span><span class="ch-ticker-sep">·</span>
       <span>Currently accepting new projects</span><span class="ch-ticker-sep">·</span>
-      <span>London, UK</span><span class="ch-ticker-sep">·</span>
+      <span>Amersfoort, Netherlands</span><span class="ch-ticker-sep">·</span>
       <span>info@7emple.com</span><span class="ch-ticker-sep">·</span>
       <span>Response within 24 hours</span><span class="ch-ticker-sep">·</span>
       <span>Available worldwide</span><span class="ch-ticker-sep">·</span>
@@ -426,7 +444,7 @@
 
 <!-- ─── CONTACT FORM ──────────────────────────────────── -->
 <section class="contact-form-section" id="contact-form">
-  <div class="wrap">
+  <div id="main-content" class="wrap">
     <div class="cfs-inner" data-reveal>
       <div class="cfs-sidebar">
         <div class="cfs-sidebar-top">
@@ -518,10 +536,10 @@
         <h4>Contact</h4>
         <ul>
           <li><a href="mailto:info@7emple.com">info@7emple.com</a></li>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">LinkedIn</a></li>
-          <li><a href="#">Twitter / X</a></li>
-          <li><a href="#">TikTok</a></li>
+          <li><a href="https://instagram.com/7emple" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://linkedin.com/company/7emple" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/7emple" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="https://tiktok.com/@7emple" target="_blank" rel="noopener">TikTok</a></li>
         </ul>
       </div>
     </div>
@@ -784,5 +802,8 @@ window.addEventListener('pageshow', e => {
 });
 </script>
 
+<script>
+(function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
+</script>
 </body>
 </html>
