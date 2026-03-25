@@ -285,6 +285,22 @@
     .skip-link:focus { left: 8px; }
     *:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
     a:focus-visible, button:focus-visible { outline: 2px solid var(--orange) !important; outline-offset: 3px; }
+  
+    /* ── NEWSLETTER ── */
+    .f-newsletter { display: flex; align-items: center; justify-content: space-between; padding: 48px 0; border-bottom: 1px solid var(--border); gap: 48px; }
+    .f-nl-label { font-size: 10px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--orange); margin-bottom: 10px; }
+    .f-nl-copy p { font-size: 18px; font-weight: 600; color: var(--text); line-height: 1.35; }
+    .f-nl-row { display: flex; gap: 8px; background: rgba(249,249,249,0.04); border: 1px solid var(--border); border-radius: 10px; padding: 6px 6px 6px 20px; transition: border-color .2s; }
+    .f-nl-row:focus-within { border-color: rgba(249,249,249,.2); }
+    .f-nl-input { flex: 1; background: none; border: none; outline: none; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text); min-width: 200px; }
+    .f-nl-input::placeholder { color: var(--dim, #4A4A4A); }
+    .f-nl-btn { background: var(--orange); color: #fff; border: none; border-radius: 6px; padding: 10px 20px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; cursor: none; white-space: nowrap; transition: background .2s; flex-shrink: 0; }
+    .f-nl-btn:hover { background: #e04400; }
+    @media (max-width: 640px) {
+      .f-newsletter { flex-direction: column; align-items: flex-start; gap: 24px; padding: 36px 0; }
+      .f-nl-input { min-width: 0; }
+      .f-nl-btn { cursor: auto; }
+    }
   </style>
   <!-- PostHog Analytics -->
   <script>
@@ -480,7 +496,19 @@
 <!-- ─── FOOTER ────────────────────────────────────────── -->
 <footer>
   <div class="wrap">
-    <div class="footer-body" data-reveal data-delay="0.1">
+    <div class="f-newsletter" data-reveal>
+      <div class="f-nl-copy">
+        <div class="f-nl-label">The Letter</div>
+        <p>Behind the campaigns.<br>Every two weeks.</p>
+      </div>
+      <form class="f-nl-form" id="nlForm">
+        <div class="f-nl-row">
+          <input class="f-nl-input" type="email" placeholder="Your email" required>
+          <button class="f-nl-btn" type="submit">Subscribe</button>
+        </div>
+      </form>
+    </div>
+        <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
         <div class="ftr-logo-wrap"><img src="/brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
         <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
@@ -605,6 +633,18 @@ if (heroBgImg && heroBgImg.src) {
 </script>
 <script>
 (function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
+// Newsletter
+(function(){
+  var f = document.getElementById('nlForm');
+  if (!f) return;
+  f.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var btn = f.querySelector('button'), inp = f.querySelector('input');
+    btn.textContent = "You're in";
+    btn.style.background = '#1a5c2a';
+    inp.disabled = true; btn.disabled = true;
+  });
+})();
 </script>
 </body>
 </html>
