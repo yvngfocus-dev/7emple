@@ -15,7 +15,7 @@
   <meta name="twitter:description" content="7EMPLE is a creative marketing agency specialising in brand content strategy, videography, photography, social media and advertising for ambitious brands worldwide.">
   <link rel="canonical" href="https://7emple.com/">
   <title>7EMPLE — more than just an agency</title>
-  <link rel="icon" type="image/png" href="brand_assets/logo.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
@@ -265,6 +265,9 @@
     .work-card:last-child:nth-child(odd) { grid-column: span 2; }
     .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; }
     .work-card:hover img { transform: scale(1.13); filter: grayscale(0%); }
+    /* Dark placeholder for cards without a real photo */
+    .work-card-ph { width: 100%; aspect-ratio: 16/10; background: #111; transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .work-card:hover .work-card-ph { transform: scale(1.13); }
     .work-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 56px 28px 28px; background: linear-gradient(to top, rgba(22,22,22,0.9), transparent); }
     .work-title { font-family: 'Inter Display', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
     .work-type { font-size: 12px; color: var(--muted); margin-top: 5px; }
@@ -675,6 +678,7 @@
       .testi-card:nth-child(5) { transform: translateX(-88px) rotate(-0.8deg); }
 
       /* ── Gallery ── */
+      .cylinder-section { height: 300vh; }
       .g-item { width: calc(100vw - 48px); max-width: 480px; height: auto; aspect-ratio: 16/10; }
       .g-item:nth-child(1) { align-self: center; margin-left: 0; }
       .g-item:nth-child(2) { align-self: center; margin-right: 0; }
@@ -777,7 +781,7 @@
   </div>
   <div class="hero-right">
     <div class="hero-img">
-      <img src="https://placehold.co/960x1080/0a0a0a/1a1a1a" alt="7EMPLE Creative Work" id="heroImg">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%230a0a0a'/%3E%3C/svg%3E" alt="7EMPLE Creative Work" id="heroImg">
       <div class="hero-img-overlay"></div>
       <div class="hero-img-caption">
         <p>2+ years of proven methods. Real results through relentless creative discipline and effort.</p>
@@ -911,19 +915,19 @@
       <div class="work-overlay"><div class="work-title">Strength 2 Strength</div><div class="work-type">Brand Content Strategy · Social Media</div></div>
     </a>
     <a href="/work/grizzlies/" class="work-card" data-reveal data-delay="0.1">
-      <img src="https://placehold.co/1200x750/080808/1e1e1e" alt="Grizzlies">
+      <div class="work-card-ph"></div>
       <div class="work-overlay"><div class="work-title">Grizzlies</div><div class="work-type">Videography · Photography · Aftermovies</div></div>
     </a>
     <a href="/work/nino-athletics/" class="work-card" data-reveal data-delay="0.05">
-      <img src="https://placehold.co/1200x750/0a0a0a/202020" alt="Nino Athletics">
+      <div class="work-card-ph"></div>
       <div class="work-overlay"><div class="work-title">Nino Athletics</div><div class="work-type">Brand Content Strategy · Social Media Branding</div></div>
     </a>
     <a href="/work/sem-koopman/" class="work-card" data-reveal data-delay="0.15">
-      <img src="https://placehold.co/1200x750/0c0c0c/242424" alt="Sem Koopman">
+      <div class="work-card-ph"></div>
       <div class="work-overlay"><div class="work-title">Sem Koopman</div><div class="work-type">Videography · Brand Content Strategy</div></div>
     </a>
     <a href="/work/vitaq/" class="work-card" data-reveal data-delay="0.2">
-      <img src="https://placehold.co/1200x750/100808/221212" alt="VitaQ">
+      <div class="work-card-ph"></div>
       <div class="work-overlay"><div class="work-title">VitaQ</div><div class="work-type">Branding · Social Media Content · Videography</div></div>
     </a>
   </div>
@@ -959,7 +963,7 @@
     <p class="services-intro" data-reveal>Every project gets the same obsessive attention. Regardless of budget, regardless of scope. Your brand deserves it. And frankly, so does our reputation.</p>
     <div class="services-list">
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/1a0808/3a1212">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%231a0808'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">01</span>
           <div><div class="svc-name">Brand Content Strategy</div><div class="svc-teaser">Strategy · Planning · Growth</div></div>
@@ -978,7 +982,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/081a1a/123a3a">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23081a1a'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">02</span>
           <div><div class="svc-name">Videography</div><div class="svc-teaser">Brand Films · Short-Form · Campaigns</div></div>
@@ -997,7 +1001,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/081a08/123a12">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23081a08'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">03</span>
           <div><div class="svc-name">Photography</div><div class="svc-teaser">Branding · Editorial · Campaign</div></div>
@@ -1016,7 +1020,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/08081a/12123a">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%2308081a'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">04</span>
           <div><div class="svc-name">Social Media Management</div><div class="svc-teaser">Planning · Creation · Growth</div></div>
@@ -1035,7 +1039,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/1a1008/3a2a10">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%231a1008'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">05</span>
           <div><div class="svc-name">Advertising</div><div class="svc-teaser">Creative · Targeting · Conversion</div></div>
@@ -1054,7 +1058,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/1a0a1a/3a1a3a">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%231a0a1a'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">06</span>
           <div><div class="svc-name">Social Media Branding</div><div class="svc-teaser">Identity · Templates · Guidelines</div></div>
@@ -1073,7 +1077,7 @@
         </div></div>
       </div>
 
-      <div class="svc-item" data-img="https://placehold.co/400x711/0a1a0a/1a3a1a">
+      <div class="svc-item" data-img="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%230a1a0a'/%3E%3C/svg%3E">
         <div class="svc-header">
           <span class="svc-num">07</span>
           <div><div class="svc-name">Aftermovies</div><div class="svc-teaser">Events · Cinematic · Hype</div></div>
@@ -1141,35 +1145,35 @@
         <div class="testi-card">
           <p class="testi-quote">"7EMPLE transformed our brand from invisible to undeniable. The results speak for themselves — 10x reach in 60 days."</p>
           <div class="testi-author">
-            <div class="testi-avatar"><img src="https://placehold.co/88x88/222/444" alt=""></div>
+            <div class="testi-avatar"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23222222'/%3E%3C/svg%3E" alt=""></div>
             <div><div class="testi-name">Sarah M.</div><div class="testi-role">CEO, NovaBrand</div></div>
           </div>
         </div>
         <div class="testi-card">
           <p class="testi-quote">"Content that actually converts. 3× ROAS within the first month. The team understood our audience better than we did."</p>
           <div class="testi-author">
-            <div class="testi-avatar"><img src="https://placehold.co/88x88/1e1e1e/3e3e3e" alt=""></div>
+            <div class="testi-avatar"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%231e1e1e'/%3E%3C/svg%3E" alt=""></div>
             <div><div class="testi-name">James T.</div><div class="testi-role">Founder, Volta</div></div>
           </div>
         </div>
         <div class="testi-card">
           <p class="testi-quote">"Professional, creative, and relentlessly strategic. 7EMPLE is the only creative partner we'll ever need."</p>
           <div class="testi-author">
-            <div class="testi-avatar"><img src="https://placehold.co/88x88/252525/454545" alt=""></div>
+            <div class="testi-avatar"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23252525'/%3E%3C/svg%3E" alt=""></div>
             <div><div class="testi-name">Aisha K.</div><div class="testi-role">Director, Meridian</div></div>
           </div>
         </div>
         <div class="testi-card">
           <p class="testi-quote">"Complete rebrand in under 3 weeks. Our engagement doubled overnight. The 7EMPLE team operates on a different level entirely."</p>
           <div class="testi-author">
-            <div class="testi-avatar"><img src="https://placehold.co/88x88/1a1a1a/3a3a3a" alt=""></div>
+            <div class="testi-avatar"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%231a1a1a'/%3E%3C/svg%3E" alt=""></div>
             <div><div class="testi-name">Marcus L.</div><div class="testi-role">CMO, Drifter Co.</div></div>
           </div>
         </div>
         <div class="testi-card">
           <p class="testi-quote">"Our landing page converts at 8.4% now. Before 7EMPLE it was below 1%. I can't recommend them highly enough."</p>
           <div class="testi-author">
-            <div class="testi-avatar"><img src="https://placehold.co/88x88/202020/404040" alt=""></div>
+            <div class="testi-avatar"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Crect width='1' height='1' fill='%23202020'/%3E%3C/svg%3E" alt=""></div>
             <div><div class="testi-name">Elena R.</div><div class="testi-role">Founder, Lumis</div></div>
           </div>
         </div>
@@ -1202,50 +1206,24 @@
             <div class="g-cap"><div class="g-cap-title">Strength 2 Strength</div><div class="g-cap-type">Brand Content Strategy · Social Media</div></div>
           </a>
           <a href="/work/vitaq/" class="g-item">
-            <img src="https://placehold.co/520x325/0d0808/2a1010" alt="VitaQ">
+            <div class="work-card-ph" style="aspect-ratio:16/9;transform:none"></div>
             <div class="g-cap"><div class="g-cap-title">VitaQ</div><div class="g-cap-type">Branding · Social Media Content · Videography</div></div>
           </a>
           <a href="/work/grizzlies/" class="g-item">
-            <img src="https://placehold.co/520x325/08100a/102a14" alt="Grizzlies Zoetermeer">
+            <div class="work-card-ph" style="aspect-ratio:16/9;transform:none"></div>
             <div class="g-cap"><div class="g-cap-title">Grizzlies Zoetermeer</div><div class="g-cap-type">Videography · Photography · Aftermovies</div></div>
           </a>
           <a href="/work/nino-athletics/" class="g-item">
-            <img src="https://placehold.co/520x325/0d0d0d/282828" alt="Nino Athletics">
+            <div class="work-card-ph" style="aspect-ratio:16/9;transform:none"></div>
             <div class="g-cap"><div class="g-cap-title">Nino Athletics</div><div class="g-cap-type">Brand Content Strategy · Social Media Branding</div></div>
           </a>
           <a href="/work/sem-koopman/" class="g-item">
-            <img src="https://placehold.co/520x325/0d0808/2a1a10" alt="Sem Koopman">
+            <div class="work-card-ph" style="aspect-ratio:16/9;transform:none"></div>
             <div class="g-cap"><div class="g-cap-title">Sem Koopman</div><div class="g-cap-type">Videography · Brand Content Strategy</div></div>
           </a>
         </div>
-          </a>
-          <a href="work-drifter-co.html" class="g-item">
-            <img src="https://placehold.co/520x325/20080a/ff3344" alt="DRIFTER CO.">
-            <div class="g-cap"><div class="g-cap-title">Drifter Co.</div><div class="g-cap-type">Videography · Social Media Branding</div></div>
-          </a>
-          <a href="work-strata.html" class="g-item">
-            <img src="https://placehold.co/520x325/061206/33cc55" alt="STRATA">
-            <div class="g-cap"><div class="g-cap-title">Strata</div><div class="g-cap-type">Photography · Aftermovies</div></div>
-          </a>
-          <a href="work-meridian.html" class="g-item">
-            <img src="https://placehold.co/520x325/1a1200/ccaa00" alt="MERIDIAN">
-            <div class="g-cap"><div class="g-cap-title">Meridian</div><div class="g-cap-type">Videography · Social Media Branding</div></div>
-          </a>
-          <a href="work-arcform.html" class="g-item">
-            <img src="https://placehold.co/520x325/061a1a/00cccc" alt="ARCFORM">
-            <div class="g-cap"><div class="g-cap-title">Arcform</div><div class="g-cap-type">Brand Content Strategy · Advertising</div></div>
-          </a>
-          <a href="work-cipher.html" class="g-item">
-            <img src="https://placehold.co/520x325/160816/cc44cc" alt="CIPHER">
-            <div class="g-cap"><div class="g-cap-title">Cipher</div><div class="g-cap-type">Social Media Management · Aftermovies</div></div>
-          </a>
-          <a href="work-lumis.html" class="g-item">
-            <img src="https://placehold.co/520x325/100808/ff8844" alt="LUMIS">
-            <div class="g-cap"><div class="g-cap-title">Lumis</div><div class="g-cap-type">Photography · Aftermovies</div></div>
-          </a>
-        </div>
       </div>
-      <div class="cyl-counter" id="cylCounter">01 / 07</div>
+      <div class="cyl-counter" id="cylCounter">01 / 05</div>
     </div>
   </div>
 </section>

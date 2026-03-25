@@ -1,0 +1,24 @@
+{
+  "tasks": {
+    "task-1774286645947-yscysm": {
+      "taskId": "task-1774286645947-yscysm",
+      "type": "bugfix",
+      "description": "Fix contact form accessibility in c:/Users/focus/Desktop/Website building/contact.html: Convert .form-pill span elements to button elements with aria-pressed=\"false\" and keydown Enter/Space handler. Add aria-required=\"true\" to required inputs (name, email, message). Fix work.html: add &lt;label for=\"wk-service-select\"&gt; before the select element.",
+      "priority": "high",
+      "status": "pending",
+      "progress": 0,
+      "assignedTo": [
+        "agent-1774286623420-iqjou5"
+      ],
+      "tags": [
+        "accessibility",
+        "html",
+        "forms"
+      ],
+      "createdAt": "2026-03-23T17:24:05.947Z",
+      "startedAt": null,
+      "completedAt": null
+    }
+  },
+  "version": "3.0.0"
+}

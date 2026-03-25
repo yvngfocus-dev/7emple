@@ -1,0 +1,22 @@
+{
+  "sessions": {
+    "term-1774286508900-71rybz": {
+      "id": "term-1774286508900-71rybz",
+      "name": "7emple-fixes",
+      "status": "active",
+      "createdAt": "2026-03-23T17:21:48.900Z",
+      "lastActivity": "2026-03-23T17:22:00.792Z",
+      "workingDir": "c:/Users/focus/Desktop/Website building",
+      "history": [
+        {
+          "command": "cd \"c:/Users/focus/Desktop/Website building\" && find . -name \"*.html\" -not -path \"*/node_modules/*\" -exec sed -i 's|href=\"#\">Instagram</a>|href=\"https://instagram.com/7emple\" target=\"_blank\" rel=\"noopener\">Instagram</a>|g; s|href=\"#\">LinkedIn</a>|href=\"https://linkedin.com/company/7emple\" target=\"_blank\" rel=\"noopener\">LinkedIn</a>|g; s|href=\"#\">Twitter / X</a>|href=\"https://x.com/7emple\" target=\"_blank\" rel=\"noopener\">Twitter / X</a>|g; s|href=\"#\">TikTok</a>|href=\"https://tiktok.com/@7emple\" target=\"_blank\" rel=\"noopener\">TikTok</a>|g' {} \\;",
+          "output": "[STATE TRACKING] Command recorded: cd \"c:/Users/focus/Desktop/Website building\" && find . -name \"*.html\" -not -path \"*/node_modules/*\" -exec sed -i 's|href=\"#\">Instagram</a>|href=\"https://instagram.com/7emple\" target=\"_blank\" rel=\"noopener\">Instagram</a>|g; s|href=\"#\">LinkedIn</a>|href=\"https://linkedin.com/company/7emple\" target=\"_blank\" rel=\"noopener\">LinkedIn</a>|g; s|href=\"#\">Twitter / X</a>|href=\"https://x.com/7emple\" target=\"_blank\" rel=\"noopener\">Twitter / X</a>|g; s|href=\"#\">TikTok</a>|href=\"https://tiktok.com/@7emple\" target=\"_blank\" rel=\"noopener\">TikTok</a>|g' {} \\;",
+          "timestamp": "2026-03-23T17:22:00.792Z",
+          "exitCode": 0
+        }
+      ],
+      "env": {}
+    }
+  },
+  "version": "3.0.0"
+}
