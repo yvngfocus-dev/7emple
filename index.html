@@ -263,6 +263,7 @@
     .view-all:hover { color: var(--text); border-color: var(--text); }
     .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
     .work-card { position: relative; overflow: hidden; cursor: none; display: block; }
+    .work-card:last-child:nth-child(odd) { grid-column: span 2; }
     .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; will-change: transform; }
     .work-card:hover img { transform: scale(1.13); filter: grayscale(0%); }
     .work-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 56px 28px 28px; background: linear-gradient(to top, rgba(22,22,22,0.9), transparent); }
@@ -922,6 +923,10 @@
       <img src="https://placehold.co/1200x750/0c0c0c/242424" alt="Sem Koopman">
       <div class="work-overlay"><div class="work-title">Sem Koopman</div><div class="work-type">Videography · Brand Content Strategy</div></div>
     </a>
+    <a href="/work/vitaq/" class="work-card" data-reveal data-delay="0.2">
+      <img src="https://placehold.co/1200x750/100808/221212" alt="VitaQ">
+      <div class="work-overlay"><div class="work-title">VitaQ</div><div class="work-type">Branding · Social Media Content · Videography</div></div>
+    </a>
   </div>
 </section>
 
@@ -965,6 +970,7 @@
           <div>
             <p class="svc-long-desc">No system, no growth. We map your entire content strategy so your brand becomes the obvious choice in your market. Clients come to you. You stop chasing them.</p>
             <a href="services.html#brand-content-strategy" class="svc-cta-link">See full service →</a>
+            <a href="/work/nino-athletics/" class="svc-cta-link">Case study: Nino Athletics →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Content Calendar</span><span class="svc-del-dot"></span></div>
@@ -984,6 +990,7 @@
           <div>
             <p class="svc-long-desc">High-ticket clients decide before they ever meet you. We produce brand films, short-form content and campaign visuals that make sure that decision goes your way.</p>
             <a href="services.html#videography" class="svc-cta-link">See full service →</a>
+            <a href="/work/grizzlies/" class="svc-cta-link">Case study: Grizzlies Zoetermeer →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Brand Films</span><span class="svc-del-dot"></span></div>
@@ -1003,6 +1010,7 @@
           <div>
             <p class="svc-long-desc">Every image either builds your brand or weakens it. Our photography positions you as the premium option before you say a word.</p>
             <a href="services.html#photography" class="svc-cta-link">See full service →</a>
+            <a href="/work/grizzlies/" class="svc-cta-link">Case study: Grizzlies Zoetermeer →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Brand Shoots</span><span class="svc-del-dot"></span></div>
@@ -1022,6 +1030,7 @@
           <div>
             <p class="svc-long-desc">You run the business. We run the socials. Full content planning, creation and posting so your brand keeps growing while you focus on revenue.</p>
             <a href="services.html#social-media-management" class="svc-cta-link">See full service →</a>
+            <a href="/work/strength2strength/" class="svc-cta-link">Case study: Strength 2 Strength →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Content Planning</span><span class="svc-del-dot"></span></div>
@@ -1060,6 +1069,7 @@
           <div>
             <p class="svc-long-desc">Your profile is your first impression. We design your full social identity: feed layout, templates and visual guidelines so every post you publish looks like it belongs to a premium brand.</p>
             <a href="services.html#social-media-branding" class="svc-cta-link">See full service →</a>
+            <a href="/work/vitaq/" class="svc-cta-link">Case study: VitaQ →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Feed Layout</span><span class="svc-del-dot"></span></div>
@@ -1079,6 +1089,7 @@
           <div>
             <p class="svc-long-desc">One night filmed right sells the next. We turn your event into a cinematic aftermovie that captures the energy, builds the hype and keeps working long after the lights go off.</p>
             <a href="services.html#aftermovies" class="svc-cta-link">See full service →</a>
+            <a href="/work/grizzlies/" class="svc-cta-link">Case study: Grizzlies Zoetermeer →</a>
           </div>
           <div class="svc-deliverables">
             <div class="svc-deliverable"><span>Event Coverage</span><span class="svc-del-dot"></span></div>
@@ -1193,9 +1204,27 @@
     <div class="cylinder-sticky">
       <div class="cylinder-vp">
         <div class="cylinder-drum" id="cylDrum">
-          <a href="work-nova-brand.html" class="g-item">
-            <img src="https://placehold.co/520x325/0d0d20/5555ff" alt="NOVA BRAND">
-            <div class="g-cap"><div class="g-cap-title">Nova Brand</div><div class="g-cap-type">Brand Content Strategy · Social Media</div></div>
+          <a href="/work/strength2strength/" class="g-item">
+            <img src="/images/mees%20of%20strength2strength%20banner.jpg" alt="Strength 2 Strength">
+            <div class="g-cap"><div class="g-cap-title">Strength 2 Strength</div><div class="g-cap-type">Brand Content Strategy · Social Media</div></div>
+          </a>
+          <a href="/work/vitaq/" class="g-item">
+            <img src="https://placehold.co/520x325/0d0808/2a1010" alt="VitaQ">
+            <div class="g-cap"><div class="g-cap-title">VitaQ</div><div class="g-cap-type">Branding · Social Media Content · Videography</div></div>
+          </a>
+          <a href="/work/grizzlies/" class="g-item">
+            <img src="https://placehold.co/520x325/08100a/102a14" alt="Grizzlies Zoetermeer">
+            <div class="g-cap"><div class="g-cap-title">Grizzlies Zoetermeer</div><div class="g-cap-type">Videography · Photography · Aftermovies</div></div>
+          </a>
+          <a href="/work/nino-athletics/" class="g-item">
+            <img src="https://placehold.co/520x325/0d0d0d/282828" alt="Nino Athletics">
+            <div class="g-cap"><div class="g-cap-title">Nino Athletics</div><div class="g-cap-type">Brand Content Strategy · Social Media Branding</div></div>
+          </a>
+          <a href="/work/sem-koopman/" class="g-item">
+            <img src="https://placehold.co/520x325/0d0808/2a1a10" alt="Sem Koopman">
+            <div class="g-cap"><div class="g-cap-title">Sem Koopman</div><div class="g-cap-type">Videography · Brand Content Strategy</div></div>
+          </a>
+        </div>
           </a>
           <a href="work-drifter-co.html" class="g-item">
             <img src="https://placehold.co/520x325/20080a/ff3344" alt="DRIFTER CO.">
