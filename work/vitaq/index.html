@@ -523,7 +523,6 @@
     if (t - last > 80) { last = t; ctx.putImageData(gFrames[gfi], 0, 0); gfi = (gfi+1) % GFRAMES; }
     requestAnimationFrame(draw);
   }
-  }
   requestAnimationFrame(draw);
 })();
 
