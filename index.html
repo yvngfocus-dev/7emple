@@ -39,7 +39,7 @@
       background: #fff;
       mix-blend-mode: difference;
       pointer-events: none; z-index: 99999;
-      transform: translate(-50%, -50%);
+      will-change: transform;
       transition: width 0.22s cubic-bezier(0.16,1,0.3,1), height 0.22s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
       opacity: 0;
     }
@@ -150,7 +150,6 @@
       transform: translate(-50%, -50%) scale(1);
       transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1),
                   transform 0.85s cubic-bezier(0.16,1,0.3,1);
-      will-change: transform, opacity;
     }
     /* JS-triggered reveal for hero elements */
     .ir {
@@ -264,7 +263,7 @@
     .works-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
     .work-card { position: relative; overflow: hidden; cursor: none; display: block; }
     .work-card:last-child:nth-child(odd) { grid-column: span 2; }
-    .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; will-change: transform; }
+    .work-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; filter: grayscale(100%); transform: scale(1.08); transition: transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s; }
     .work-card:hover img { transform: scale(1.13); filter: grayscale(0%); }
     .work-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 56px 28px 28px; background: linear-gradient(to top, rgba(22,22,22,0.9), transparent); }
     .work-title { font-family: 'Inter Display', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.03em; }
@@ -1300,13 +1299,13 @@
 (function setupGrain() {
   const c = document.createElement('canvas');
   c.id = 'grain';
-  c.width = Math.round(Math.min(window.innerWidth, 1400));
-  c.height = Math.round(Math.min(window.innerHeight, 900));
+  c.width = 320; c.height = 180; // small canvas, CSS scales it up (image-rendering:pixelated)
   document.body.appendChild(c);
   const ctx = c.getContext('2d');
   let last = 0;
   function draw(t) {
-    if (t - last > 45) { // ~22fps grain refresh
+    if (document.hidden) { requestAnimationFrame(draw); return; }
+    if (t - last > 80) { // ~12fps grain refresh
       last = t;
       const img = ctx.createImageData(c.width, c.height);
       const d = img.data;
@@ -1411,8 +1410,14 @@ const TOTAL      = cylItems.length; // 7
 let _lastScrollY = window.scrollY;
 let _scrollVel   = 0;
 
+// Visibility gates — skip expensive work when section is off-screen
+let _cylVisible   = false;
+let _testiVisible = false;
+let _heroVisible  = true;
+new IntersectionObserver(e => { _cylVisible   = e[0].isIntersecting; }, { rootMargin: '200px' }).observe(cylSection);
+
 function updateCylinder() {
-  if (!cylSection) return;
+  if (!cylSection || !_cylVisible) return;
 
   // Smooth scroll velocity (px/frame, exponential decay)
   const currScrollY = window.scrollY;
@@ -1468,9 +1473,10 @@ function updateCylinder() {
 // ═══════════════════════════════════════════════════════
 const testiOuter = document.getElementById('testiOuter');
 const testiRail  = document.getElementById('testiRail');
+if (testiOuter) new IntersectionObserver(e => { _testiVisible = e[0].isIntersecting; }, { rootMargin: '200px' }).observe(testiOuter);
 
 function updateTesti() {
-  if (!testiOuter) return;
+  if (!testiOuter || !_testiVisible) return;
   const rect     = testiOuter.getBoundingClientRect();
   const total    = testiOuter.offsetHeight - window.innerHeight;
   const scrolled = Math.max(0, -rect.top);
@@ -1487,9 +1493,10 @@ function updateTesti() {
 // ═══════════════════════════════════════════════════════
 const heroImgEl   = document.getElementById('heroImg');
 const heroSection = document.querySelector('.hero');
+if (heroSection) new IntersectionObserver(e => { _heroVisible = e[0].isIntersecting; }, { rootMargin: '100px' }).observe(heroSection);
 
 function updateHeroParallax() {
-  if (!heroImgEl || !heroSection) return;
+  if (!heroImgEl || !heroSection || !_heroVisible) return;
   const rect     = heroSection.getBoundingClientRect();
   const progress = 1 - rect.bottom / (rect.height + window.innerHeight);
   heroImgEl.style.transform = `translateY(${progress * 72}px)`;
@@ -1534,17 +1541,17 @@ function updateMarquee() {
 // RAF LOOP — runs everything together
 // ═══════════════════════════════════════════════════════
 function raf(time) {
+  if (document.hidden) { requestAnimationFrame(raf); return; }
   lenis.raf(time);
   updateCylinder();
   updateTesti();
   updateHeroParallax();
   updatePreview();
   updateMarquee();
-  // Cursor lerp
+  // Cursor lerp — transform3d avoids layout reflow
   _cx += (_mx - _cx) * 0.22;
   _cy += (_my - _cy) * 0.22;
-  cursorEl.style.left = _cx + 'px';
-  cursorEl.style.top  = _cy + 'px';
+  cursorEl.style.transform = `translate3d(${_cx}px,${_cy}px,0) translate(-50%,-50%)`;
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
