@@ -11,17 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #161616; --text: #F9F9F9; --muted: #868686;
-      --dim: #4A4A4A; --surface: #1c1c1c; --surface2: #222;
-      --border: rgba(249,249,249,0.1); --orange: #FE4C04;
+      --bg: #0e0e0e; --text: #F9F9F9; --muted: #767676;
+      --dim: #3a3a3a; --surface: #181818;
+      --border: rgba(249,249,249,0.08); --orange: #FE4C04;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-font-smoothing: antialiased; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
-           font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    html, body {
+      height: 100%; -webkit-font-smoothing: antialiased;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', sans-serif; font-size: 15px;
+      line-height: 1.6; cursor: none; overflow-x: hidden;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
     a { text-decoration: none; color: inherit; }
-    img { display: block; max-width: 100%; }
-    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
 
     /* ── CURSOR ── */
     #cursor {
@@ -35,201 +39,106 @@
 
     /* ── GRAIN ── */
     #grain { position: fixed; inset: 0; width: 100%; height: 100%;
-             pointer-events: none; z-index: 10001; opacity: 0.013;
+             pointer-events: none; z-index: 10001; opacity: 0.015;
              mix-blend-mode: screen; image-rendering: pixelated; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 22px 48px; border-bottom: 1px solid var(--border);
-      background: rgba(22,22,22,0.92); backdrop-filter: blur(12px);
+    /* ── BACK ── */
+    .back {
+      position: fixed; top: 32px; left: 40px; z-index: 100;
+      font-size: 11px; color: var(--muted); letter-spacing: .08em;
+      display: flex; align-items: center; gap: 8px;
+      transition: color .2s;
     }
-    .nav-logo img { height: 28px; }
-    .nav-back { font-size: 12px; color: var(--muted); letter-spacing: .06em;
-                display: flex; align-items: center; gap: 8px; transition: color .2s; }
-    .nav-back:hover { color: var(--text); }
+    .back:hover { color: var(--text); }
 
-    /* ── HERO ── */
-    .hero { padding: 160px 0 0; }
-    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-                  align-items: end; padding-bottom: 96px; border-bottom: 1px solid var(--border); }
-    .hero-left {}
-    .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em;
-                    text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
-    .hero-hed {
+    /* ── MAIN ── */
+    main {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      padding: 80px 40px;
+    }
+    .center { max-width: 560px; width: 100%; text-align: center; }
+
+    .eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .eyebrow.show { opacity: 1; transform: translateY(0); }
+
+    .hed {
       font-family: 'Inter Display', sans-serif;
-      font-size: clamp(56px, 7.5vw, 108px);
-      font-weight: 800; letter-spacing: -.05em; line-height: .9;
+      font-size: clamp(52px, 10vw, 88px);
+      font-weight: 800; letter-spacing: -.05em; line-height: .92;
+      margin-bottom: 28px;
+      opacity: 0; transform: translateY(16px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1) .08s, transform .9s cubic-bezier(.16,1,.3,1) .08s;
     }
-    .hero-hed em { font-style: italic; font-weight: 300; }
-    .hero-right { padding-bottom: 8px; }
-    .hero-manifesto {
-      font-size: 19px; line-height: 1.6; color: var(--muted);
-      border-left: 2px solid var(--orange); padding-left: 24px; margin-bottom: 32px;
+    .hed.show { opacity: 1; transform: translateY(0); }
+    .hed em { font-style: italic; font-weight: 300; }
+
+    .sub {
+      font-size: 16px; color: var(--muted); line-height: 1.7;
+      margin-bottom: 48px;
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1) .16s, transform .9s cubic-bezier(.16,1,.3,1) .16s;
     }
-    .hero-manifesto strong { color: var(--text); font-weight: 500; }
-    .hero-stat-row { display: flex; gap: 48px; padding-top: 32px; border-top: 1px solid var(--border); }
-    .hero-stat-n { font-family: 'Inter Display', sans-serif; font-size: 36px;
-                   font-weight: 800; letter-spacing: -.04em; color: var(--orange); }
-    .hero-stat-l { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .sub.show { opacity: 1; transform: translateY(0); }
 
-    /* ── PHILOSOPHY ── */
-    .philosophy { padding: 96px 0; border-bottom: 1px solid var(--border); }
-    .philosophy-label { font-size: 10px; color: var(--dim); letter-spacing: .14em;
-                        text-transform: uppercase; font-weight: 500; margin-bottom: 56px; }
-    .philosophy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .ph-item { background: var(--surface); padding: 40px 36px; }
-    .ph-num { font-size: 11px; color: var(--dim); letter-spacing: .1em; margin-bottom: 28px; }
-    .ph-title { font-family: 'Inter Display', sans-serif; font-size: 20px; font-weight: 700;
-                letter-spacing: -.02em; margin-bottom: 14px; }
-    .ph-title em { font-style: italic; font-weight: 300; }
-    .ph-body { font-size: 14px; color: var(--muted); line-height: 1.7; }
-
-    /* ── CURRICULUM ── */
-    .curriculum { padding: 96px 0; }
-    .curriculum-header { display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
-                         align-items: end; margin-bottom: 72px; }
-    .curriculum-hed { font-family: 'Inter Display', sans-serif;
-                      font-size: clamp(40px, 5vw, 72px); font-weight: 800;
-                      letter-spacing: -.045em; line-height: .95; }
-    .curriculum-hed em { font-style: italic; font-weight: 300; }
-    .curriculum-intro { font-size: 16px; color: var(--muted); line-height: 1.7; }
-    .curriculum-note { font-size: 12px; color: var(--dim); margin-top: 20px;
-                       display: flex; align-items: center; gap: 10px; }
-    .curriculum-note::before { content: ''; display: block; width: 20px; height: 1px; background: var(--dim); }
-
-    /* Track cards */
-    .tracks { display: flex; flex-direction: column; gap: 2px; }
-    .track {
-      background: var(--surface); padding: 0;
-      border-left: 3px solid transparent;
-      transition: border-color .3s, background .3s;
-      overflow: hidden;
+    /* ── FORM ── */
+    .form-wrap {
+      opacity: 0; transform: translateY(12px);
+      transition: opacity .9s cubic-bezier(.16,1,.3,1) .24s, transform .9s cubic-bezier(.16,1,.3,1) .24s;
     }
-    .track:hover { background: var(--surface2); border-left-color: var(--orange); }
+    .form-wrap.show { opacity: 1; transform: translateY(0); }
 
-    .track-header {
-      display: grid; grid-template-columns: 80px 1fr auto;
-      align-items: center; gap: 32px; padding: 36px 40px;
-      cursor: none;
+    .form-row {
+      display: flex; gap: 8px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 6px 6px 6px 20px;
+      transition: border-color .2s;
     }
-    .track-num { font-size: 11px; color: var(--dim); letter-spacing: .1em; font-weight: 500; }
-    .track-meta {}
-    .track-tag { font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
-                 color: var(--orange); font-weight: 600; margin-bottom: 6px; }
-    .track-name { font-family: 'Inter Display', sans-serif; font-size: 22px;
-                  font-weight: 700; letter-spacing: -.025em; }
-    .track-name em { font-style: italic; font-weight: 300; }
-    .track-toggle { font-size: 20px; color: var(--dim); width: 32px; height: 32px;
-                    display: flex; align-items: center; justify-content: center;
-                    transition: transform .35s cubic-bezier(.76,0,.24,1), color .2s; }
-    .track.open .track-toggle { transform: rotate(45deg); color: var(--orange); }
-
-    .track-body {
-      height: 0; overflow: hidden;
-      transition: height .45s cubic-bezier(.76,0,.24,1);
-    }
-    .track-body-inner { padding: 0 40px 40px 112px; display: grid;
-                        grid-template-columns: 1fr 1fr; gap: 48px; }
-
-    .track-why {}
-    .track-why-label { font-size: 10px; color: var(--dim); letter-spacing: .12em;
-                       text-transform: uppercase; margin-bottom: 12px; }
-    .track-why-text { font-size: 14px; color: var(--muted); line-height: 1.75; }
-    .track-why-text strong { color: var(--text); font-weight: 500; }
-
-    .track-modules {}
-    .track-modules-label { font-size: 10px; color: var(--dim); letter-spacing: .12em;
-                           text-transform: uppercase; margin-bottom: 12px; }
-    .track-modules ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-    .track-modules li { font-size: 13px; color: var(--muted); display: flex; gap: 12px; align-items: baseline; }
-    .track-modules li::before { content: '→'; color: var(--orange); font-size: 10px; flex-shrink: 0; }
-
-    /* ── FOR WHO ── */
-    .for-who { padding: 96px 0; border-top: 1px solid var(--border);
-               border-bottom: 1px solid var(--border); }
-    .for-who-label { font-size: 10px; color: var(--dim); letter-spacing: .14em;
-                     text-transform: uppercase; font-weight: 500; margin-bottom: 56px; }
-    .for-who-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-    .fw-item { background: var(--surface); padding: 40px 36px; }
-    .fw-icon { font-size: 24px; margin-bottom: 20px; }
-    .fw-title { font-size: 16px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 10px; }
-    .fw-body { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    /* ── FOUNDING MEMBER ── */
-    .founding { padding: 96px 0; }
-    .founding-inner {
-      background: var(--surface); padding: 72px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-    }
-    .founding-eyebrow { font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
-                        color: var(--orange); font-weight: 700; margin-bottom: 16px; }
-    .founding-hed { font-family: 'Inter Display', sans-serif;
-                    font-size: clamp(36px, 4vw, 56px); font-weight: 800;
-                    letter-spacing: -.04em; line-height: 1.05; margin-bottom: 20px; }
-    .founding-hed em { font-style: italic; font-weight: 300; }
-    .founding-sub { font-size: 15px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
-    .founding-perks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .founding-perks li { font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
-    .founding-perks li::before { content: '✓'; color: var(--orange); font-size: 11px; flex-shrink: 0; }
-    .founding-perks li strong { color: var(--text); font-weight: 500; }
-
-    .founding-form { display: flex; flex-direction: column; gap: 12px; }
-    .founding-input {
-      background: rgba(249,249,249,0.05); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 20px;
+    .form-row:focus-within { border-color: rgba(249,249,249,.2); }
+    .form-input {
+      flex: 1; background: none; border: none; outline: none;
       font-family: 'Inter', sans-serif; font-size: 14px;
-      color: var(--text); outline: none; transition: border-color .2s;
+      color: var(--text); min-width: 0;
     }
-    .founding-input::placeholder { color: var(--dim); }
-    .founding-input:focus { border-color: rgba(249,249,249,.3); }
-    .founding-select {
-      background: rgba(249,249,249,0.05); border: 1px solid var(--border);
-      border-radius: 8px; padding: 14px 20px;
-      font-family: 'Inter', sans-serif; font-size: 14px;
-      color: var(--text); outline: none; cursor: none;
-      appearance: none;
-    }
-    .founding-select option { background: var(--surface2); color: var(--text); }
-    .founding-btn {
+    .form-input::placeholder { color: var(--dim); }
+    .form-btn {
       background: var(--orange); color: #fff; border: none;
-      border-radius: 8px; padding: 16px 28px;
-      font-family: 'Inter', sans-serif; font-size: 13px;
+      border-radius: 6px; padding: 10px 20px; flex-shrink: 0;
+      font-family: 'Inter', sans-serif; font-size: 12px;
       font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
       cursor: none; transition: background .2s;
+      white-space: nowrap;
     }
-    .founding-btn:hover { background: #e04400; }
-    .founding-note { font-size: 12px; color: var(--dim); }
+    .form-btn:hover { background: #e04400; }
+    .form-note {
+      font-size: 12px; color: var(--dim); margin-top: 14px;
+    }
 
     /* ── FOOTER ── */
-    footer { padding: 32px 0; border-top: 1px solid var(--border);
-             display: flex; align-items: center; justify-content: space-between; }
+    footer {
+      padding: 24px 40px; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      opacity: 0; transition: opacity 1s .4s;
+    }
+    footer.show { opacity: 1; }
     .f-copy { font-size: 12px; color: var(--dim); }
-    .f-links { display: flex; gap: 28px; }
-    .f-links a { font-size: 12px; color: var(--muted); transition: color .2s; }
-    .f-links a:hover { color: var(--text); }
-
-    /* ── REVEAL ── */
-    [data-reveal] { opacity: 0; transform: translateY(28px);
-                    transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
-    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+    .f-site { font-size: 12px; color: var(--muted); transition: color .2s; }
+    .f-site:hover { color: var(--text); }
 
     /* ── MOBILE ── */
-    @media (max-width: 768px) {
+    @media (max-width: 600px) {
       html, body { cursor: auto; }
       #cursor { display: none; }
-      .wrap { padding: 0 20px; }
-      nav { padding: 14px 20px; }
-      .hero { padding: 120px 0 0; }
-      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
-      .philosophy-grid { grid-template-columns: 1fr; }
-      .curriculum-header { grid-template-columns: 1fr; gap: 32px; }
-      .track-header { grid-template-columns: 48px 1fr auto; gap: 16px; padding: 28px 20px; }
-      .track-body-inner { padding: 0 20px 32px; grid-template-columns: 1fr; gap: 32px; }
-      .for-who-grid { grid-template-columns: 1fr; }
-      .founding-inner { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
-      footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .back { top: 20px; left: 20px; }
+      main { padding: 100px 24px 60px; }
+      .form-row { flex-direction: column; padding: 12px 16px; gap: 12px; border-radius: 8px; }
+      .form-btn { width: 100%; padding: 12px; text-align: center; }
+      footer { padding: 20px 24px; }
     }
   </style>
 </head>
@@ -237,341 +146,31 @@
 <div id="cursor"></div>
 <canvas id="grain"></canvas>
 
-<nav>
-  <a href="/" class="nav-logo"><img src="/brand_assets/logo.png" alt="7EMPLE"></a>
-  <a href="/" class="nav-back">← Back to site</a>
-</nav>
+<a href="/" class="back">← 7EMPLE</a>
 
-<!-- ── HERO ── -->
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-eyebrow" data-reveal>7EMPLE Academy</div>
-        <h1 class="hero-hed" data-reveal data-delay=".05">
-          Learn to<br>build brands<br><em>that move</em><br>people.
-        </h1>
-      </div>
-      <div class="hero-right" data-reveal data-delay=".1">
-        <p class="hero-manifesto">
-          Most content courses teach you to <strong>make things</strong>. We teach you to <strong>build something that lasts</strong> — a brand identity, a content system and a visual language that converts strangers into clients.
-          <br><br>
-          Everything in this academy comes from real campaigns, real clients and real results. Not theory. Not templates from 2019. <strong>What's working right now.</strong>
-        </p>
-        <div class="hero-stat-row">
-          <div>
-            <div class="hero-stat-n">5</div>
-            <div class="hero-stat-l">Tracks planned</div>
-          </div>
-          <div>
-            <div class="hero-stat-n">40+</div>
-            <div class="hero-stat-l">Modules in development</div>
-          </div>
-          <div>
-            <div class="hero-stat-n">0</div>
-            <div class="hero-stat-l">Filler content</div>
-          </div>
+<main>
+  <div class="center">
+    <div class="eyebrow" id="ey">7EMPLE Academy</div>
+    <h1 class="hed" id="hd">Some<em>thing's</em><br>coming.</h1>
+    <p class="sub" id="sb">We're building an academy around everything we've learned making brands that actually grow. Strategy, video, personal brand, conversion — taught from real campaigns, not theory.</p>
+
+    <div class="form-wrap" id="fw">
+      <form id="acForm">
+        <div class="form-row">
+          <input class="form-input" type="email" name="email" placeholder="Your email address" required>
+          <button class="form-btn" type="submit">Notify me</button>
         </div>
-      </div>
+      </form>
+      <p class="form-note">Be first to know when it launches. No spam.</p>
     </div>
   </div>
-</section>
+</main>
 
-<!-- ── PHILOSOPHY ── -->
-<section class="philosophy">
-  <div class="wrap">
-    <div class="philosophy-label" data-reveal>Why this academy is different</div>
-    <div class="philosophy-grid">
-      <div class="ph-item" data-reveal>
-        <div class="ph-num">01</div>
-        <div class="ph-title">Built from<br><em>real client work</em></div>
-        <p class="ph-body">Every module is distilled from actual campaigns — the strategies that took a Dutch personal trainer to 3× his rates, the video system that got a softball team noticed in three countries. If it didn't work in the real world, it doesn't make it in.</p>
-      </div>
-      <div class="ph-item" data-reveal data-delay=".05">
-        <div class="ph-num">02</div>
-        <div class="ph-title">Strategy first,<br><em>tools second</em></div>
-        <p class="ph-body">The internet is full of "how to film with your iPhone" tutorials. We care more about why you're filming, what story you're telling and who you're telling it to. Any camera works once you know what you're doing.</p>
-      </div>
-      <div class="ph-item" data-reveal data-delay=".1">
-        <div class="ph-num">03</div>
-        <div class="ph-title">No fluff,<br><em>no filler</em></div>
-        <p class="ph-body">We have a rule: if you can't take a module and use something from it today, it doesn't ship. No 45-minute intro videos. No week-long mindset sections. Just the framework, the reasoning and the application.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CURRICULUM ── -->
-<section class="curriculum">
-  <div class="wrap">
-    <div class="curriculum-header">
-      <h2 class="curriculum-hed" data-reveal>What you'll<br><em>learn.</em></h2>
-      <div data-reveal data-delay=".08">
-        <p class="curriculum-intro">Five tracks covering every dimension of building a brand online — from positioning and identity to video production, social media and paid growth. Each track stands alone or stacks into a complete system.</p>
-        <p class="curriculum-note">Click any track to see the modules and the reasoning behind it</p>
-      </div>
-    </div>
-
-    <div class="tracks" data-reveal>
-
-      <!-- Track 1 -->
-      <div class="track" id="track-1">
-        <div class="track-header" onclick="toggleTrack('track-1')">
-          <div class="track-num">Track 01</div>
-          <div class="track-meta">
-            <div class="track-tag">Foundation</div>
-            <div class="track-name">Brand Content <em>Strategy</em></div>
-          </div>
-          <div class="track-toggle">+</div>
-        </div>
-        <div class="track-body">
-          <div class="track-body-inner">
-            <div class="track-why">
-              <div class="track-why-label">Why this track exists</div>
-              <p class="track-why-text">
-                <strong>Most people start with content and never build a strategy.</strong> They post because they know they should, pick topics randomly and burn out within three months wondering why nothing worked. This track fixes the foundation before you film a single frame.
-                <br><br>
-                The brands that consistently grow aren't posting more — they're posting with a clearer point of view. This track gives you that: a positioning you own, content pillars that never run dry and a voice that makes people stop scrolling.
-              </p>
-            </div>
-            <div class="track-modules">
-              <div class="track-modules-label">Modules</div>
-              <ul>
-                <li>Positioning: finding the gap only you can own</li>
-                <li>Audience mapping — who actually buys</li>
-                <li>Content pillar framework (the 3+1 system)</li>
-                <li>Brand voice: writing like a person, not a company</li>
-                <li>Building a content calendar that doesn't break</li>
-                <li>Measuring what matters (not vanity metrics)</li>
-                <li>The 90-day brand sprint — from zero to consistent</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Track 2 -->
-      <div class="track" id="track-2">
-        <div class="track-header" onclick="toggleTrack('track-2')">
-          <div class="track-num">Track 02</div>
-          <div class="track-meta">
-            <div class="track-tag">Production</div>
-            <div class="track-name">Video<em>graphy for Brands</em></div>
-          </div>
-          <div class="track-toggle">+</div>
-        </div>
-        <div class="track-body">
-          <div class="track-body-inner">
-            <div class="track-why">
-              <div class="track-why-label">Why this track exists</div>
-              <p class="track-why-text">
-                <strong>Video is the highest-converting content format by a large margin</strong> — and the gap between "I should be doing video" and actually doing it is almost always fear, not ability. The camera isn't the problem. Not knowing what to shoot, how to structure it and how to make it feel professional is.
-                <br><br>
-                This track is for brands who need to be producing video but don't have a full production crew. We teach the principles — light, movement, pacing, story — that make the difference between something that looks cheap and something that builds trust.
-              </p>
-            </div>
-            <div class="track-modules">
-              <div class="track-modules-label">Modules</div>
-              <ul>
-                <li>The one-person video setup that looks like a team</li>
-                <li>Lighting on any budget</li>
-                <li>Scripting brand films and VSLs that convert</li>
-                <li>Short-form vs long-form — when to use what</li>
-                <li>Editing rhythm: why pacing makes or breaks it</li>
-                <li>Colour grading for brand consistency</li>
-                <li>The aftermovie formula — turning events into growth</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Track 3 -->
-      <div class="track" id="track-3">
-        <div class="track-header" onclick="toggleTrack('track-3')">
-          <div class="track-num">Track 03</div>
-          <div class="track-meta">
-            <div class="track-tag">Personal Brand</div>
-            <div class="track-name">The Personal Brand <em>Playbook</em></div>
-          </div>
-          <div class="track-toggle">+</div>
-        </div>
-        <div class="track-body">
-          <div class="track-body-inner">
-            <div class="track-why">
-              <div class="track-why-label">Why this track exists</div>
-              <p class="track-why-text">
-                <strong>The most underpriced asset most coaches, trainers and consultants have is themselves.</strong> People don't hire the best service — they hire the person they trust most. A personal brand isn't vanity. It's leverage.
-                <br><br>
-                Every case study we've built at 7EMPLE that produced the biggest results — Strength 2 Strength, Nino Athletics, Sem Koopman, VitaQ — was built around a person first, a service second. This track teaches that system.
-              </p>
-            </div>
-            <div class="track-modules">
-              <div class="track-modules-label">Modules</div>
-              <ul>
-                <li>Defining your unique angle — what makes you the only option</li>
-                <li>The premium positioning shift: from "affordable" to sought-after</li>
-                <li>Content that attracts clients vs content that gets likes</li>
-                <li>Building a signature offer around who you are</li>
-                <li>The rate-raising roadmap</li>
-                <li>Case study: Strength 2 Strength (full breakdown)</li>
-                <li>Case study: Nino Athletics (full breakdown)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Track 4 -->
-      <div class="track" id="track-4">
-        <div class="track-header" onclick="toggleTrack('track-4')">
-          <div class="track-num">Track 04</div>
-          <div class="track-meta">
-            <div class="track-tag">Growth</div>
-            <div class="track-name">Social Media That <em>Converts</em></div>
-          </div>
-          <div class="track-toggle">+</div>
-        </div>
-        <div class="track-body">
-          <div class="track-body-inner">
-            <div class="track-why">
-              <div class="track-why-label">Why this track exists</div>
-              <p class="track-why-text">
-                <strong>Follower count is not a business metric. Revenue is.</strong> There are accounts with 200K followers who make nothing and accounts with 4K followers who are fully booked six months out. The difference is a conversion system, not a content calendar.
-                <br><br>
-                This track is about closing the gap between your audience and your clients — the DM strategy, the content-to-call pipeline, the trust-building cadence that turns someone who found you on Instagram into someone who pays you without hesitation.
-              </p>
-            </div>
-            <div class="track-modules">
-              <div class="track-modules-label">Modules</div>
-              <ul>
-                <li>The algorithm is not your problem (your content is)</li>
-                <li>Hook engineering — the first 2 seconds that determine everything</li>
-                <li>The trust ladder: from stranger to client in 5 posts</li>
-                <li>DM strategy that doesn't feel like cold outreach</li>
-                <li>Repurposing one piece of content across 5 platforms</li>
-                <li>Engagement that actually builds community</li>
-                <li>When and how to run paid amplification</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Track 5 -->
-      <div class="track" id="track-5">
-        <div class="track-header" onclick="toggleTrack('track-5')">
-          <div class="track-num">Track 05</div>
-          <div class="track-meta">
-            <div class="track-tag">Advanced</div>
-            <div class="track-name">Sponsorship &amp; <em>Brand Deals</em></div>
-          </div>
-          <div class="track-toggle">+</div>
-        </div>
-        <div class="track-body">
-          <div class="track-body-inner">
-            <div class="track-why">
-              <div class="track-why-label">Why this track exists</div>
-              <p class="track-why-text">
-                <strong>Sponsorships are the ultimate proof of brand equity</strong> — someone paying you because of the audience and trust you've built, not just for a deliverable. Most people assume this requires hundreds of thousands of followers. It doesn't.
-                <br><br>
-                The Grizzlies secured sponsorships from three countries off the back of a single aftermovie and a built brand presence — at €0 in ad spend. This track teaches the media kit, the outreach, the negotiation and the positioning that makes brands want to be associated with you.
-              </p>
-            </div>
-            <div class="track-modules">
-              <div class="track-modules-label">Modules</div>
-              <ul>
-                <li>What sponsors actually look for (it's not follower count)</li>
-                <li>Building a media kit that commands a response</li>
-                <li>The cold outreach template that actually works</li>
-                <li>Pricing your sponsorship packages</li>
-                <li>Delivering sponsorship content that gets renewed</li>
-                <li>From one sponsor to a portfolio</li>
-                <li>Case study: Grizzlies Zoetermeer (full breakdown)</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── FOR WHO ── -->
-<section class="for-who">
-  <div class="wrap">
-    <div class="for-who-label" data-reveal>Who this is built for</div>
-    <div class="for-who-grid">
-      <div class="fw-item" data-reveal>
-        <div class="fw-icon">◎</div>
-        <div class="fw-title">Coaches & Personal Trainers</div>
-        <p class="fw-body">You're excellent at what you do but invisible online. You need a brand that reflects your expertise, a content system you can sustain alone and a pipeline that brings clients to you — not the other way around.</p>
-      </div>
-      <div class="fw-item" data-reveal data-delay=".05">
-        <div class="fw-icon">◎</div>
-        <div class="fw-title">Sports Clubs & Teams</div>
-        <p class="fw-body">You have a story worth telling and nobody telling it. The academy teaches you to document what you do, build a following around your culture and use that audience to attract sponsors and grow your reach beyond your city.</p>
-      </div>
-      <div class="fw-item" data-reveal data-delay=".1">
-        <div class="fw-icon">◎</div>
-        <div class="fw-title">Freelancers & Creatives</div>
-        <p class="fw-body">You do great work but your personal brand doesn't show it. The academy helps you build a presence that positions you as a premium option, commands higher rates and attracts the type of clients you actually want to work with.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOUNDING MEMBER ── -->
-<section class="founding" id="founding">
-  <div class="wrap">
-    <div class="founding-inner" data-reveal>
-      <div>
-        <div class="founding-eyebrow">Founding Member Access</div>
-        <h2 class="founding-hed">Get in before<br><em>it opens.</em></h2>
-        <p class="founding-sub">The academy is in development. Founding members get early access, lifetime pricing and the chance to shape what gets built — including requesting specific modules.</p>
-        <ul class="founding-perks">
-          <li><strong>Lifetime access</strong> at a one-time founding price</li>
-          <li><strong>Early access</strong> to every track as it ships</li>
-          <li><strong>Direct input</strong> on module topics and formats</li>
-          <li><strong>Community access</strong> — connect with other members</li>
-          <li><strong>Live Q&A sessions</strong> with the 7EMPLE team</li>
-        </ul>
-      </div>
-      <div>
-        <form class="founding-form" id="foundingForm">
-          <input type="text" class="founding-input" placeholder="Your name" name="name" required>
-          <input type="email" class="founding-input" placeholder="Your email" name="email" required>
-          <select class="founding-select" name="type">
-            <option value="" disabled selected>I am a…</option>
-            <option value="trainer">Coach / Personal Trainer</option>
-            <option value="sports">Sports Club / Team</option>
-            <option value="freelance">Freelancer / Creative</option>
-            <option value="brand">Brand / Business</option>
-            <option value="other">Other</option>
-          </select>
-          <textarea class="founding-input" name="interest" placeholder="What would you most want to learn? (optional)" rows="3" style="resize:none;"></textarea>
-          <button type="submit" class="founding-btn">Register as a founding member</button>
-          <p class="founding-note">No payment needed now. We'll reach out when founding access opens.</p>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;">
-    <span class="f-copy">© 7EMPLE <span id="yr"></span> · Academy</span>
-    <nav class="f-links">
-      <a href="/">Home</a>
-      <a href="/work.html">Work</a>
-      <a href="/products.html">Products</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </div>
+<footer id="ft">
+  <span class="f-copy">© 7EMPLE <span id="yr"></span></span>
+  <a href="/" class="f-site">7emple.com ↗</a>
 </footer>
 
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
 // Grain
 (function() {
@@ -581,79 +180,54 @@
   const GFRAMES = 4; const gFrames = [];
   for (let f = 0; f < GFRAMES; f++) {
     const img = ctx.createImageData(GW, GH); const d = img.data;
-    for (let i = 0; i < d.length; i += 4) { const v = (Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+    for (let i = 0; i < d.length; i += 4) { const v=(Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
     gFrames.push(img);
   }
-  let last = 0, gfi = 0;
+  let last=0, gfi=0;
   (function draw(t) {
     if (document.hidden) { requestAnimationFrame(draw); return; }
-    if (t - last > 80) { last = t; ctx.putImageData(gFrames[gfi], 0, 0); gfi = (gfi+1) % GFRAMES; }
+    if (t-last>80) { last=t; ctx.putImageData(gFrames[gfi],0,0); gfi=(gfi+1)%GFRAMES; }
     requestAnimationFrame(draw);
   })(0);
 })();
 
-// Lenis
-const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
-
-// Reveal
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      const el = e.target;
-      setTimeout(() => el.classList.add('in-view'), (parseFloat(el.dataset.delay||0))*1000);
-      obs.unobserve(el);
-    }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
-document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
-
-// Track accordion
-function toggleTrack(id) {
-  const track = document.getElementById(id);
-  const body  = track.querySelector('.track-body');
-  const isOpen = track.classList.contains('open');
-  // Close all
-  document.querySelectorAll('.track.open').forEach(t => {
-    t.classList.remove('open');
-    t.querySelector('.track-body').style.height = '0';
-  });
-  if (!isOpen) {
-    track.classList.add('open');
-    body.style.height = body.scrollHeight + 'px';
-  }
-}
+// Entrance
+requestAnimationFrame(() => {
+  ['ey','hd','sb','fw'].forEach(id => document.getElementById(id).classList.add('show'));
+  document.getElementById('ft').classList.add('show');
+});
 
 // Cursor
 const cur = document.getElementById('cursor');
 let _mx=0,_my=0,_cx=0,_cy=0;
 document.addEventListener('mousemove', e => {
   _mx=e.clientX; _my=e.clientY; cur.style.opacity='1';
-  cur.classList.toggle('is-pointer', !!document.elementFromPoint(_mx,_my)?.closest('a,button,input,select,textarea'));
+  cur.classList.toggle('is-pointer', !!document.elementFromPoint(_mx,_my)?.closest('a,button,input'));
 });
 document.addEventListener('mouseleave', () => cur.style.opacity='0');
 
-// Copyright year
+// Year
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-// RAF
-function raf(t) {
-  if (!document.hidden) {
-    lenis.raf(t);
-    _cx += (_mx-_cx)*0.22; _cy += (_my-_cy)*0.22;
-    cur.style.transform = `translate3d(${_cx}px,${_cy}px,0) translate(-50%,-50%)`;
-  }
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// Founding form
-document.getElementById('foundingForm').addEventListener('submit', function(e) {
+// Form
+document.getElementById('acForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const btn = this.querySelector('button');
-  btn.textContent = 'Registered ✓ We\'ll be in touch';
+  const input = this.querySelector('input');
+  btn.textContent = "You're on the list";
   btn.style.background = '#1a5c2a';
-  this.querySelectorAll('input,select,textarea').forEach(el => el.disabled = true);
+  input.disabled = true;
+  btn.disabled = true;
 });
+
+// RAF
+(function raf(t) {
+  if (!document.hidden) {
+    _cx+=(_mx-_cx)*0.2; _cy+=(_my-_cy)*0.2;
+    cur.style.transform=`translate3d(${_cx}px,${_cy}px,0) translate(-50%,-50%)`;
+  }
+  requestAnimationFrame(raf);
+})();
 </script>
 </body>
 </html>
