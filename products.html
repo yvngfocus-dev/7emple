@@ -128,6 +128,68 @@
     .prod-btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
     .prod-btn.primary:hover { background: #e04400; border-color: #e04400; }
 
+    /* ── FOR CREATORS ── */
+    .creators { padding: 96px 0; border-top: 1px solid var(--border); }
+    .creators-header { display: flex; align-items: flex-end; justify-content: space-between;
+                       gap: 48px; margin-bottom: 16px; }
+    .creators-label { font-size: 10px; color: var(--dim); letter-spacing: .14em;
+                      text-transform: uppercase; font-weight: 500; }
+    .creators-hed { font-family: 'Inter Display', sans-serif;
+                    font-size: clamp(32px, 4vw, 52px); font-weight: 800;
+                    letter-spacing: -.04em; line-height: 1.0; }
+    .creators-hed em { font-style: italic; font-weight: 300; }
+    .creators-sub { font-size: 15px; color: var(--muted); line-height: 1.65;
+                    max-width: 460px; flex-shrink: 0; padding-bottom: 4px; }
+    .creators-divider { height: 1px; background: var(--border); margin: 40px 0 56px; }
+
+    .creators-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+
+    .creator-card {
+      background: var(--surface); padding: 48px;
+      display: flex; flex-direction: column;
+      position: relative; overflow: hidden;
+      transition: background .3s;
+    }
+    .creator-card:hover { background: var(--surface2); }
+
+    /* Accent bar on hover */
+    .creator-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 2px; background: var(--orange);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.16,1,.3,1);
+    }
+    .creator-card:hover::before { transform: scaleX(1); }
+
+    .creator-num { font-size: 11px; color: var(--dim); letter-spacing: .1em;
+                   margin-bottom: 40px; font-weight: 500; }
+    .creator-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+      font-weight: 600; padding: 4px 10px; border-radius: 100px;
+      margin-bottom: 24px; width: fit-content;
+      background: rgba(254,76,4,.1); color: var(--orange);
+      border: 1px solid rgba(254,76,4,.25);
+    }
+    .creator-badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+
+    .creator-name { font-family: 'Inter Display', sans-serif; font-size: 26px;
+                    font-weight: 800; letter-spacing: -.03em; line-height: 1.1;
+                    margin-bottom: 14px; }
+    .creator-name em { font-style: italic; font-weight: 300; }
+    .creator-desc { font-size: 14px; color: var(--muted); line-height: 1.7;
+                    margin-bottom: 32px; flex: 1; }
+
+    .creator-specs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 36px; }
+    .creator-spec { font-size: 11px; color: var(--muted); letter-spacing: .06em;
+                    padding: 5px 12px; border: 1px solid var(--border); border-radius: 100px; }
+
+    .creator-footer { display: flex; align-items: center; justify-content: space-between;
+                      padding-top: 28px; border-top: 1px solid var(--border); }
+    .creator-price { font-family: 'Inter Display', sans-serif; font-size: 22px;
+                     font-weight: 700; letter-spacing: -.02em; }
+    .creator-price .tbd { font-size: 14px; color: var(--muted); font-weight: 400; }
+
     /* ── WAITLIST ── */
     .waitlist { padding: 96px 0; border-top: 1px solid var(--border); }
     .waitlist-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
@@ -177,6 +239,9 @@
       .hero { padding: 120px 0 64px; }
       .products-grid { grid-template-columns: 1fr; }
       .prod-card { padding: 32px 24px; }
+      .creators-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .creators-grid { grid-template-columns: 1fr; }
+      .creator-card { padding: 32px 24px; }
       .waitlist-inner { grid-template-columns: 1fr; gap: 40px; }
       footer { flex-direction: column; align-items: flex-start; gap: 16px; }
     }
@@ -291,6 +356,64 @@
         </div>
         <div class="prod-footer">
           <div class="prod-price"><span class="tbd">Price TBD</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOR CREATORS ── -->
+<section class="creators">
+  <div class="wrap">
+    <div class="creators-header" data-reveal>
+      <div>
+        <div class="creators-label">For video creators</div>
+        <h2 class="creators-hed">The 7EMPLE<br><em>look. Yours.</em></h2>
+      </div>
+      <p class="creators-sub">These aren't generic presets. Every LUT and asset pack is distilled directly from our own productions — the colour grades, title styles and transitions behind the films we've made for real clients. If you've watched our work and wondered how it looks like that, this is it.</p>
+    </div>
+    <div class="creators-divider"></div>
+    <div class="creators-grid">
+
+      <!-- Creator product 1 -->
+      <div class="creator-card" data-reveal>
+        <div class="creator-num">C — 01</div>
+        <div class="creator-badge"><span class="creator-badge-dot"></span> Coming soon</div>
+        <div class="creator-name">The 7EMPLE<br><em>LUT Pack</em></div>
+        <p class="creator-desc">The colour grades behind our brand films and aftermovies. Cinematic, warm-dark and built for real-world footage — not test charts. Designed for Sony, Canon and iPhone log profiles, works on any camera with a flat picture profile.</p>
+        <div class="creator-specs">
+          <span class="creator-spec">16 LUTs (.cube)</span>
+          <span class="creator-spec">Sony S-Log2 / S-Log3</span>
+          <span class="creator-spec">Canon C-Log</span>
+          <span class="creator-spec">iPhone Log</span>
+          <span class="creator-spec">Premiere Pro</span>
+          <span class="creator-spec">DaVinci Resolve</span>
+          <span class="creator-spec">CapCut</span>
+        </div>
+        <div class="creator-footer">
+          <div class="creator-price"><span class="tbd">€49 — €79</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+      <!-- Creator product 2 -->
+      <div class="creator-card" data-reveal data-delay=".05">
+        <div class="creator-num">C — 02</div>
+        <div class="creator-badge"><span class="creator-badge-dot"></span> Coming soon</div>
+        <div class="creator-name">Brand Film<br><em>Asset Pack</em></div>
+        <p class="creator-desc">Titles, transitions and overlays built for brand storytelling — not wedding videos or YouTube vlogs. Clean, minimal and opinionated. The exact motion graphics toolkit we use when producing films for clients who want a premium, agency-level finish.</p>
+        <div class="creator-specs">
+          <span class="creator-spec">30+ title templates</span>
+          <span class="creator-spec">Transition pack</span>
+          <span class="creator-spec">Lower thirds</span>
+          <span class="creator-spec">Animated overlays</span>
+          <span class="creator-spec">Premiere Pro (.mogrt)</span>
+          <span class="creator-spec">After Effects</span>
+        </div>
+        <div class="creator-footer">
+          <div class="creator-price"><span class="tbd">€59 — €89</span></div>
           <a href="#waitlist" class="prod-btn">Join waitlist</a>
         </div>
       </div>
