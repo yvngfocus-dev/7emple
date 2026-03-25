@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Products — 7EMPLE</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616; --text: #F9F9F9; --muted: #868686;
+      --dim: #4A4A4A; --surface: #1c1c1c; --surface2: #222;
+      --border: rgba(249,249,249,0.1); --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif;
+           font-size: 15px; line-height: 1.6; overflow-x: hidden; cursor: none; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+    /* ── CURSOR ── */
+    #cursor {
+      position: fixed; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%;
+      background: #fff; mix-blend-mode: difference; pointer-events: none; z-index: 99999;
+      will-change: transform;
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1), opacity .4s;
+      opacity: 0;
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+
+    /* ── GRAIN ── */
+    #grain { position: fixed; inset: 0; width: 100%; height: 100%;
+             pointer-events: none; z-index: 10001; opacity: 0.013;
+             mix-blend-mode: screen; image-rendering: pixelated; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px; border-bottom: 1px solid var(--border);
+      background: rgba(22,22,22,0.92); backdrop-filter: blur(12px);
+    }
+    .nav-logo img { height: 28px; }
+    .nav-back { font-size: 12px; color: var(--muted); letter-spacing: .06em;
+                display: flex; align-items: center; gap: 8px;
+                transition: color .2s; }
+    .nav-back:hover { color: var(--text); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 160px 0 96px; border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .18em;
+                    text-transform: uppercase; color: var(--orange); margin-bottom: 20px; }
+    .hero-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 800; letter-spacing: -.045em; line-height: .95;
+      margin-bottom: 28px;
+    }
+    .hero-hed em { font-style: italic; font-weight: 300; }
+    .hero-sub { font-size: 17px; color: var(--muted); max-width: 540px;
+                line-height: 1.65; margin-bottom: 40px; }
+    .hero-note { font-size: 12px; color: var(--dim); letter-spacing: .06em;
+                 display: flex; align-items: center; gap: 10px; }
+    .hero-note::before { content: ''; display: block; width: 24px; height: 1px; background: var(--dim); }
+
+    /* ── PRODUCTS GRID ── */
+    .products { padding: 96px 0; }
+    .products-label { font-size: 10px; color: var(--dim); letter-spacing: .14em;
+                      text-transform: uppercase; font-weight: 500; margin-bottom: 56px; }
+    .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; }
+
+    .prod-card {
+      background: var(--surface); padding: 48px;
+      display: flex; flex-direction: column; gap: 0;
+      position: relative; overflow: hidden;
+      transition: background .3s;
+    }
+    .prod-card:hover { background: var(--surface2); }
+    .prod-card.coming-soon { opacity: .55; }
+    .prod-card.coming-soon:hover { opacity: .7; background: var(--surface); }
+
+    .prod-num { font-size: 11px; color: var(--dim); letter-spacing: .1em;
+                margin-bottom: 40px; font-weight: 500; }
+    .prod-tag {
+      display: inline-block; font-size: 9px; letter-spacing: .14em;
+      text-transform: uppercase; font-weight: 600; padding: 4px 10px;
+      border-radius: 100px; margin-bottom: 24px; width: fit-content;
+    }
+    .prod-tag.available { background: rgba(254,76,4,.12); color: var(--orange); border: 1px solid rgba(254,76,4,.3); }
+    .prod-tag.soon { background: rgba(249,249,249,.06); color: var(--muted); border: 1px solid var(--border); }
+
+    .prod-name { font-family: 'Inter Display', sans-serif; font-size: 28px;
+                 font-weight: 800; letter-spacing: -.03em; line-height: 1.05;
+                 margin-bottom: 14px; }
+    .prod-name em { font-style: italic; font-weight: 300; }
+    .prod-desc { font-size: 14px; color: var(--muted); line-height: 1.65;
+                 margin-bottom: 36px; flex: 1; }
+
+    .prod-includes { margin-bottom: 36px; }
+    .prod-includes-label { font-size: 10px; color: var(--dim); letter-spacing: .1em;
+                           text-transform: uppercase; margin-bottom: 12px; }
+    .prod-includes ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .prod-includes li { font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: baseline; }
+    .prod-includes li::before { content: '→'; color: var(--orange); font-size: 11px; flex-shrink: 0; }
+
+    .prod-footer { display: flex; align-items: center; justify-content: space-between;
+                   padding-top: 32px; border-top: 1px solid var(--border); }
+    .prod-price { font-family: 'Inter Display', sans-serif; font-size: 24px;
+                  font-weight: 700; letter-spacing: -.02em; }
+    .prod-price .currency { font-size: 14px; color: var(--muted); font-weight: 400; margin-right: 2px; }
+    .prod-price .tbd { font-size: 14px; color: var(--muted); font-weight: 400; }
+    .prod-btn {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+      font-weight: 600; padding: 10px 20px;
+      border: 1px solid var(--border); border-radius: 100px;
+      transition: background .2s, border-color .2s, color .2s;
+      cursor: none;
+    }
+    .prod-btn:hover { background: rgba(249,249,249,.06); border-color: rgba(249,249,249,.25); }
+    .prod-btn.primary { background: var(--orange); border-color: var(--orange); color: #fff; }
+    .prod-btn.primary:hover { background: #e04400; border-color: #e04400; }
+
+    /* ── WAITLIST ── */
+    .waitlist { padding: 96px 0; border-top: 1px solid var(--border); }
+    .waitlist-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .waitlist-hed { font-family: 'Inter Display', sans-serif; font-size: clamp(36px, 4vw, 56px);
+                    font-weight: 800; letter-spacing: -.04em; line-height: 1.05; margin-bottom: 16px; }
+    .waitlist-hed em { font-style: italic; font-weight: 300; }
+    .waitlist-sub { font-size: 15px; color: var(--muted); line-height: 1.65; }
+    .waitlist-form { display: flex; flex-direction: column; gap: 12px; }
+    .waitlist-input {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 20px;
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      color: var(--text); outline: none;
+      transition: border-color .2s;
+    }
+    .waitlist-input::placeholder { color: var(--dim); }
+    .waitlist-input:focus { border-color: rgba(249,249,249,.3); }
+    .waitlist-btn {
+      background: var(--orange); color: #fff; border: none;
+      border-radius: 8px; padding: 14px 28px;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      cursor: none; transition: background .2s;
+    }
+    .waitlist-btn:hover { background: #e04400; }
+    .waitlist-note { font-size: 12px; color: var(--dim); }
+
+    /* ── FOOTER ── */
+    footer { padding: 32px 0; border-top: 1px solid var(--border);
+             display: flex; align-items: center; justify-content: space-between; }
+    .f-copy { font-size: 12px; color: var(--dim); }
+    .f-links { display: flex; gap: 28px; }
+    .f-links a { font-size: 12px; color: var(--muted); transition: color .2s; }
+    .f-links a:hover { color: var(--text); }
+
+    /* ── REVEAL ── */
+    [data-reveal] { opacity: 0; transform: translateY(28px);
+                    transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+    [data-reveal].in-view { opacity: 1; transform: translateY(0); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      html, body { cursor: auto; }
+      #cursor { display: none; }
+      .wrap { padding: 0 20px; }
+      nav { padding: 14px 20px; }
+      .hero { padding: 120px 0 64px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .prod-card { padding: 32px 24px; }
+      .waitlist-inner { grid-template-columns: 1fr; gap: 40px; }
+      footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="cursor"></div>
+<canvas id="grain"></canvas>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/brand_assets/logo.png" alt="7EMPLE"></a>
+  <a href="/" class="nav-back">← Back to site</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow" data-reveal>7EMPLE Products</div>
+    <h1 class="hero-hed" data-reveal data-delay=".05">The tools we use.<br><em>Now yours.</em></h1>
+    <p class="hero-sub" data-reveal data-delay=".1">Frameworks, templates and resources built from real client work. Skip the trial and error — use the systems that already work.</p>
+    <p class="hero-note" data-reveal data-delay=".15">More products launching soon — join the waitlist below</p>
+  </div>
+</section>
+
+<!-- ── PRODUCTS ── -->
+<section class="products">
+  <div class="wrap">
+    <div class="products-label" data-reveal>Available now & coming soon</div>
+    <div class="products-grid">
+
+      <!-- Product 1 -->
+      <div class="prod-card" data-reveal>
+        <div class="prod-num">01</div>
+        <span class="prod-tag soon">Coming soon</span>
+        <div class="prod-name">The Content <em>System</em></div>
+        <p class="prod-desc">A complete Notion workspace for planning, creating and posting content consistently — without burning out. Built from the exact system we run for clients on monthly retainers.</p>
+        <div class="prod-includes">
+          <div class="prod-includes-label">What's included</div>
+          <ul>
+            <li>90-day content calendar template</li>
+            <li>Content pillar framework worksheet</li>
+            <li>Caption writing system (hooks, body, CTA)</li>
+            <li>Weekly review & performance tracker</li>
+            <li>Platform-specific formatting guide</li>
+          </ul>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-price"><span class="tbd">Price TBD</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="prod-card" data-reveal data-delay=".05">
+        <div class="prod-num">02</div>
+        <span class="prod-tag soon">Coming soon</span>
+        <div class="prod-name">Visual Identity <em>Starter Kit</em></div>
+        <p class="prod-desc">Everything you need to build a consistent visual brand without hiring a full agency. Canva templates, moodboard frameworks and a step-by-step brand bible builder.</p>
+        <div class="prod-includes">
+          <div class="prod-includes-label">What's included</div>
+          <ul>
+            <li>50+ Canva social media templates</li>
+            <li>Brand bible builder (colours, fonts, tone)</li>
+            <li>Feed layout planning grid</li>
+            <li>Logo usage & sizing guide</li>
+            <li>Before/after brand audit checklist</li>
+          </ul>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-price"><span class="tbd">Price TBD</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="prod-card" data-reveal>
+        <div class="prod-num">03</div>
+        <span class="prod-tag soon">Coming soon</span>
+        <div class="prod-name">The Reel <em>Preset Pack</em></div>
+        <p class="prod-desc">The colour grades and edit presets behind the 7EMPLE look. Cinematic LUTs built for brand films and short-form content, compatible with Premiere Pro, DaVinci Resolve and CapCut.</p>
+        <div class="prod-includes">
+          <div class="prod-includes-label">What's included</div>
+          <ul>
+            <li>12 cinematic LUTs (.cube format)</li>
+            <li>Premiere Pro export presets</li>
+            <li>DaVinci Resolve stills & grades</li>
+            <li>CapCut filter pack</li>
+            <li>Colour theory guide for brand video</li>
+          </ul>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-price"><span class="tbd">Price TBD</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="prod-card" data-reveal data-delay=".05">
+        <div class="prod-num">04</div>
+        <span class="prod-tag soon">Coming soon</span>
+        <div class="prod-name">Personal Brand <em>Playbook</em></div>
+        <p class="prod-desc">The exact positioning framework we've used to take coaches, trainers and consultants from unknown to fully booked. A step-by-step guide to building a brand around who you are — not just what you do.</p>
+        <div class="prod-includes">
+          <div class="prod-includes-label">What's included</div>
+          <ul>
+            <li>Positioning & niche worksheet</li>
+            <li>Offer stack builder</li>
+            <li>Content-to-client conversion map</li>
+            <li>Rate-raising framework</li>
+            <li>Real case study breakdowns (S2S, Nino, VitaQ)</li>
+          </ul>
+        </div>
+        <div class="prod-footer">
+          <div class="prod-price"><span class="tbd">Price TBD</span></div>
+          <a href="#waitlist" class="prod-btn">Join waitlist</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── WAITLIST ── -->
+<section class="waitlist" id="waitlist">
+  <div class="wrap">
+    <div class="waitlist-inner">
+      <div data-reveal>
+        <h2 class="waitlist-hed">Be first.<br><em>Always.</em></h2>
+        <p class="waitlist-sub">Drop your email and we'll let you know the moment something launches — including early-access pricing before it goes public.</p>
+      </div>
+      <div data-reveal data-delay=".1">
+        <form class="waitlist-form" id="waitlistForm">
+          <input type="text" class="waitlist-input" placeholder="Your name" name="name" required>
+          <input type="email" class="waitlist-input" placeholder="Your email" name="email" required>
+          <button type="submit" class="waitlist-btn">Notify me when it drops</button>
+          <p class="waitlist-note">No spam. Unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="width:100%;display:flex;align-items:center;justify-content:space-between;">
+    <span class="f-copy">© 7EMPLE <span id="yr"></span></span>
+    <nav class="f-links">
+      <a href="/">Home</a>
+      <a href="/work.html">Work</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/academy.html">Academy</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+// Grain
+(function() {
+  const c = document.createElement('canvas');
+  c.id = 'grain'; const GW = 700, GH = 450; c.width = GW; c.height = GH;
+  document.body.appendChild(c); const ctx = c.getContext('2d');
+  const GFRAMES = 4; const gFrames = [];
+  for (let f = 0; f < GFRAMES; f++) {
+    const img = ctx.createImageData(GW, GH); const d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const v = (Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+    gFrames.push(img);
+  }
+  let last = 0, gfi = 0;
+  (function draw(t) {
+    if (document.hidden) { requestAnimationFrame(draw); return; }
+    if (t - last > 80) { last = t; ctx.putImageData(gFrames[gfi], 0, 0); gfi = (gfi+1) % GFRAMES; }
+    requestAnimationFrame(draw);
+  })(0);
+})();
+
+// Lenis
+const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+
+// Reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      setTimeout(() => el.classList.add('in-view'), (parseFloat(el.dataset.delay||0))*1000);
+      obs.unobserve(el);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+document.querySelectorAll('[data-reveal]').forEach(el => obs.observe(el));
+
+// Cursor
+const cur = document.getElementById('cursor');
+let _mx=0,_my=0,_cx=0,_cy=0;
+document.addEventListener('mousemove', e => {
+  _mx=e.clientX; _my=e.clientY; cur.style.opacity='1';
+  cur.classList.toggle('is-pointer', !!document.elementFromPoint(_mx,_my)?.closest('a,button,input'));
+});
+document.addEventListener('mouseleave', () => cur.style.opacity='0');
+
+// Copyright year
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// RAF
+function raf(t) {
+  if (!document.hidden) {
+    lenis.raf(t);
+    _cx += (_mx-_cx)*0.22; _cy += (_my-_cy)*0.22;
+    cur.style.transform = `translate3d(${_cx}px,${_cy}px,0) translate(-50%,-50%)`;
+  }
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+
+// Waitlist form — basic handler (connect to Formspree/email later)
+document.getElementById('waitlistForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = this.querySelector('button');
+  btn.textContent = 'You\'re on the list ✓';
+  btn.style.background = '#1a5c2a';
+  this.querySelector('input[type=email]').disabled = true;
+  this.querySelector('input[type=text]').disabled = true;
+});
+</script>
+</body>
+</html>
