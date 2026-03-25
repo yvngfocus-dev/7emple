@@ -761,23 +761,22 @@
 (function() {
   const c = document.createElement('canvas');
   c.id = 'grain';
-  c.width  = Math.round(Math.min(window.innerWidth, 1400));
-  c.height = Math.round(Math.min(window.innerHeight, 900));
+    const GW = 700, GH = 450;
+  c.width = GW; c.height = GH;
   document.body.appendChild(c);
   const ctx = c.getContext('2d');
-  let last = 0;
+  const GFRAMES = 4; const gFrames = [];
+  for (let f = 0; f < GFRAMES; f++) {
+    const img = ctx.createImageData(GW, GH); const d = img.data;
+    for (let i = 0; i < d.length; i += 4) { const v = (Math.random()*255)|0; d[i]=d[i+1]=d[i+2]=v; d[i+3]=255; }
+    gFrames.push(img);
+  }
+  let last = 0, gfi = 0;
   function draw(t) {
-    if (t - last > 45) {
-      last = t;
-      const img = ctx.createImageData(c.width, c.height);
-      const d = img.data;
-      for (let i = 0; i < d.length; i += 4) {
-        const v = (Math.random() * 255) | 0;
-        d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
-      }
-      ctx.putImageData(img, 0, 0);
-    }
+    if (document.hidden) { requestAnimationFrame(draw); return; }
+    if (t - last > 80) { last = t; ctx.putImageData(gFrames[gfi], 0, 0); gfi = (gfi+1) % GFRAMES; }
     requestAnimationFrame(draw);
+  }
   }
   requestAnimationFrame(draw);
 })();
