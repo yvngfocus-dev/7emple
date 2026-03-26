@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 
-Disallow: /ascend.html
 Disallow: /reel.html
 Disallow: /products.html
 Disallow: /academy.html
