@@ -667,16 +667,31 @@ if (heroBgImg && heroBgImg.src) {
 </script>
 <script>
 (function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
-// Newsletter
+// Newsletter — Beehiiv
 (function(){
   var f = document.getElementById('nlForm');
   if (!f) return;
   f.addEventListener('submit', function(e) {
     e.preventDefault();
     var btn = f.querySelector('button'), inp = f.querySelector('input');
-    btn.textContent = "You're in";
-    btn.style.background = '#1a5c2a';
-    inp.disabled = true; btn.disabled = true;
+    var email = inp.value.trim();
+    if (!email) return;
+    btn.textContent = 'Subscribing…';
+    btn.disabled = true;
+    inp.disabled = true;
+    fetch('https://embeds.beehiiv.com/api/v1/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ publication_id: 'pub_17fcde6d-a689-483b-9b95-9cdaca588283', email: email })
+    })
+    .then(function() {
+      btn.textContent = "You're in";
+      btn.style.background = '#1a5c2a';
+    })
+    .catch(function() {
+      btn.textContent = "You're in";
+      btn.style.background = '#1a5c2a';
+    });
   });
 })();
 </script>
@@ -698,7 +713,5 @@ if (heroBgImg && heroBgImg.src) {
   });
 })();
 </script>
-</body>
-</html></script>
 </body>
 </html>
