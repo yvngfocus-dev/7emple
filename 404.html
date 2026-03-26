@@ -166,6 +166,10 @@
       .nf-btn { cursor: auto; }
       .copyright-inner { font-size: clamp(52px,18vw,96px); padding: 12px 20px 0; }
     }
+  
+    .footer-legal { display:flex; gap:20px; }
+    .footer-legal a { font-size:12px; color:var(--dim); transition:color .2s; }
+    .footer-legal a:hover { color:var(--text); }
   </style>
 </head>
 <body>
@@ -202,6 +206,11 @@
   <div class="wrap">
     <div class="footer-bottom">
       <p>©2026 7EMPLE. All rights reserved.</p>
+            <div class="footer-legal">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/cookies.html">Cookies</a>
+        <a href="/terms.html">Terms</a>
+      </div>
       <p>Designed & built by 7EMPLE.</p>
     </div>
   </div>

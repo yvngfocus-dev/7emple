@@ -26,6 +26,21 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://7emple.com/privacy.html</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://7emple.com/cookies.html</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>https://7emple.com/terms.html</loc>
+    <priority>0.3</priority>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
     <loc>https://7emple.com/work/strength2strength/</loc>
     <priority>0.6</priority>
     <changefreq>yearly</changefreq>
