@@ -590,12 +590,6 @@ select.addEventListener('change', () => {
   }
   setTimeout(() => { document.querySelector('nav').style.opacity = '1'; }, fromTransition ? 300 : 80);
 })();
-
-// ═══════════════════════════════════════════════════════
-// PAGE EXIT — zoom out on any internal navigation
-// ═══════════════════════════════════════════════════════
-(function() {
-  document.addEventListener('click', e => {
-    const link = e.target.closest('a');
-    if (!link) return;
-    const href = li
+</script>
+</body>
+</html>
