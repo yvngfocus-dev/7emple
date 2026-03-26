@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Page Not Found — 7EMPLE</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161616;
+      --text: #F9F9F9;
+      --muted: #868686;
+      --dim: #4A4A4A;
+      --border: rgba(249,249,249,0.1);
+      --orange: #FE4C04;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; height: 100%; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; min-height: 100%; display: flex; flex-direction: column; }
+
+    #cursor {
+      position: fixed; left: 0; top: 0; width: 10px; height: 10px;
+      border-radius: 50%; background: #fff; mix-blend-mode: difference;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%,-50%);
+      transition: width .22s cubic-bezier(.16,1,.3,1), height .22s cubic-bezier(.16,1,.3,1);
+    }
+    #cursor.is-pointer { width: 20px; height: 20px; }
+
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    .wrap { max-width: 1480px; margin: 0 auto; padding: 0 48px; }
+
+    #grain {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 10001; opacity: .013;
+      mix-blend-mode: screen; image-rendering: pixelated;
+    }
+
+    html, body { cursor: none; }
+
+    /* ─── NAV ────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 48px;
+    }
+    .nav-logo img { height: 22px; width: auto; }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-tag { font-size: 11px; color: var(--dim); letter-spacing: .08em; }
+    .nav-links { list-style: none; display: flex; gap: 28px; }
+    .nav-links a { font-size: 13px; color: var(--muted); letter-spacing: .04em; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── MAIN ───────────────────────────────── */
+    .not-found {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nf-bg-num {
+      position: absolute;
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(200px, 40vw, 480px);
+      font-weight: 900;
+      letter-spacing: -0.08em;
+      color: rgba(249,249,249,0.03);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+
+    .nf-inner {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+    }
+    .nf-inner.in { opacity: 1; transform: translateY(0); }
+
+    .nf-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+
+    .nf-hed {
+      font-family: 'Inter Display', sans-serif;
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .nf-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 400px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .nf-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .nf-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: none;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .nf-btn-primary {
+      background: var(--orange);
+      color: #fff;
+      border: 1px solid var(--orange);
+    }
+    .nf-btn-primary:hover { background: #e04400; border-color: #e04400; }
+    .nf-btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .nf-btn-secondary:hover { border-color: rgba(249,249,249,.3); }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    footer { padding: 24px 0 0; border-top: 1px solid var(--border); margin-top: auto; }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+    .footer-bottom p { font-size: 12px; color: var(--dim); }
+    .copyright-bar { overflow: hidden; border-top: 1px solid var(--border); }
+    .copyright-inner { font-family: 'Inter Display', sans-serif; font-size: clamp(96px,18vw,288px); font-weight: 900; letter-spacing: -.07em; line-height: .78; padding: 16px 48px 0; color: var(--text); white-space: nowrap; }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-tag, .nav-links { display: none; }
+      .wrap { padding: 0 24px; }
+      .not-found { padding: 100px 24px 60px; }
+      .nf-btn { cursor: auto; }
+      .copyright-inner { font-size: clamp(52px,18vw,96px); padding: 12px 20px 0; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="grain"></canvas>
+<div id="cursor"></div>
+
+<nav>
+  <a href="/index.html" class="nav-logo"><img src="/brand_assets/logo.png" alt="7EMPLE"></a>
+  <div class="nav-right">
+    <span class="nav-tag">©2026 — Creative Marketing Agency</span>
+    <ul class="nav-links">
+      <li><a href="/work.html">Work</a></li>
+      <li><a href="/services.html">Services</a></li>
+      <li><a href="/about.html">About</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="not-found">
+  <div class="nf-bg-num">404</div>
+  <div class="nf-inner" id="nfInner">
+    <div class="nf-label">Error 404</div>
+    <h1 class="nf-hed">Wrong turn.</h1>
+    <p class="nf-sub">This page doesn't exist — or it used to and it's gone. Either way, there's better stuff below.</p>
+    <div class="nf-actions">
+      <a href="/index.html" class="nf-btn nf-btn-primary">← Back to home</a>
+      <a href="/work.html" class="nf-btn nf-btn-secondary">See our work</a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-bottom">
+      <p>©2026 7EMPLE. All rights reserved.</p>
+      <p>Designed & built by 7EMPLE.</p>
+    </div>
+  </div>
+  <div class="copyright-bar"><div class="copyright-inner">©2026</div></div>
+</footer>
+
+<script>
+// Grain
+(function(){
+  var c = document.getElementById('grain');
+  var ctx = c.getContext('2d');
+  c.width = 700; c.height = 450;
+  var frames = [], NFRAMES = 4;
+  for (var f = 0; f < NFRAMES; f++) {
+    var id = ctx.createImageData(700, 450);
+    var d = id.data;
+    for (var i = 0; i < d.length; i += 4) {
+      var v = Math.random() * 255 | 0;
+      d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+    }
+    frames.push(id);
+  }
+  var fi = 0, last = 0;
+  function draw(t) {
+    if (document.hidden) { requestAnimationFrame(draw); return; }
+    if (t - last > 80) { ctx.putImageData(frames[fi++ % NFRAMES], 0, 0); last = t; }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// Cursor
+(function(){
+  var el = document.getElementById('cursor');
+  var cx = -100, cy = -100;
+  document.addEventListener('mousemove', function(e) { cx = e.clientX; cy = e.clientY; });
+  document.querySelectorAll('a, button').forEach(function(el) {
+    el.addEventListener('mouseenter', function() { document.getElementById('cursor').classList.add('is-pointer'); });
+    el.addEventListener('mouseleave', function() { document.getElementById('cursor').classList.remove('is-pointer'); });
+  });
+  function raf() {
+    el.style.transform = 'translate3d(' + cx + 'px,' + cy + 'px,0) translate(-50%,-50%)';
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+})();
+
+// Entrance
+requestAnimationFrame(function() {
+  setTimeout(function() {
+    document.getElementById('nfInner').classList.add('in');
+  }, 80);
+});
+
+// Copyright year
+(function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©\d{4}/g, '©' + y); }); })();
+</script>
+</body>
+</html>
