@@ -368,7 +368,7 @@
         <div class="footer-body" data-reveal data-delay="0.1">
       <div class="f-brand">
         <div class="ftr-logo-wrap"><img src="brand_assets/logo.png" alt="7EMPLE" class="ftr-logo-img"></div>
-        <p>More than just an agency. We craft bold digital experiences that drive real results for ambitious brands worldwide.</p>
+        <p>Creative marketing for founders who are serious about standing out.</p>
       </div>
       <div class="f-nav">
         <h4>Navigation</h4>
@@ -598,64 +598,4 @@ select.addEventListener('change', () => {
   document.addEventListener('click', e => {
     const link = e.target.closest('a');
     if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href || href === '#' || href.startsWith('mailto') || href.startsWith('http') || href.startsWith('//')) return;
-    // Don't intercept the current page or anchor links
-    const page = window.location.pathname.split('/').pop() || 'index.html';
-    if (href === page || href === window.location.href) return;
-    e.preventDefault();
-    document.body.style.transformOrigin = 'center center';
-    document.body.style.transition = 'opacity 0.32s cubic-bezier(0.4,0,1,1), transform 0.38s cubic-bezier(0.4,0,1,1)';
-    document.body.style.opacity   = '0';
-    document.body.style.transform = 'scale(1.07)';
-    sessionStorage.setItem('7emple_txOrigin', '1');
-    setTimeout(() => { window.location.href = href; }, 340);
-  });
-})();
-
-window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    document.body.style.opacity = '';
-    document.body.style.transform = '';
-    document.body.style.transition = '';
-    document.body.style.transformOrigin = '';
-    sessionStorage.removeItem('7emple_txOrigin');
-  }
-});
-</script>
-
-<script>
-(function(){ var y = new Date().getFullYear(); document.querySelectorAll('.copyright-bar .copyright-inner, .footer-bottom p').forEach(function(el){ el.innerHTML = el.innerHTML.replace(/©d{4}/g, '©' + y); }); })();
-// Newsletter
-(function(){
-  var f = document.getElementById('nlForm');
-  if (!f) return;
-  f.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var btn = f.querySelector('button'), inp = f.querySelector('input');
-    btn.textContent = "You're in";
-    btn.style.background = '#1a5c2a';
-    inp.disabled = true; btn.disabled = true;
-  });
-})();
-</script>
-
-<!-- ── COOKIE BAR ── -->
-<div id="cookieBar">
-  <span>We use analytics cookies to understand how you use our site. <a href="/cookies.html">Learn more</a></span>
-  <button id="cookieAccept">Got it</button>
-</div>
-<script>
-// Cookie bar
-(function(){
-  if(localStorage.getItem('7e_cookies')==='1') return;
-  var bar = document.getElementById('cookieBar');
-  setTimeout(function(){ bar.classList.add('show'); }, 600);
-  document.getElementById('cookieAccept').addEventListener('click', function(){
-    localStorage.setItem('7e_cookies','1');
-    bar.classList.remove('show');
-  });
-})();
-</script>
-</body>
-</html>
+    const href = li
