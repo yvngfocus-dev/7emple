@@ -1829,12 +1829,15 @@ window.addEventListener('pageshow', e => {
 <script>
 // Cookie bar
 (function(){
-  if(localStorage.getItem('7e_cookies')==='1') return;
+  function dismissed(){ return localStorage.getItem('7e_cookies')==='1' || document.cookie.indexOf('7e_cookies=1')!==-1; }
+  if(dismissed()) return;
   var bar = document.getElementById('cookieBar');
   setTimeout(function(){ bar.classList.add('show'); }, 1200);
   document.getElementById('cookieAccept').addEventListener('click', function(){
-    localStorage.setItem('7e_cookies','1');
+    try{ localStorage.setItem('7e_cookies','1'); }catch(e){}
+    document.cookie='7e_cookies=1;path=/;max-age=31536000';
     bar.classList.remove('show');
+    setTimeout(function(){ bar.style.display='none'; }, 600);
   });
 })();
 </script>
