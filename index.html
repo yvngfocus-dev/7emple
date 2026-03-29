@@ -36,8 +36,8 @@
     :root {
       --bg: #161616;
       --text: #F9F9F9;
-      --muted: #A0A0A0;
-      --dim: #707070;
+      --muted: #BEBEBE;
+      --dim: #999999;
       --surface: #181f1f;
       --surface2: #222a2a;
       --border: rgba(249,249,249,0.1);
@@ -494,7 +494,7 @@
     .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: #D8D8D8; overflow: hidden; flex-shrink: 0; }
     .testi-avatar img { width: 100%; height: 100%; object-fit: cover; }
     .testi-name { font-size: 14px; font-weight: 600; color: #161616; }
-    .testi-role { font-size: 12px; color: #868686; margin-top: 2px; }
+    .testi-role { font-size: 12px; color: #999999; margin-top: 2px; }
     /* Centred CTA */
     .testi-cta-wrap { position: absolute; z-index: 10; pointer-events: all; }
     .testi-btn {
@@ -1831,4 +1831,12 @@ window.addEventListener('pageshow', e => {
 (function(){
   if(localStorage.getItem('7e_cookies')==='1') return;
   var bar = document.getElementById('cookieBar');
-  setTimeout
+  setTimeout(function(){ bar.classList.add('show'); }, 1200);
+  document.getElementById('cookieAccept').addEventListener('click', function(){
+    localStorage.setItem('7e_cookies','1');
+    bar.classList.remove('show');
+  });
+})();
+</script>
+</body>
+</html>

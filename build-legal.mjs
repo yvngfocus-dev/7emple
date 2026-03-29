@@ -70,7 +70,7 @@ function buildPage(slug, title, lastUpdated, bodyHtml) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Inter+Display:ital,opsz,wght@0,32..144,100..900;1,32..144,100..900&display=swap" rel="stylesheet">
   <style>
-    :root { --bg:#161616; --text:#F9F9F9; --muted:#868686; --dim:#4A4A4A; --border:rgba(249,249,249,0.1); --orange:#FE4C04; }
+    :root { --bg:#161616; --text:#F9F9F9; --muted:#BEBEBE; --dim:#999999; --border:rgba(249,249,249,0.1); --orange:#FE4C04; }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
     html { -webkit-font-smoothing:antialiased; }
     body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; font-size:15px; line-height:1.6; overflow-x:hidden; }
@@ -106,7 +106,7 @@ function buildPage(slug, title, lastUpdated, bodyHtml) {
     .legal-table-wrap { overflow-x:auto; margin:16px 0 24px; border:1px solid var(--border); border-radius:8px; }
     .legal-body table { width:100%; border-collapse:collapse; font-size:13px; }
     .legal-body th { text-align:left; padding:11px 14px; background:rgba(249,249,249,.04); color:var(--muted); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; border-bottom:1px solid var(--border); white-space:nowrap; }
-    .legal-body td { padding:11px 14px; border-bottom:1px solid rgba(249,249,249,.04); color:#B0B0B0; vertical-align:top; line-height:1.6; }
+    .legal-body td { padding:11px 14px; border-bottom:1px solid rgba(249,249,249,.04); color:#C0C0C0; vertical-align:top; line-height:1.6; }
     .legal-body tr:last-child td { border-bottom:none; }
     footer { padding:40px 0 0; }
     .footer-body { display:grid; grid-template-columns:1fr 1fr 1fr; gap:80px; padding:64px 0; border-bottom:1px solid var(--border); }
